@@ -34,8 +34,10 @@ public class HorasController
     private HorasFacade _ejbFacade;
     private Horas _obj;
     
-    private String _rutaTxt = "/com/java/utilities/txtHoras";    
-    
+    private String _rutaTxt = "/com/java/utilities/txtHoras"; 
+    private String _titulo="Operacion";
+    private String _mensajeCorrecto = "Se ha realizado correctamente";
+    private String _mensajeError = "No se completo la operacion";
     public HorasController() { }
     
     public Horas getCampo()

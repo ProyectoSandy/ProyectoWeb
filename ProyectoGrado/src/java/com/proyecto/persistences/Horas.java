@@ -20,7 +20,7 @@ public class Horas implements Serializable
     @Column(name = "codhora")
     private int _codhora;
     
-    @Column(name = "nombre")
+    @Column(name = "hora")
     @Size(min = 1, max = 100)
     @NotNull
     private String _hora;   
