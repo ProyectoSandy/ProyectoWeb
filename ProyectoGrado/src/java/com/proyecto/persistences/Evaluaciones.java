@@ -16,14 +16,16 @@ import javax.validation.constraints.Size;
 public class Evaluaciones implements Serializable
 {
     @Id
-    @JoinColumn(name = "coddocente", referencedColumnName = "cedula")
+    @Column(name = "codeva")
+    private int _codeva;
+    
+    @JoinColumn(name = "coddoc", referencedColumnName = "cedula")
     @ManyToOne(optional = false)
     private Docentes _coddocente;
     
     @Id
-    @JoinColumn(name = "codproducto", referencedColumnName = "codproducto")
-    @ManyToOne(optional = false)    
-    @Column(name = "codproducto")
+    @JoinColumn(name = "codprod", referencedColumnName = "codproducto")
+    @ManyToOne(optional = false)   
     private Productos _codproducto;
     
     @Column(name = "calificacion")
@@ -88,6 +90,14 @@ public class Evaluaciones implements Serializable
 
     public void setCalificacion(double _calificacion) {
         this._calificacion = _calificacion;
+    }
+
+    public int getCodeva() {
+        return _codeva;
+    }
+
+    public void setCodeva(int _codeva) {
+        this._codeva = _codeva;
     }
     
     

@@ -3,15 +3,18 @@ package com.proyecto.persistences;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
+@Entity
+@Table(name = "actividades")
 public class Actividades implements Serializable
 {
     @Id
@@ -45,7 +48,7 @@ public class Actividades implements Serializable
     
     @JoinColumn(name = "codtipo", referencedColumnName = "codtipo")
     @ManyToOne(optional = false)
-    private TipoModalidad _codtipo;
+    private TipoModalidades _codtipo;
 
     public Actividades() {  }
 
@@ -142,11 +145,11 @@ public class Actividades implements Serializable
         this._coddocente = _coddocente;
     }
 
-    public TipoModalidad getCodtipo() {
+    public TipoModalidades getCodtipo() {
         return _codtipo;
     }
 
-    public void setCodtipo(TipoModalidad _codtipo) {
+    public void setCodtipo(TipoModalidades _codtipo) {
         this._codtipo = _codtipo;
     }
 }

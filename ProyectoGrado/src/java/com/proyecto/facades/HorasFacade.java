@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class HorasFacade extends AbstractFacade<Horas>
 {
-   @PersistenceContext(unitName = "otro_masPU")
+   @PersistenceContext(unitName = "ProyectoGradoPU")
     private EntityManager _em;
     
     public HorasFacade()

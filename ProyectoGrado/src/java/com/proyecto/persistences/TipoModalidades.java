@@ -13,8 +13,8 @@ import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(name = "tipomodalidad")
-public class TipoModalidad implements Serializable
+@Table(name = "tipomodalidades")
+public class TipoModalidades implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class TipoModalidad implements Serializable
     @NotNull
     private String _nombre;     
 
-    public TipoModalidad() {   }
+    public TipoModalidades() {   }
 
     @Override
     public int hashCode() {
@@ -43,7 +43,7 @@ public class TipoModalidad implements Serializable
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final TipoModalidad other = (TipoModalidad) obj;
+        final TipoModalidades other = (TipoModalidades) obj;
         if (this._codtipo != other._codtipo) {
             return false;
         }

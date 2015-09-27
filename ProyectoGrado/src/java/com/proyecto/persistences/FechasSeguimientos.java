@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Temporal;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -20,20 +20,20 @@ public class FechasSeguimientos implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codfechaseg")
+    @Column(name = "codfechseg")
     private int _codfechaseg;
     
     @Column(name = "fechainicio")
     @Size(min = 1, max = 100)
-    @NotNull
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date _fechainicio;
     
     @Column(name = "fechafin")
     @Size(min = 1, max = 100)
-    @NotNull
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date _fechafin;
     
-    @JoinColumn(name = "codactividad", referencedColumnName = "codactividad")
+    @JoinColumn(name = "codact", referencedColumnName = "codactividad")
     @ManyToOne(optional = false)
     private Actividades _codactividad;   
 

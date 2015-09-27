@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,12 +31,12 @@ public class Productos implements Serializable
     
     @Column(name = "fechacompromiso")
     @Size(min = 1, max = 100)
-    @NotNull
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date _fechacompromiso;
     
     @Column(name = "fechaentrega")
     @Size(min = 1, max = 100)
-    @NotNull
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date _fechaentrega;
     
     @Column(name = "comentarios")
@@ -41,9 +44,8 @@ public class Productos implements Serializable
     @NotNull
     private String _comentarios;
     
-    @Column(name = "codactividad")
-    @Size(min = 1, max = 100)
-    @NotNull
+    @JoinColumn(name = "codact", referencedColumnName = "codactividad")
+    @ManyToOne(optional = false)
     private Actividades _codactividad;
 
     public Productos() {  }
