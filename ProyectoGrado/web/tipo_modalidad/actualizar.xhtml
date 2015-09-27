@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/plantilla.xhtml">
         <ui:define name="content">
-            #{tipoModalidadesController.resetear()}
+            
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
@@ -23,7 +23,7 @@
                     <p:inputText id="nombre" required="true" value="#{tipoModalidadesController.campo.nombre}"/>                    
                                                 
                     <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{tipoModalidadesController.agregar()}"/>
+                        <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{tipoModalidadesController.actualizar()}"/>
                     </f:facet>
                 </p:panelGrid>
             </h:form>
