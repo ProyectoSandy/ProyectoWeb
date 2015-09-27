@@ -1,0 +1,111 @@
+package com.proyecto.persistences;
+
+import java.io.Serializable;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.ws.rs.Encoded;
+
+@Entity
+@Table(name = "convenciones")
+public class Convenciones implements Serializable
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codconvencion")
+    private int _codconvencion;
+    
+    @Column(name = "nombre")
+    @Size(min = 1, max = 100)
+    @NotNull
+    private String _nombre;
+    
+    @Column(name = "color")
+    @Size(min = 1, max = 100)
+    @NotNull
+    private String _color;
+    
+    @JoinColumn(name = "codclase", referencedColumnName = "codclase")
+    @ManyToOne(optional = false)
+    private Clases _codclase;
+
+    public Convenciones() {  }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + this._codconvencion;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Convenciones other = (Convenciones) obj;
+        if (this._codconvencion != other._codconvencion) {
+            return false;
+        }
+        if (!Objects.equals(this._nombre, other._nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this._color, other._color)) {
+            return false;
+        }
+        if (!Objects.equals(this._codclase, other._codclase)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Convenciones{" + "_nombre=" + _nombre + '}';
+    }
+    
+    public int getCodconvencion() {
+        return _codconvencion;
+    }
+
+    public void setCodconvencion(int _codconvencion) {
+        this._codconvencion = _codconvencion;
+    }
+
+    public String getNombre() {
+        return _nombre;
+    }
+
+    public void setNombre(String _nombre) {
+        this._nombre = _nombre;
+    }
+
+    public String getColor() {
+        return _color;
+    }
+
+    public void setColor(String _color) {
+        this._color = _color;
+    }
+
+    public Clases getCodclase() {
+        return _codclase;
+    }
+
+    public void setCodclase(Clases _codclase) {
+        this._codclase = _codclase;
+    }
+    
+    
+}
