@@ -1,5 +1,5 @@
 CREATE TABLE actividades (
-    codactividad integer NOT NULL,
+    codactividad serial,
     nombre character varying(100) NOT NULL,
     descripcion text NOT NULL,
     responsable character varying(100) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE actividades (
 );
 
 CREATE TABLE clases (
-    codclase integer NOT NULL,
+    codclase serial,
     dia integer NOT NULL,
     nombre character varying(100) NOT NULL,
     codjornada integer,
@@ -17,14 +17,14 @@ CREATE TABLE clases (
 );
 
 CREATE TABLE convenciones (
-    codconvencion integer NOT NULL,
+    codconvencion serial,
     nombre character varying(50) NOT NULL,
     color character varying(45) NOT NULL,
     codclase integer
 );
 
 CREATE TABLE docentes (
-    cedula integer NOT NULL,
+    cedula serial,
     apellidos character varying(100) NOT NULL,
     nombres character varying(100) NOT NULL,
     codigo character varying(50),
@@ -38,32 +38,32 @@ CREATE TABLE docentes (
 );
 
 CREATE TABLE evaluaciones (
-    codeva integer NOT NULL,
+    codeva serial,
     coddoc integer,
     codprod integer,
     calificacion integer NOT NULL
 );
 
 CREATE TABLE fechaseguimientos (
-    codfechseg integer NOT NULL,
+    codfechseg serial,
     fechainicio date NOT NULL,
     fechafin date NOT NULL,
     codact integer
 );
 
 CREATE TABLE horas (
-    codhora integer NOT NULL,
+    codhora serial,
     hora character varying(45) NOT NULL
 );
 
 CREATE TABLE jornadas (
-    codjornada integer NOT NULL,
+    codjornada serial,
     nombre character varying(100) NOT NULL,
     codhora integer
 );
 
 CREATE TABLE productos (
-    codproducto integer NOT NULL,
+    codproducto serial,
     descripcion character varying(100) NOT NULL,
     fechacompromiso date NOT NULL,
     fechaentrega date NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE productos (
 
 
 CREATE TABLE tipomodalidades (
-    codtipo integer NOT NULL,
+    codtipo serial,
     nombre character varying(100) NOT NULL
 );
 
