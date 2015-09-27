@@ -7,6 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/plantilla.xhtml">
         <ui:define name="content">
+            #{horasController.resetear()}
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
@@ -16,18 +17,12 @@
                 </p:panel>  
                 <p:growl id="mensajes" sticky="true" showDetail="true"/>                
                 <br/>
-                <p:panelGrid columns="2">
-                    <f:facet name="header">Nombre</f:facet>
-                    <p:outputLabel value="Nombre " for="nombre" />
-                    <p:inputText id="nombre" required="true" value="#{bodegasController.nombre}"/>                    
-                                                
-                    <p:outputLabel value="Sucursal"  />
-                    <p:selectOneMenu id="codcarrera" value="#{bodegasController.codsucursal}">
-                        <f:selectItems value="#{sucursalesController.combo()}"></f:selectItems>
-                    </p:selectOneMenu>
+                <p:panelGrid columns="2">                    
+                    <p:outputLabel value="Hora:  " for="nombre" />
+                    <p:inputText id="nombre" required="true" value="#{horasController.campo.hora}"/> 
                     
                     <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{bodegasController.add()}"/>
+                        <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{horasController.agregar()}"/>
                     </f:facet>
                 </p:panelGrid>
             </h:form>

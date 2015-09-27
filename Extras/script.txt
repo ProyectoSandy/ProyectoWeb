@@ -1,0 +1,135 @@
+create table docentes(
+
+cedula int constraint pk_docentes primary key,
+
+apellidos varchar(100) constraint nn_ape not null,
+
+nombres varchar(100) constraint nn_nom not null,
+
+codigo varchar(50),
+
+facultad int,
+
+unidadacademica int,
+
+semestre int constraint nn_sem not null,
+
+formacion text,
+
+direccion varchar(100),
+
+telefono varchar(50),
+
+correo varchar(100)
+
+);
+
+create table tipomodalidad(
+
+codtipo serial constraint pf_tipo primary key,
+
+nombre varchar(100) constraint nn_nomb not null
+
+);
+
+create table actividades(
+
+codactividades serial constraint pk_act primary key,
+
+nombre varchar(100) constraint nn_nom not null,
+
+descripcion text constraint nn_des not null,
+
+responsable varchar(100) constraint nn_resp not null,
+
+valoracion int,
+
+coddocente int references docentes(cedula) on delete cascade,
+
+codtipo int references tipomodalidad (codtipo) on delete cascade
+
+);
+
+create table fechaseguimiento(
+
+codfechseg serial constraint pk_codfe primary key,
+
+fechainicio date constraint nn_ini not null,
+
+fechadinal date constraint nn_fin not null,
+
+codact int references actividades (codactividades) on delete cascade
+
+);
+
+create table productos(
+
+codproducto serial constraint pk_prod primary key,
+
+descripcion varchar(100) not null,
+
+fechacompromiso date not null,
+
+fechaentrega date not null,
+
+comentarios text,
+
+codact int references actividades(codactividades) on delete cascade on update cascade
+
+);
+
+create table evaluacion(
+
+codeva serial constraint pk_eva primary key,
+
+coddoc int references docentes(cedula),
+
+codprod int references productos(codproducto),
+
+calificacion int not null
+
+);
+
+create table horas(
+
+codhora serial constraint pk_hora primary key,
+
+hora varchar(45) not null 
+
+);
+
+create table jornada(
+
+codjornada serial constraint pk_jornada primary key,
+
+nombre varchar(100) not null,
+
+codhora int references horas(codhora) on delete cascade on update cascade
+
+);
+
+create table clases(
+
+codclase serial constraint pk_clase primary key,
+
+dia int not null,
+
+nombre varchar(100) not null,
+
+codjornada int references jornada(codjornada),
+
+coddocente int references docentes(cedula)
+
+);
+
+create table convencion(
+
+codconvencion serial constraint pk_conven primary key,
+
+nombre varchar(50) not null,
+
+color varchar(45) not null,
+
+codclase int references clases(codclase)  
+
+);

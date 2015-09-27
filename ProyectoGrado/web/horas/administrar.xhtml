@@ -13,26 +13,21 @@
                         <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>                        
                     </p:breadCrumb>
                     <br/>
-                    <p:dataTable value="#{bodegasController.listado}" var="registro">
+                    <p:dataTable value="#{horasController.listado}" var="registro">
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Codigo Bodega</f:facet>
-                            #{registro.codbodega}
+                            <f:facet name="header">Codigo Hora</f:facet>
+                            #{registro.codhora}
                         </p:column>
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Nombre</f:facet>
-                            #{registro.nombre}
-                        </p:column>
-                        <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Sucursal</f:facet>
-                            #{registro.codsucursal}
-                        </p:column>                   
-                        
+                            <f:facet name="header">Hora</f:facet>
+                            #{registro.hora}
+                        </p:column> 
                         
                         <p:column style="width: 10px; text-align: center">
                             <f:facet name="header">Opciones</f:facet>
-                            <p:commandButton ajax="false" icon="ui-icon-trash" action="#{bodegasController.delete(registro)}"></p:commandButton>
-                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{bodegasController.redirect('actualizar', registro.codbodega,registro.codsucursal,registro.nombre)}"></p:commandButton>
-                            <p:commandButton ajax="false" icon="ui-icon-circle-zoomin" action="#{bodegasController.redirect('detalle', registro.codbodega,registro.codsucursal,registro.nombre)}"></p:commandButton>                            
+                            <p:commandButton ajax="false" icon="ui-icon-trash" action="#{horasController.borrar(registro)}"></p:commandButton>
+                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{horasController.redireccionar('actualizar', registro)}"></p:commandButton>
+                            <p:commandButton ajax="false" icon="ui-icon-circle-zoomin" action="#{horasController.redireccionar('detalle', registro)}"></p:commandButton>                            
                         </p:column> 
                     </p:dataTable>
                 </p:panel>                
