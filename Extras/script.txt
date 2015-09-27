@@ -1,135 +1,141 @@
-create table docentes(
-
-cedula int constraint pk_docentes primary key,
-
-apellidos varchar(100) constraint nn_ape not null,
-
-nombres varchar(100) constraint nn_nom not null,
-
-codigo varchar(50),
-
-facultad int,
-
-unidadacademica int,
-
-semestre int constraint nn_sem not null,
-
-formacion text,
-
-direccion varchar(100),
-
-telefono varchar(50),
-
-correo varchar(100)
-
+CREATE TABLE actividades (
+    codactividad integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    descripcion text NOT NULL,
+    responsable character varying(100) NOT NULL,
+    valoracion integer,
+    coddocente integer,
+    codtipo integer
 );
 
-create table tipomodalidad(
-
-codtipo serial constraint pf_tipo primary key,
-
-nombre varchar(100) constraint nn_nomb not null
-
+CREATE TABLE clases (
+    codclase integer NOT NULL,
+    dia integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    codjornada integer,
+    coddocente integer
 );
 
-create table actividades(
-
-codactividades serial constraint pk_act primary key,
-
-nombre varchar(100) constraint nn_nom not null,
-
-descripcion text constraint nn_des not null,
-
-responsable varchar(100) constraint nn_resp not null,
-
-valoracion int,
-
-coddocente int references docentes(cedula) on delete cascade,
-
-codtipo int references tipomodalidad (codtipo) on delete cascade
-
+CREATE TABLE convenciones (
+    codconvencion integer NOT NULL,
+    nombre character varying(50) NOT NULL,
+    color character varying(45) NOT NULL,
+    codclase integer
 );
 
-create table fechaseguimiento(
-
-codfechseg serial constraint pk_codfe primary key,
-
-fechainicio date constraint nn_ini not null,
-
-fechadinal date constraint nn_fin not null,
-
-codact int references actividades (codactividades) on delete cascade
-
+CREATE TABLE docentes (
+    cedula integer NOT NULL,
+    apellidos character varying(100) NOT NULL,
+    nombres character varying(100) NOT NULL,
+    codigo character varying(50),
+    facultad integer,
+    unidadacademica integer,
+    semestre integer NOT NULL,
+    formacion text,
+    direccion character varying(100),
+    telefono character varying(50),
+    correo character varying(100)
 );
 
-create table productos(
-
-codproducto serial constraint pk_prod primary key,
-
-descripcion varchar(100) not null,
-
-fechacompromiso date not null,
-
-fechaentrega date not null,
-
-comentarios text,
-
-codact int references actividades(codactividades) on delete cascade on update cascade
-
+CREATE TABLE evaluaciones (
+    codeva integer NOT NULL,
+    coddoc integer,
+    codprod integer,
+    calificacion integer NOT NULL
 );
 
-create table evaluacion(
-
-codeva serial constraint pk_eva primary key,
-
-coddoc int references docentes(cedula),
-
-codprod int references productos(codproducto),
-
-calificacion int not null
-
+CREATE TABLE fechaseguimientos (
+    codfechseg integer NOT NULL,
+    fechainicio date NOT NULL,
+    fechafin date NOT NULL,
+    codact integer
 );
 
-create table horas(
-
-codhora serial constraint pk_hora primary key,
-
-hora varchar(45) not null 
-
+CREATE TABLE horas (
+    codhora integer NOT NULL,
+    hora character varying(45) NOT NULL
 );
 
-create table jornada(
-
-codjornada serial constraint pk_jornada primary key,
-
-nombre varchar(100) not null,
-
-codhora int references horas(codhora) on delete cascade on update cascade
-
+CREATE TABLE jornadas (
+    codjornada integer NOT NULL,
+    nombre character varying(100) NOT NULL,
+    codhora integer
 );
 
-create table clases(
-
-codclase serial constraint pk_clase primary key,
-
-dia int not null,
-
-nombre varchar(100) not null,
-
-codjornada int references jornada(codjornada),
-
-coddocente int references docentes(cedula)
-
+CREATE TABLE productos (
+    codproducto integer NOT NULL,
+    descripcion character varying(100) NOT NULL,
+    fechacompromiso date NOT NULL,
+    fechaentrega date NOT NULL,
+    comentarios text,
+    codact integer
 );
 
-create table convencion(
 
-codconvencion serial constraint pk_conven primary key,
-
-nombre varchar(50) not null,
-
-color varchar(45) not null,
-
-codclase int references clases(codclase)  
-
+CREATE TABLE tipomodalidades (
+    codtipo integer NOT NULL,
+    nombre character varying(100) NOT NULL
 );
+
+ALTER TABLE ONLY tipomodalidades
+    ADD CONSTRAINT pf_tipo PRIMARY KEY (codtipo);
+
+ALTER TABLE ONLY actividades
+    ADD CONSTRAINT pk_act PRIMARY KEY (codactividad);
+
+ALTER TABLE ONLY clases
+    ADD CONSTRAINT pk_clase PRIMARY KEY (codclase);
+
+ALTER TABLE ONLY fechaseguimientos
+    ADD CONSTRAINT pk_codfe PRIMARY KEY (codfechseg);
+
+ALTER TABLE ONLY convenciones
+    ADD CONSTRAINT pk_conven PRIMARY KEY (codconvencion);
+
+ALTER TABLE ONLY docentes
+    ADD CONSTRAINT pk_docentes PRIMARY KEY (cedula);
+
+ALTER TABLE ONLY evaluaciones
+    ADD CONSTRAINT pk_eva PRIMARY KEY (codeva);
+
+ALTER TABLE ONLY horas
+    ADD CONSTRAINT pk_hora PRIMARY KEY (codhora);
+
+ALTER TABLE ONLY jornadas
+    ADD CONSTRAINT pk_jornada PRIMARY KEY (codjornada);
+
+ALTER TABLE ONLY productos
+    ADD CONSTRAINT pk_prod PRIMARY KEY (codproducto);
+
+CREATE INDEX fki_fechasseg_actividad ON fechaseguimientos USING btree (codact);
+
+ALTER TABLE ONLY actividades
+    ADD CONSTRAINT actividades_coddocente_fkey FOREIGN KEY (coddocente) REFERENCES docentes(cedula) ON DELETE CASCADE;
+
+ALTER TABLE ONLY actividades
+    ADD CONSTRAINT actividades_codtipo_fkey FOREIGN KEY (codtipo) REFERENCES tipomodalidades(codtipo) ON DELETE CASCADE;
+
+ALTER TABLE ONLY clases
+    ADD CONSTRAINT clases_coddocente_fkey FOREIGN KEY (coddocente) REFERENCES docentes(cedula);
+
+ALTER TABLE ONLY clases
+    ADD CONSTRAINT clases_codjornada_fkey FOREIGN KEY (codjornada) REFERENCES jornadas(codjornada);
+
+ALTER TABLE ONLY convenciones
+    ADD CONSTRAINT convencion_codclase_fkey FOREIGN KEY (codclase) REFERENCES clases(codclase);
+
+ALTER TABLE ONLY evaluaciones
+    ADD CONSTRAINT evaluacion_coddoc_fkey FOREIGN KEY (coddoc) REFERENCES docentes(cedula);
+
+ALTER TABLE ONLY evaluaciones
+    ADD CONSTRAINT evaluacion_codprod_fkey FOREIGN KEY (codprod) REFERENCES productos(codproducto);
+
+ALTER TABLE ONLY fechaseguimientos
+    ADD CONSTRAINT fk_fechasseg_actividad FOREIGN KEY (codact) REFERENCES actividades(codactividad);
+
+ALTER TABLE ONLY jornadas
+    ADD CONSTRAINT jornada_codhora_fkey FOREIGN KEY (codhora) REFERENCES horas(codhora) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE ONLY productos
+    ADD CONSTRAINT productos_codact_fkey FOREIGN KEY (codact) REFERENCES actividades(codactividad) ON UPDATE CASCADE ON DELETE CASCADE;
+
