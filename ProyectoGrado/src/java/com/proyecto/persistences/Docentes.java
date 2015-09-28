@@ -121,7 +121,7 @@ public class Docentes implements Serializable
 
     @Override
     public String toString() {
-        return "Docentes{" + "_cedula=" + _cedula + ", _nombres=" + _nombres + ", _apellidos=" + _apellidos + ", _codigo=" + _codigo + ", _semestre=" + _semestre + ", _direccion=" + _direccion + ", _telefono=" + _telefono + ", _correo=" + _correo + ", _unidad=" + _unidad + ", _facultad=" + _facultad + ", _formacion=" + _formacion + '}';
+        return _nombres + " " + _apellidos ;
     }
     
     public int getCedula() {

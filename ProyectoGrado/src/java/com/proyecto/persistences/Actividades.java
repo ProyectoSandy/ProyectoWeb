@@ -27,8 +27,7 @@ public class Actividades implements Serializable
     @NotNull
     private String _nombre;
     
-    @Column(name = "descripcion")
-    @Size(min = 1, max = 100)
+    @Column(name = "descripcion")    
     @NotNull
     private String _descripcion;
     
@@ -37,8 +36,7 @@ public class Actividades implements Serializable
     @NotNull
     private String _responsable;
     
-    @Column(name = "valoracion")
-    @Size(min = 1, max = 100)
+    @Column(name = "valoracion")   
     @NotNull
     private int _valoracion;
     
@@ -94,8 +92,13 @@ public class Actividades implements Serializable
 
     @Override
     public String toString() {
-        return "Actividades{" + "_nombre=" + _nombre + '}';
+        return "Actividades{" + "_codactividad=" + _codactividad + ", _nombre=" + _nombre + ", _descripcion=" + _descripcion + ", _responsable=" + _responsable + ", _valoracion=" + _valoracion + ", _coddocente=" + _coddocente + ", _codtipo=" + _codtipo + '}';
     }
+
+    /*@Override
+    public String toString() {
+        return "Actividades{" + "_nombre=" + _nombre + '}';
+    }*/
 
     public int getCodactividad() {
         return _codactividad;
