@@ -1,7 +1,6 @@
 
 package com.proyecto.facades;
 
-import com.proyecto.persistences.Clases;
 import com.proyecto.persistences.Docentes;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

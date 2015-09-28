@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/plantilla.xhtml">
+        <ui:define name="content">
+            <h:form>
+                <p:panel>
+                    <p:breadCrumb>
+                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>                        
+                    </p:breadCrumb>
+                    <br/>
+                    <p:dataTable value="#{docentesController.listado}" var="registro">
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Cedula</f:facet>
+                            #{registro.cedula}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Nombres</f:facet>
+                            #{registro.nombres}
+                        </p:column> 
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Apellidos</f:facet>
+                            #{registro.apellidos}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Codigo</f:facet>
+                            #{registro.codigo}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Facultad</f:facet>
+                            #{registro.facultad}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Unidad Academica</f:facet>
+                            #{registro.unidad}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Semestre</f:facet>
+                            #{registro.semestre}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Formacion</f:facet>
+                            #{registro.formacion}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Direccion</f:facet>
+                            #{registro.direccion}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Telefono</f:facet>
+                            #{registro.telefono}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Correo</f:facet>
+                            #{registro.correo}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Opciones</f:facet>
+                            <p:commandButton ajax="false" icon="ui-icon-trash" action="#{docentesController.borrar(registro)}"></p:commandButton>
+                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{docentesController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
+                        </p:column> 
+                    </p:dataTable>
+                </p:panel>                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
