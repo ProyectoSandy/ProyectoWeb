@@ -2,16 +2,14 @@
 package com.proyecto.controllers;
 
 import com.java.utilities.Formulario;
-import com.proyecto.facades.JornadasFacade;
-import com.proyecto.persistences.Jornadas;
-import com.proyecto.persistences.Jornadas;
+import com.proyecto.facades.EvaluacionesFacade;
+import com.proyecto.persistences.Evaluaciones;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,20 +20,19 @@ import javax.faces.model.SelectItem;
 
 @ManagedBean
 @SessionScoped
-public class JornadasController implements Serializable{
-    
-    @EJB
-    private JornadasFacade jornadasFacade;
+public class EvaluacionesController implements Serializable{
 
-    private Jornadas _objJornadas;
+    @EJB
+    private EvaluacionesFacade _ejbFacade;
+    private Evaluaciones _obj;
     
-    public JornadasController() {
+    public EvaluacionesController() {
     }
     
-    public Jornadas getCampo()
+    public Evaluaciones getCampo()
     {
-        if(_objJornadas==null)  _objJornadas= new Jornadas();
-        return _objJornadas;        
+        if(_obj==null)  _obj= new Evaluaciones();
+        return _obj;        
     }
     
     public String agregar()
@@ -46,7 +43,8 @@ public class JornadasController implements Serializable{
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarOk");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("GrabarDetalleOk");
             Mensajes.exito(titulo, detalle);*/
-            jornadasFacade.crear(_objJornadas);
+            System.out.println("Evaluaciones: " + _obj);
+            _ejbFacade.crear(_obj);
             return "crear";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
@@ -54,28 +52,28 @@ public class JornadasController implements Serializable{
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarError");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("GrabarDetalleError");
             Mensajes.error(titulo, detalle);*/
-            Logger.getLogger(Jornadas.class.getName()).log(Level.SEVERE,null,e);
+            Logger.getLogger(Evaluaciones.class.getName()).log(Level.SEVERE,null,e);
             return "crear";
         }
     }
     
     public SelectItem[] combo(String texto)
     {
-        return Formulario.addObject(jornadasFacade.listado(), texto);
+        return Formulario.addObject(_ejbFacade.listado(), texto);
     }
     
-    public List<Jornadas> getListado()
+    public List<Evaluaciones> getListado()
     {
-        return jornadasFacade.listado();
+        return _ejbFacade.listado();
     }
     
-    public String redireccionar(String faces, Jornadas facesObj)
+    public String redireccionar(String faces, Evaluaciones facesObj)
     {
-        _objJornadas = facesObj;
+        _obj = facesObj;
         return faces;
     }
     
-    public String borrar(Jornadas faceObj)
+    public String borrar(Evaluaciones faceObj)
     {
         String titulo,detalle;
         
@@ -83,7 +81,7 @@ public class JornadasController implements Serializable{
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("BorrarOk");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("BorrarDetalleOk");
             Mensajes.exito(titulo, detalle);*/
-            jornadasFacade.borrar(faceObj);
+            _ejbFacade.borrar(faceObj);
             return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
@@ -91,7 +89,7 @@ public class JornadasController implements Serializable{
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarError");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("BorrarDetalleError");
             Mensajes.error(titulo, detalle);*/
-            Logger.getLogger(Jornadas.class.getName()).log(Level.SEVERE,null,e);
+            Logger.getLogger(Evaluaciones.class.getName()).log(Level.SEVERE,null,e);
             return "administrar";
         }
     }    
@@ -104,7 +102,7 @@ public class JornadasController implements Serializable{
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("Actualizando");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("ActualizarOk");
             Mensajes.exito(titulo, detalle);*/
-            jornadasFacade.actualizar(_objJornadas);
+            _ejbFacade.actualizar(_obj);
             return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
@@ -112,18 +110,18 @@ public class JornadasController implements Serializable{
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("Actualizando");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("ActualizarError");
             Mensajes.error(titulo, detalle);*/
-            Logger.getLogger(Jornadas.class.getName()).log(Level.SEVERE,null,e);
+            Logger.getLogger(Evaluaciones.class.getName()).log(Level.SEVERE,null,e);
             return "administrar";
         }
     }  
     
     public void resetear()
     {
-        _objJornadas = null;
+        _obj = null;
     }
     
-    @FacesConverter(forClass = Jornadas.class, value = "jornadasConverter")
-    public static class JornadasControllerConverter implements Converter{
+    @FacesConverter(forClass = Evaluaciones.class, value = "evaluacionesConverter")
+    public static class EvaluacionesControllerConverter implements Converter{
 
         @Override
         public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -131,20 +129,20 @@ public class JornadasController implements Serializable{
                 if (value == null || value.length() == 0) return null;
                 
                 Integer id = Integer.parseInt(value);
-                JornadasController controller = (JornadasController) context.getApplication().getELResolver().
-                        getValue(context.getELContext(), null, "jornadasController");
-                return controller.jornadasFacade.buscar(id);
+                EvaluacionesController controller = (EvaluacionesController) context.getApplication().getELResolver().
+                        getValue(context.getELContext(), null, "evaluacionesController");
+                return controller._ejbFacade.buscar(id);
             }catch(NumberFormatException e){
-                Logger.getLogger(Jornadas.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(Evaluaciones.class.getName()).log(Level.SEVERE, null, e);
                 return null;
             }
         }
 
         @Override
         public String getAsString(FacesContext context, UIComponent component, Object value) {
-            if (value instanceof Jornadas){
-                Jornadas obj = (Jornadas) value;
-                return String.valueOf(obj.getCodjornada());
+            if (value instanceof Evaluaciones){
+                Evaluaciones obj = (Evaluaciones) value;
+                return String.valueOf(obj.getCodproducto());
             }
             return null;
         }

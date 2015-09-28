@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/plantilla.xhtml">
+        <ui:define name="content">
+            <h:form>
+                <p:panel>
+                    <p:breadCrumb>
+                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>                        
+                    </p:breadCrumb>
+                    <br/>
+                    <p:dataTable value="#{clasesController.listado}" var="registro">
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Codigo Clase</f:facet>
+                            #{registro.codclase}
+                        </p:column>
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Dia</f:facet>
+                            #{registro.dia}
+                        </p:column> 
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Nombre</f:facet>
+                            #{registro.nombre}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Jornada</f:facet>
+                            #{registro.codjornada}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Docente</f:facet>
+                            #{registro.coddocente}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Opciones</f:facet>
+                            <p:commandButton ajax="false" icon="ui-icon-trash" action="#{clasesController.borrar(registro)}"></p:commandButton>
+                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{clasesController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
+                        </p:column> 
+                    </p:dataTable>
+                </p:panel>                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

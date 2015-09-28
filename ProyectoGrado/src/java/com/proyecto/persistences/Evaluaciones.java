@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,21 +19,22 @@ public class Evaluaciones implements Serializable
 {
     @Id
     @Column(name = "codeva")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int _codeva;
     
-    @JoinColumn(name = "coddoc", referencedColumnName = "cedula")
-    @ManyToOne(optional = false)
-    private Docentes _coddocente;
+    //@JoinColumn(name = "coddoc", referencedColumnName = "cedula")
+    //@ManyToOne(optional = false)
+    @Column(name = "coddoc")
+    private int _coddocente;
     
-    @Id
-    @JoinColumn(name = "codprod", referencedColumnName = "codproducto")
-    @ManyToOne(optional = false)   
-    private Productos _codproducto;
+    //@JoinColumn(name = "codprod", referencedColumnName = "codproducto")
+    //@ManyToOne(optional = false)  
+    @Column(name = "codprod")
+    private int _codproducto;
     
-    @Column(name = "calificacion")
-    @Size(min = 1, max = 100)
     @NotNull
-    private double _calificacion;
+    @Column(name = "calificacion")    
+    private float _calificacion;
 
     public Evaluaciones() {  }
 
@@ -68,28 +71,20 @@ public class Evaluaciones implements Serializable
         return "Evaluaciones{" + "_coddocente=" + _coddocente + ", _codproducto=" + _codproducto + ", _calificacion=" + _calificacion + '}';
     }
 
-    public Docentes getCoddocente() {
+    public int getCoddocente() {
         return _coddocente;
     }
 
-    public void setCoddocente(Docentes _coddocente) {
+    public void setCoddocente(int _coddocente) {
         this._coddocente = _coddocente;
     }
 
-    public Productos getCodproducto() {
+    public int getCodproducto() {
         return _codproducto;
     }
 
-    public void setCodproducto(Productos _codproducto) {
+    public void setCodproducto(int _codproducto) {
         this._codproducto = _codproducto;
-    }
-
-    public double getCalificacion() {
-        return _calificacion;
-    }
-
-    public void setCalificacion(double _calificacion) {
-        this._calificacion = _calificacion;
     }
 
     public int getCodeva() {
@@ -98,6 +93,14 @@ public class Evaluaciones implements Serializable
 
     public void setCodeva(int _codeva) {
         this._codeva = _codeva;
+    }
+
+    public float getCalificacion() {
+        return _calificacion;
+    }
+
+    public void setCalificacion(float _calificacion) {
+        this._calificacion = _calificacion;
     }
     
     

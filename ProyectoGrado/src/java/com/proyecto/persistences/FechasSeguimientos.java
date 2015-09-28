@@ -15,7 +15,7 @@ import javax.persistence.Temporal;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "fechasseguimientos")
+@Table(name = "fechaseguimientos")
 public class FechasSeguimientos implements Serializable
 {
     @Id
@@ -23,13 +23,11 @@ public class FechasSeguimientos implements Serializable
     @Column(name = "codfechseg")
     private int _codfechaseg;
     
-    @Column(name = "fechainicio")
-    @Size(min = 1, max = 100)
+    @Column(name = "fechainicio")   
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date _fechainicio;
     
-    @Column(name = "fechafin")
-    @Size(min = 1, max = 100)
+    @Column(name = "fechafin")    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date _fechafin;
     

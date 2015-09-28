@@ -54,7 +54,7 @@ public class Horas implements Serializable
 
     @Override
     public String toString() {
-        return "Horas{" + "_hora=" + _hora + '}';
+        return _hora;
     }
 
     public int getCodhora() {

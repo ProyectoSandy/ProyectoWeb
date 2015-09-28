@@ -86,7 +86,7 @@ public class Productos implements Serializable
 
     @Override
     public String toString() {
-        return "Productos{" + "_descripcion=" + _descripcion + '}';
+        return _descripcion;
     }
 
     public int getCodproducto() {

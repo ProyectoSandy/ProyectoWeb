@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.proyecto.controllers;
 
 import com.java.utilities.Formulario;
 import com.java.utilities.Mensajes;
 import com.proyecto.facades.ProductosFacade;
 import com.proyecto.persistences.Productos;
+import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -22,13 +19,10 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
 
-/**
- *
- * @author user
- */
+
 @ManagedBean
 @SessionScoped
-public class ProductosController 
+public class ProductosController implements Serializable
 {  
     @EJB
     private ProductosFacade _ejbFacade;

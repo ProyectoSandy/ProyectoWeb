@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.proyecto.controllers;
 
 import com.java.utilities.Formulario;
@@ -23,10 +19,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
 
-/**
- *
- * @author user
- */
+
 @ManagedBean
 @SessionScoped
 public class HorasController implements Serializable

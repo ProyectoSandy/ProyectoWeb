@@ -63,7 +63,7 @@ public class Jornadas implements Serializable
 
     @Override
     public String toString() {
-        return "Jornadas{" + "_nombre=" + _nombre + '}';
+        return  _nombre;
     }
 
     public int getCodjornada() {

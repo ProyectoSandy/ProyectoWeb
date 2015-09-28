@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/plantilla.xhtml">
+        <ui:define name="content">
+            
+            <h:form>
+                <p:panel>
+                    <p:breadCrumb>
+                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>
+                        <p:menuitem value="Creacion de Evaluaciones" url="#"></p:menuitem>
+                    </p:breadCrumb>
+                </p:panel>  
+                <p:growl id="mensajes" sticky="true" showDetail="true"/>                
+                <br/>
+                
+                
+                
+                <p:panelGrid columns="2">                    
+                    <p:outputLabel value="Calificacion:  " for="calificacion" />
+                    <p:inputText id="calificacion" required="true" value="#{evaluacionesController.campo.calificacion}"/> 
+                    
+                    <p:outputLabel value="Docente:  " for="coddocente" />
+                    <p:inputText id="coddocente" required="true" value="#{evaluacionesController.campo.coddocente}"/> 
+
+                    <p:outputLabel value="Producto:  " for="codprod" />
+                    <p:inputText id="codprod" required="true" value="#{evaluacionesController.campo.codproducto}"/> 
+                    
+                    <f:facet name="footer">
+                        <p:commandButton id="btngrabar" value="Actualiar" ajax="false" action="#{evaluacionesController.actualizar()}"/>
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

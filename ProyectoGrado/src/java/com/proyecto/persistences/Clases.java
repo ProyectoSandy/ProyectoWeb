@@ -27,9 +27,8 @@ public class Clases implements Serializable
     @NotNull
     private String _nombre;
     
-    @Column(name = "dia")
-    @Size(min = 1, max = 100)
     @NotNull
+    @Column(name = "dia")       
     private int _dia; 
     
     @JoinColumn(name = "coddocente", referencedColumnName = "cedula")
@@ -44,7 +43,7 @@ public class Clases implements Serializable
     
     @Override
     public String toString() {
-        return "Clases{" + "_nombre=" + _nombre + '}';
+        return  _nombre;
     }
 
     @Override
