@@ -55,7 +55,7 @@ public class TipoModalidades implements Serializable
 
     @Override
     public String toString() {
-        return "TipoModalidad{" + "_nombre=" + _nombre + '}';
+        return _nombre;
     }
 
     public int getCodtipo() {
