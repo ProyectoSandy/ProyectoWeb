@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 public class Docentes implements Serializable
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cedula")
     private int _cedula;
     
@@ -29,6 +29,14 @@ public class Docentes implements Serializable
     @Size(min = 1, max = 100)
     @NotNull
     private String _apellidos;   
+    
+    @Column(name = "codigo")
+    @NotNull
+    private String _codigo;  
+    
+    @Column(name = "semestre")   
+    @NotNull
+    private int _semestre;  
     
     @NotNull
     @Column(name = "direccion")
@@ -46,15 +54,17 @@ public class Docentes implements Serializable
     private String _correo;
     
     @NotNull
-    @Column(name = "unidad")
-    @Size(min = 1, max = 50)
+    @Column(name = "unidadacademica") 
     private int _unidad;
     
     @NotNull
-    @Column(name = "facultad")
-    @Size(min = 1, max = 50)
+    @Column(name = "facultad") 
     private int _facultad;   
 
+    @NotNull
+    @Column(name = "formacion")
+    private String _formacion; 
+    
     public Docentes() { }
 
     @Override
@@ -82,6 +92,12 @@ public class Docentes implements Serializable
         if (!Objects.equals(this._apellidos, other._apellidos)) {
             return false;
         }
+        if (!Objects.equals(this._codigo, other._codigo)) {
+            return false;
+        }
+        if (this._semestre != other._semestre) {
+            return false;
+        }
         if (!Objects.equals(this._direccion, other._direccion)) {
             return false;
         }
@@ -97,13 +113,16 @@ public class Docentes implements Serializable
         if (this._facultad != other._facultad) {
             return false;
         }
+        if (!Objects.equals(this._formacion, other._formacion)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Docentes{" + "_nombres=" + _nombres + '}';
-    }   
+        return "Docentes{" + "_cedula=" + _cedula + ", _nombres=" + _nombres + ", _apellidos=" + _apellidos + ", _codigo=" + _codigo + ", _semestre=" + _semestre + ", _direccion=" + _direccion + ", _telefono=" + _telefono + ", _correo=" + _correo + ", _unidad=" + _unidad + ", _facultad=" + _facultad + ", _formacion=" + _formacion + '}';
+    }
     
     public int getCedula() {
         return _cedula;
@@ -169,5 +188,28 @@ public class Docentes implements Serializable
         this._facultad = _facultad;
     }
     
+    public int getSemestre() {
+        return _semestre;
+    }
+
+    public void setSemestre(int _semestre) {
+        this._semestre = _semestre;
+    }    
+
+    public String getFormacion() {
+        return _formacion;
+    }
+
+    public void setFormacion(String _formacion) {
+        this._formacion = _formacion;
+    }
+
+    public String getCodigo() {
+        return _codigo;
+    }
+
+    public void setCodigo(String _codigo) {
+        this._codigo = _codigo;
+    }
     
 }

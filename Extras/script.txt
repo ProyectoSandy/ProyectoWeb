@@ -24,7 +24,7 @@ CREATE TABLE convenciones (
 );
 
 CREATE TABLE docentes (
-    cedula serial,
+    cedula integer NOT NULL,
     apellidos character varying(100) NOT NULL,
     nombres character varying(100) NOT NULL,
     codigo character varying(50),
