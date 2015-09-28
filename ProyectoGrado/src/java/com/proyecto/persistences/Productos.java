@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "codproducto")
+@Table(name = "productos")
 public class Productos implements Serializable
 {
     @Id
@@ -29,19 +29,16 @@ public class Productos implements Serializable
     @NotNull
     private String _descripcion;
     
-    @Column(name = "fechacompromiso")
-    @Size(min = 1, max = 100)
+    @Column(name = "fechacompromiso") 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date _fechacompromiso;
     
     @Column(name = "fechaentrega")
-    @Size(min = 1, max = 100)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date _fechaentrega;
     
-    @Column(name = "comentarios")
-    @Size(min = 1, max = 100)
     @NotNull
+    @Column(name = "comentarios") 
     private String _comentarios;
     
     @JoinColumn(name = "codact", referencedColumnName = "codactividad")

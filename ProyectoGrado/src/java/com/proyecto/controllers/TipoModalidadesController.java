@@ -9,6 +9,7 @@ import com.java.utilities.Formulario;
 import com.java.utilities.Mensajes;
 import com.proyecto.facades.TipoModalidadesFacade;
 import com.proyecto.persistences.TipoModalidades;
+import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -28,7 +29,7 @@ import javax.faces.model.SelectItem;
  */
 @ManagedBean
 @SessionScoped
-public class TipoModalidadesController 
+public class TipoModalidadesController implements Serializable
 {  
     @EJB
     private TipoModalidadesFacade _ejbFacade;

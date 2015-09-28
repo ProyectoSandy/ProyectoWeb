@@ -92,7 +92,7 @@ public class Actividades implements Serializable
 
     @Override
     public String toString() {
-        return "Actividades{" + "_codactividad=" + _codactividad + ", _nombre=" + _nombre + ", _descripcion=" + _descripcion + ", _responsable=" + _responsable + ", _valoracion=" + _valoracion + ", _coddocente=" + _coddocente + ", _codtipo=" + _codtipo + '}';
+        return _nombre;
     }
 
     /*@Override
