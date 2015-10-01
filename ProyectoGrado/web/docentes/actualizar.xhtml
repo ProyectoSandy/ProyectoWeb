@@ -30,13 +30,23 @@
                     <p:inputText id="codigo" required="true" value="#{docentesController.campo.codigo}"/> 
                     
                     <p:outputLabel value="Facultad:  " for="facultad" />
-                    <p:inputText id="facultad" required="true" value="#{docentesController.campo.facultad}"/> 
+                    <p:selectOneMenu id="facultad" required="true" requiredMessage="No ha seleccionado"  value="#{docentesController.campo.facultad}"> 
+                        <f:selectItem itemValue="1" itemLabel="Ciencias Naturales e Ingenierias"/>
+                        <f:selectItem itemValue="2" itemLabel="Ciencias Socioeconomicas y Empresariales" />
+                    </p:selectOneMenu>
                     
                     <p:outputLabel value="Unidad Academica:  " for="unidad" />
-                    <p:inputText id="unidad" required="true" value="#{docentesController.campo.unidad}"/> 
+                    <p:selectOneMenu id="unidad" required="true" requiredMessage="No ha seleccionado"  value="#{docentesController.campo.unidad}"> 
+                        <f:selectItem itemValue="1" itemLabel="Departamento"/>
+                        <f:selectItem itemValue="2" itemLabel="Oficina" />
+                        <f:selectItem itemValue="2" itemLabel="Dependencia" />
+                    </p:selectOneMenu>  
                     
                     <p:outputLabel value="Semestre:  " for="semestre" />
-                    <p:inputText id="semestre" required="true" value="#{docentesController.campo.semestre}"/>                     
+                    <p:selectOneMenu id="semestre" required="true" requiredMessage="No ha seleccionado"  value="#{docentesController.campo.semestre}"> 
+                        <f:selectItem itemValue="1" itemLabel="Primero"/>
+                        <f:selectItem itemValue="2" itemLabel="Segundo" />
+                    </p:selectOneMenu>                        
                     
                     <p:outputLabel value="Formacion:  " for="formacion" />
                     <p:inputTextarea id="formacion" required="true" value="#{docentesController.campo.formacion}"/>                     

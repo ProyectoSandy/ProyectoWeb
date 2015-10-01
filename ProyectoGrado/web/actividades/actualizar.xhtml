@@ -30,7 +30,7 @@
                     <p:outputLabel value="Valoracion:  " for="valoracion" />
                     <p:inputText id="valoracion" required="true" value="#{actividadesController.campo.valoracion}"/> 
                     
-                    <p:outputLabel value="Codigo:  " for="codtipo" />
+                    <p:outputLabel value="Tipo Modalidad:  " for="codtipo" />
                     <p:selectOneMenu id="codtipo" required="true" requiredMessage="No ha seleccionado" converter="tipoModalidadesConverter" value="#{actividadesController.campo.codtipo}"> 
                         <f:selectItems value="#{tipoModalidadesController.combo('Selecione un opcion')}" />
                     </p:selectOneMenu>
