@@ -24,11 +24,15 @@
                     <p:outputLabel value="Calificacion:  " for="calificacion" />
                     <p:inputText id="calificacion" required="true" value="#{evaluacionesController.campo.calificacion}"/> 
                     
-                    <p:outputLabel value="Docente:  " for="coddocente" />
-                    <p:inputText id="coddocente" required="true" value="#{evaluacionesController.campo.coddocente}"/> 
+                    <p:outputLabel value="Docente:  " for="coddoc" />
+                    <p:selectOneMenu id="coddoc" required="true" requiredMessage="No ha seleccionado" converter="docentesConverter" value="#{evaluacionesController.campo.coddoc}"> 
+                        <f:selectItems value="#{docentesController.combo('Seleccione una opcion')}" />
+                    </p:selectOneMenu>
 
                     <p:outputLabel value="Producto:  " for="codprod" />
-                    <p:inputText id="codprod" required="true" value="#{evaluacionesController.campo.codproducto}"/> 
+                    <p:selectOneMenu id="codprod" required="true" requiredMessage="No ha seleccionado" converter="productosConverter" value="#{evaluacionesController.campo.codprod}"> 
+                        <f:selectItems value="#{productosController.combo('Seleccione una opcion')}" />
+                    </p:selectOneMenu>
                     
                     <f:facet name="footer">
                         <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{evaluacionesController.agregar()}"/>

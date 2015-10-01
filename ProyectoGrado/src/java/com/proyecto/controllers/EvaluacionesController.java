@@ -142,7 +142,7 @@ public class EvaluacionesController implements Serializable{
         public String getAsString(FacesContext context, UIComponent component, Object value) {
             if (value instanceof Evaluaciones){
                 Evaluaciones obj = (Evaluaciones) value;
-                return String.valueOf(obj.getCodproducto());
+                return String.valueOf(obj.getCodeva());
             }
             return null;
         }

@@ -137,8 +137,11 @@ public class ProductosController implements Serializable
                 Integer id = Integer.parseInt(value);
                 ProductosController controller = (ProductosController) context.getApplication().getELResolver().
                         getValue(context.getELContext(), null, "productosController");
+                System.out.println("Productos NUMERO ENCONTRADO EN EL COMBO "+controller._ejbFacade.buscar(id));
                 return controller._ejbFacade.buscar(id);
+                
             }catch(NumberFormatException e){
+                System.out.println("Productos Error en converter");
                 Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, e);
                 return null;
             }

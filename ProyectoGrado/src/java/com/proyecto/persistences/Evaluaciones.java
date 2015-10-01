@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,26 +23,27 @@ public class Evaluaciones implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int _codeva;
     
-    //@JoinColumn(name = "coddoc", referencedColumnName = "cedula")
-    //@ManyToOne(optional = false)
-    @Column(name = "coddoc")
-    private int _coddocente;
+    @JoinColumn(name = "coddoc", referencedColumnName = "cedula")
+    @ManyToOne(optional = false)
+    private Docentes _coddoc;
     
-    //@JoinColumn(name = "codprod", referencedColumnName = "codproducto")
-    //@ManyToOne(optional = false)  
-    @Column(name = "codprod")
-    private int _codproducto;
+    @JoinColumn(name = "codprod", referencedColumnName = "codproducto")
+    @OneToOne(optional = false)  
+    //@Column(name = "codprod")
+    private Productos _codprod;
     
     @NotNull
     @Column(name = "calificacion")    
-    private float _calificacion;
+    private int _calificacion;
 
     public Evaluaciones() {  }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this._coddocente);
+        int hash = 5;
+        hash = 53 * hash + this._codeva;
+        hash = 53 * hash + Objects.hashCode(this._coddoc);
+        hash = 53 * hash + Objects.hashCode(this._codprod);
         return hash;
     }
 
@@ -54,38 +56,42 @@ public class Evaluaciones implements Serializable
             return false;
         }
         final Evaluaciones other = (Evaluaciones) obj;
-        if (!Objects.equals(this._coddocente, other._coddocente)) {
+        if (this._codeva != other._codeva) {
             return false;
         }
-        if (!Objects.equals(this._codproducto, other._codproducto)) {
+        if (!Objects.equals(this._coddoc, other._coddoc)) {
             return false;
         }
-        if (Double.doubleToLongBits(this._calificacion) != Double.doubleToLongBits(other._calificacion)) {
+        if (!Objects.equals(this._codprod, other._codprod)) {
             return false;
         }
         return true;
     }
 
+    
+
     @Override
     public String toString() {
-        return "Evaluaciones{" + "_coddocente=" + _coddocente + ", _codproducto=" + _codproducto + ", _calificacion=" + _calificacion + '}';
+        return "Evaluaciones{" + "_coddocente=" + _coddoc + ", _codproducto=" + _codprod + ", _calificacion=" + _calificacion + '}';
     }
 
-    public int getCoddocente() {
-        return _coddocente;
+    public Docentes getCoddoc() {
+        return _coddoc;
     }
 
-    public void setCoddocente(int _coddocente) {
-        this._coddocente = _coddocente;
+    public void setCoddoc(Docentes _coddoc) {
+        this._coddoc = _coddoc;
     }
 
-    public int getCodproducto() {
-        return _codproducto;
+    public Productos getCodprod() {
+        return _codprod;
     }
 
-    public void setCodproducto(int _codproducto) {
-        this._codproducto = _codproducto;
+    public void setCodprod(Productos _codprod) {
+        this._codprod = _codprod;
     }
+
+    
 
     public int getCodeva() {
         return _codeva;
@@ -93,15 +99,14 @@ public class Evaluaciones implements Serializable
 
     public void setCodeva(int _codeva) {
         this._codeva = _codeva;
-    }
+    }   
 
-    public float getCalificacion() {
+    public int getCalificacion() {
         return _calificacion;
     }
 
-    public void setCalificacion(float _calificacion) {
+    public void setCalificacion(int _calificacion) {
         this._calificacion = _calificacion;
     }
-    
     
 }

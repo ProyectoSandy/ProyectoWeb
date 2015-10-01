@@ -66,23 +66,10 @@ public class Productos implements Serializable
         if (this._codproducto != other._codproducto) {
             return false;
         }
-        if (!Objects.equals(this._descripcion, other._descripcion)) {
-            return false;
-        }
-        if (!Objects.equals(this._fechacompromiso, other._fechacompromiso)) {
-            return false;
-        }
-        if (!Objects.equals(this._fechaentrega, other._fechaentrega)) {
-            return false;
-        }
-        if (!Objects.equals(this._comentarios, other._comentarios)) {
-            return false;
-        }
-        if (this._codactividad != other._codactividad) {
-            return false;
-        }
         return true;
     }
+
+    
 
     @Override
     public String toString() {

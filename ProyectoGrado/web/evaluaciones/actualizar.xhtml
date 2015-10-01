@@ -7,12 +7,11 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/plantilla.xhtml">
         <ui:define name="content">
-            
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
                         <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>
-                        <p:menuitem value="Creacion de Evaluaciones" url="#"></p:menuitem>
+                        <p:menuitem value="Actualizacion de Evaluaciones" url="#"></p:menuitem>
                     </p:breadCrumb>
                 </p:panel>  
                 <p:growl id="mensajes" sticky="true" showDetail="true"/>                
@@ -25,13 +24,17 @@
                     <p:inputText id="calificacion" required="true" value="#{evaluacionesController.campo.calificacion}"/> 
                     
                     <p:outputLabel value="Docente:  " for="coddocente" />
-                    <p:inputText id="coddocente" required="true" value="#{evaluacionesController.campo.coddocente}"/> 
+                    <p:selectOneMenu id="coddocente" required="true" requiredMessage="No ha seleccionado" converter="docentesConverter" value="#{evaluacionesController.campo.coddoc}"> 
+                        <f:selectItems value="#{docentesController.combo('Seleccione una opcion')}" />
+                    </p:selectOneMenu>
 
                     <p:outputLabel value="Producto:  " for="codprod" />
-                    <p:inputText id="codprod" required="true" value="#{evaluacionesController.campo.codproducto}"/> 
+                    <p:selectOneMenu id="codprod" required="true" requiredMessage="No ha seleccionado" converter="productosConverter" value="#{evaluacionesController.campo.codprod}"> 
+                        <f:selectItems value="#{productosController.combo('Seleccione una opcion')}" />
+                    </p:selectOneMenu>
                     
                     <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Actualiar" ajax="false" action="#{evaluacionesController.actualizar()}"/>
+                        <p:commandButton id="btngrabar" value="Actualizar" ajax="false" action="#{evaluacionesController.actualizar()}"/>
                     </f:facet>
                 </p:panelGrid>
             </h:form>

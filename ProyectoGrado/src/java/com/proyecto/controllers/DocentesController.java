@@ -136,6 +136,7 @@ public class DocentesController implements Serializable
                 Integer id = Integer.parseInt(value);
                 DocentesController controller = (DocentesController) context.getApplication().getELResolver().
                         getValue(context.getELContext(), null, "docentesController");
+                System.out.println("Docentse NUMERO ENCONTRADO EN EL COMBO "+controller._ejbFacade.buscar(id));
                 return controller._ejbFacade.buscar(id);
             }catch(NumberFormatException e){
                 Logger.getLogger(Docentes.class.getName()).log(Level.SEVERE, null, e);
