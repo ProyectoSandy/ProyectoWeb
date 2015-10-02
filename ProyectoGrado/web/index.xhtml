@@ -6,54 +6,36 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/plantilla.xhtml">
-        <ui:define name="content">  
+        <ui:define name="content">
             <h:form>
                 <p:panel>
-                    <p:panelGrid>
-                        <f:facet name="header">                            
-                            <p:row>
-                                <p:column>Tipo Modalidad</p:column>  
-                                <p:column>Horas</p:column> 
-                                <p:column>Docentes</p:column> 
-                                <p:column>Actividades</p:column>
-                                <p:column>Jornadas</p:column>
-                                <p:column>Clases</p:column> 
-                                <p:column>Convenciones</p:column>
-                                <p:column>Productos</p:column> 
-                                <p:column>Fechas de Seguimientos</p:column>
-                                <p:column>Evaluaciones</p:column> 
-                            </p:row>
-                        </f:facet>
-                        
-                        <p:row>                            
-                            <p:column><h:link value="Crear Tipo de Modalidad" outcome="tipo_modalidad/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Hora" outcome="horas/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Docente" outcome="docentes/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Actividad" outcome="actividades/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Jornada" outcome="jornadas/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Clase" outcome="clases/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Convencion" outcome="convenciones/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Productos" outcome="productos/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Fecha de Seguimiento" outcome="fechas_seguimientos/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Evaluacion" outcome="evaluaciones/crear"></h:link></p:column>
-                        </p:row>
-                        
-                        <p:row>
-                            <p:column><h:link value="Administrar Tipo de Modalidad" outcome="tipo_modalidad/administrar"></h:link></p:column> 
-                            <p:column><h:link value="Administrar Horas" outcome="horas/administrar"></h:link></p:column> 
-                            <p:column><h:link value="Administrar Docentes" outcome="docentes/administrar"></h:link></p:column>  
-                            <p:column><h:link value="Administrar Actividades" outcome="actividades/administrar"></h:link></p:column> 
-                            <p:column><h:link value="Administrar Jornadas" outcome="jornadas/administrar"></h:link></p:column>  
-                            <p:column><h:link value="Administrar Clases" outcome="clases/administrar"></h:link></p:column>  
-                            <p:column><h:link value="Administrar Convenciones" outcome="convenciones/administrar"></h:link></p:column>  
-                            <p:column><h:link value="Administrar Productos" outcome="productos/administrar"></h:link></p:column>  
-                            <p:column><h:link value="Administrar Fechas de Seguimientos" outcome="fechas_seguimientos/administrar"></h:link></p:column>  
-                            <p:column><h:link value="Administrar Evaluaciones" outcome="evaluaciones/administrar"></h:link></p:column>  
-                        </p:row>
-                    </p:panelGrid>
-                </p:panel>
+                    <p:breadCrumb>
+                        <p:menuitem value="login" url="/faces/index.xhtml"></p:menuitem>
+                    </p:breadCrumb>
+                </p:panel>  
+                <p:growl id="mensajes" sticky="true" showDetail="true"/>              
+                <br/>
+                
+                #{loginController.resetear()}
+               
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                      
+                    </f:facet>
+                    
+                    <p:outputLabel value="usuario"/>
+                    <p:inputText id="usuario" required="true" requiredMessage="ingrese un usuario" value="#{loginController.usuario}"/>
+                    
+                    <p:outputLabel value="clave"/>
+                    <p:password id="clave" required="true" requiredMessage="ingrese una clave" value="#{loginController.clave}"/>
+                   
+                    <f:facet name="footer">
+                        <p:commandButton value="Inciar Sesion" ajax="false" action="#{loginController.login()}"/>
+                    </f:facet>                   
+                   
+                </p:panelGrid>
             </h:form>
         </ui:define>
-        </ui:composition>
+    </ui:composition>  
 </html>
 

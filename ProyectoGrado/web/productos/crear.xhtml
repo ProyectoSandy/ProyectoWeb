@@ -12,7 +12,8 @@
                 <p:panel>
                     <p:breadCrumb>
                         <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>
-                        <p:menuitem value="Creacion de Docentes" url="#"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexDocentes.xhtml"></p:menuitem>
+                        <p:menuitem value="Creacion de Productos" url="#"></p:menuitem>
                     </p:breadCrumb>
                 </p:panel>  
                 <p:growl id="mensajes" sticky="true" showDetail="true"/>                

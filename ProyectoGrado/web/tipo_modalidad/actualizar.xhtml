@@ -12,7 +12,9 @@
                 <p:panel>
                     <p:breadCrumb>
                         <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>
-                        <p:menuitem value="Creacion de Bodegas" url="#"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexAdmin.xhtml"></p:menuitem>
+                        <p:menuitem value="Administracion de Tipos Modalidad" url="/faces/tipo_modalidad/administrar.xhtml"></p:menuitem> 
+                        <p:menuitem value="Actualizacion de Tipos Modalidad" url="#"></p:menuitem>
                     </p:breadCrumb>
                 </p:panel>  
                 <p:growl id="mensajes" sticky="true" showDetail="true"/>                
@@ -23,7 +25,7 @@
                     <p:inputText id="nombre" required="true" value="#{tipoModalidadesController.campo.nombre}"/>                    
                                                 
                     <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{tipoModalidadesController.actualizar()}"/>
+                        <p:commandButton id="btngrabar" value="Actualizar" ajax="false" action="#{tipoModalidadesController.actualizar()}"/>
                     </f:facet>
                 </p:panelGrid>
             </h:form>

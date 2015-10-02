@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/plantilla.xhtml">
+        <ui:define name="content">  
+            <h:form>
+                <p:panel>
+                    <p:breadCrumb>
+                        <p:menuitem value="login" url="/faces/index.xhtml"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="#"></p:menuitem>
+                    </p:breadCrumb>
+                    <p:panelGrid>
+                        
+                        <f:facet name="header">                            
+                            <p:row>
+                                
+                                <p:column>Docentes</p:column> 
+                                <p:column>Actividades</p:column>
+                                <p:column>Productos</p:column> 
+                               
+                            </p:row>
+                        </f:facet>
+                        
+                        <p:row>                            
+                            
+                            <p:column><h:link value="Crear Docente" outcome="docentes/crear"></h:link></p:column>
+                            <p:column><h:link value="Crear Actividad" outcome="actividades/crear"></h:link></p:column>
+                            <p:column><h:link value="Crear Productos" outcome="productos/crear"></h:link></p:column>
+                            
+                        </p:row>
+                        
+                        <p:row>
+                            
+                            <p:column><h:link value="Administrar Docentes" outcome="docentes/administrar"></h:link></p:column>  
+                            <p:column><h:link value="Administrar Actividades" outcome="actividades/administrar"></h:link></p:column>   
+                            <p:column><h:link value="Administrar Productos" outcome="productos/administrar"></h:link></p:column>  
+                            
+                        </p:row>
+                    </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/>
+                    </f:facet> 
+                </p:panel>
+            </h:form>
+        </ui:define>
+        </ui:composition>
+</html>
+

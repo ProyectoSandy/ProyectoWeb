@@ -11,7 +11,9 @@
                 <p:panel>
                     <p:breadCrumb>
                         <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>
-                        <p:menuitem value="Creacion de Docentes" url="#"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexDocentes.xhtml"></p:menuitem>
+                        <p:menuitem value="Administracion de Docentes" url="/faces/docentes/administrar.xhtml"></p:menuitem>
+                        <p:menuitem value="Actualizacion de Docentes" url="#"></p:menuitem>
                     </p:breadCrumb>
                 </p:panel>  
                 <p:growl id="mensajes" sticky="true" showDetail="true"/>                
@@ -61,7 +63,7 @@
                     <p:inputText id="correo" required="true" value="#{docentesController.campo.correo}"/> 
                     
                     <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{docentesController.actualizar()}"/>
+                        <p:commandButton id="btngrabar" value="Actualizar" ajax="false" action="#{docentesController.actualizar()}"/>
                     </f:facet>
                 </p:panelGrid>
             </h:form>

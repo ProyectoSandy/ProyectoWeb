@@ -10,7 +10,9 @@
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
-                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>                        
+                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem> 
+                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexAdmin.xhtml"></p:menuitem> 
+                        <p:menuitem value="Administracion de Clases" url="#"></p:menuitem> 
                     </p:breadCrumb>
                     <br/>
                     <p:dataTable value="#{clasesController.listado}" var="registro">
