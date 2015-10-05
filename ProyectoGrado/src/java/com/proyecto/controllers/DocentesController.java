@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,6 +33,13 @@ public class DocentesController implements Serializable
     private String _titulo="Operacion";
     private String _mensajeCorrecto = "Se ha realizado correctamente";
     private String _mensajeError = "No se completo la operacion";
+    
+    
+    private String usuDocente;
+    
+    //@ManagedProperty(value="#{loginController}")
+    private LoginController _loginController;
+    
     public DocentesController() { }
     
     public Docentes getCampo()
@@ -123,6 +131,14 @@ public class DocentesController implements Serializable
     public void resetear()
     {
         _obj = null;
+    }
+    
+    public Docentes buscar(){
+        System.out.println("USUARIO DE DOCENTE "+_loginController);
+       
+        
+        usuDocente =_loginController.getUsuario();
+        return _ejbFacade.buscar(Integer.parseInt(usuDocente));
     }
     
     @FacesConverter(forClass = Docentes.class, value = "docentesConverter")

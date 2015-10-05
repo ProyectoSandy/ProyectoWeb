@@ -4,7 +4,9 @@ package com.proyecto.controllers;
 import com.java.utilities.Formulario;
 import com.java.utilities.Mensajes;
 import com.proyecto.facades.ActividadesFacade;
+import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Actividades;
+import com.proyecto.persistences.Docentes;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -26,6 +28,10 @@ public class ActividadesController implements Serializable
 {  
     @EJB
     private ActividadesFacade _ejbFacade;
+    
+    @EJB
+    private DocentesFacade docentesFacade;
+    
     private Actividades _obj;
     
     private String _rutaTxt = "/com/java/utilities/txtActividades"; 
@@ -49,7 +55,8 @@ public class ActividadesController implements Serializable
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarOk");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("GrabarDetalleOk");
             Mensajes.exito(titulo, detalle);*/
-            System.out.println("Actividades: " + _obj);
+            System.out.println("Actividades: " + docentesFacade.getCurrentDocente());
+            _obj.setCoddocente(docentesFacade.getCurrentDocente());
             _ejbFacade.crear(_obj);
             return "crear";//nombre de la face a la que debe redireccionar
             
@@ -70,7 +77,10 @@ public class ActividadesController implements Serializable
     
     public List<Actividades> getListado()
     {
-        return _ejbFacade.listado();
+        Docentes doc = docentesFacade.getCurrentDocente();
+        String cedula= doc.getCedula()+"";
+       
+        return _ejbFacade.buscarCampo("_coddocente",cedula);
     }
     
     public String redireccionar(String faces, Actividades facesObj)
@@ -108,6 +118,7 @@ public class ActividadesController implements Serializable
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("Actualizando");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("ActualizarOk");
             Mensajes.exito(titulo, detalle);*/
+            _obj.setCoddocente(docentesFacade.getCurrentDocente());
             _ejbFacade.actualizar(_obj);
             return "administrar";//nombre de la face a la que debe redireccionar
             

@@ -12,6 +12,7 @@ public class DocentesFacade extends AbstractFacade<Docentes>{
 
     @PersistenceContext(unitName = "ProyectoGradoPU")
     private EntityManager _em;
+    private Docentes _currentDocente;
     
     public DocentesFacade()
     {
@@ -23,4 +24,12 @@ public class DocentesFacade extends AbstractFacade<Docentes>{
     {
         return _em;
     }   
+
+    public Docentes getCurrentDocente() {
+        return _currentDocente;
+    }
+
+    public void setCurrentDocente(Docentes _currentDocente) {
+        this._currentDocente = _currentDocente;
+    }
 }

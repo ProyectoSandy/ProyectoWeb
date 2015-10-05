@@ -12,7 +12,7 @@
                 <p:panel>
                     <p:breadCrumb>
                         <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexDocentes.xhtml"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/indexDocentes.xhtml"></p:menuitem>
                         <p:menuitem value="Creacion de Actividades" url="#"></p:menuitem>
                     </p:breadCrumb>
                 </p:panel>  
@@ -32,15 +32,15 @@
                     <p:outputLabel value="Valoracion:  " for="valoracion" />
                     <p:inputText id="valoracion" required="true" value="#{actividadesController.campo.valoracion}"/> 
                     
+                     
+                    
                     <p:outputLabel value="Tipo Modalidad:  " for="codtipo" />
                     <p:selectOneMenu id="codtipo" required="true" requiredMessage="No ha seleccionado" converter="tipoModalidadesConverter" value="#{actividadesController.campo.codtipo}"> 
                         <f:selectItems value="#{tipoModalidadesController.combo('Selecione un opcion')}" />
                     </p:selectOneMenu>
                     
-                    <p:outputLabel value="Docente: " for="coddocente"/>
-                    <p:selectOneMenu id='coddocente' required="true" requiredMessage="No ha seleccionado" converter="docentesConverter" value="#{actividadesController.campo.coddocente}">
-                        <f:selectItems value="#{docentesController.combo('Selecione un opcion')}" />
-                    </p:selectOneMenu>
+                 
+                    
                     
                     <f:facet name="footer">
                         <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{actividadesController.agregar()}"/>

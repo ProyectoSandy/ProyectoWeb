@@ -1,6 +1,8 @@
 
 package com.proyecto.controllers;
 
+import com.proyecto.facades.DocentesFacade;
+import com.proyecto.persistences.Docentes;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -9,6 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,7 +23,11 @@ import javax.servlet.http.HttpServletRequest;
 @ManagedBean
 @SessionScoped
 public class LoginController implements Serializable{
+    @EJB
+    private DocentesFacade docentesFacade;
 
+    
+    
     private String _usuario;
     private String _clave;
     
@@ -67,6 +74,7 @@ public class LoginController implements Serializable{
             }else if(request.isUserInRole("docente"))
             {
                 System.out.println("DOCENTES");
+                docentesFacade.setCurrentDocente(buscarDocente());
                 return "indexDocentes?faces-redirect=true";
             }else if(request.isUserInRole("evaluador"))
             {
@@ -121,5 +129,12 @@ public class LoginController implements Serializable{
     {
         _clave="";
         _usuario="";
+    }
+    
+    public Docentes buscarDocente(){
+        Docentes doc = docentesFacade.buscar(Integer.parseInt(_usuario));
+        System.out.println("BUSCAR DOCENTE "+doc.getNombres());
+        return doc;
+        
     }
 }

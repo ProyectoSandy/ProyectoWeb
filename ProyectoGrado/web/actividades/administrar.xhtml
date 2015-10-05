@@ -11,7 +11,7 @@
                 <p:panel>
                     <p:breadCrumb>
                         <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>  
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexDocentes.xhtml"></p:menuitem> 
+                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/indexDocentes.xhtml"></p:menuitem> 
                         <p:menuitem value="Administracion de Actividades" url="#"></p:menuitem> 
                     </p:breadCrumb>
                     <br/>
@@ -41,10 +41,7 @@
                             #{registro.valoracion}
                         </p:column>
                         
-                        <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Docente</f:facet>
-                            #{registro.coddocente}
-                        </p:column>
+                        
                         
                         <p:column style="width: 10px; text-align: center">
                             <f:facet name="header">Tipo de Modalidad</f:facet>

@@ -11,14 +11,12 @@
                 <p:panel>
                     <p:breadCrumb>
                         <p:menuitem value="login" url="/faces/index.xhtml"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="#"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="#"></p:menuitem>
                     </p:breadCrumb>
                     <p:panelGrid>
                         
                         <f:facet name="header">                            
                             <p:row>
-                                
-                                <p:column>Docentes</p:column> 
                                 <p:column>Actividades</p:column>
                                 <p:column>Productos</p:column> 
                                
@@ -26,8 +24,6 @@
                         </f:facet>
                         
                         <p:row>                            
-                            
-                            <p:column><h:link value="Crear Docente" outcome="docentes/crear"></h:link></p:column>
                             <p:column><h:link value="Crear Actividad" outcome="actividades/crear"></h:link></p:column>
                             <p:column><h:link value="Crear Productos" outcome="productos/crear"></h:link></p:column>
                             
@@ -35,7 +31,6 @@
                         
                         <p:row>
                             
-                            <p:column><h:link value="Administrar Docentes" outcome="docentes/administrar"></h:link></p:column>  
                             <p:column><h:link value="Administrar Actividades" outcome="actividades/administrar"></h:link></p:column>   
                             <p:column><h:link value="Administrar Productos" outcome="productos/administrar"></h:link></p:column>  
                             
