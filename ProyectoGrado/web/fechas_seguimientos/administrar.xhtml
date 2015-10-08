@@ -10,8 +10,8 @@
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
-                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem> 
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexEvaluador.xhtml"></p:menuitem> 
+                        <p:menuitem url="#"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/index_docentes.xhtml"></p:menuitem> 
                         <p:menuitem value="Administracion de Fechas de Seguimiento" url="#"></p:menuitem>                        
                     </p:breadCrumb>
                     <br/>
@@ -32,6 +32,11 @@
                             <h:outputText value="#{registro.fechafin}" >
                                 <f:convertDateTime dateStyle="medium"/>
                             </h:outputText>  
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Horas</f:facet>
+                            #{registro.hora}
                         </p:column>
                         
                         <p:column style="width: 10px; text-align: center">

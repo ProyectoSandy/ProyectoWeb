@@ -23,17 +23,22 @@
     </welcome-file-list>
     <error-page>
         <error-code>403</error-code>
-        <location>/permisoDenegado.xhtml</location>
+        <location>/permiso_denegado.xhtml</location>
     </error-page>
     <security-constraint>
         <display-name>docentefaces</display-name>
         <web-resource-collection>
             <web-resource-name>folderdoc</web-resource-name>
             <description/>
-            <url-pattern>/faces/docentes/*</url-pattern>
-            <url-pattern>/faces/indexDocentes.xhtml</url-pattern>
+            <url-pattern>/faces/fechas_seguimiento/*</url-pattern>
+            <url-pattern>/faces/index_docentes.xhtml</url-pattern>
             <url-pattern>/faces/actividades/*</url-pattern>
             <url-pattern>/faces/productos/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>folderclase</web-resource-name>
+            <description/>
+            <url-pattern>/faces/clases/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
@@ -45,17 +50,7 @@
         <web-resource-collection>
             <web-resource-name>index</web-resource-name>
             <description/>
-            <url-pattern>/faces/indexAdmin.xhtml</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>actvidades</web-resource-name>
-            <description/>
-            <url-pattern>/faces/actividades/*</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>clases</web-resource-name>
-            <description/>
-            <url-pattern>/faces/clases/*</url-pattern>
+            <url-pattern>/faces/index_admin.xhtml</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>convenciones</web-resource-name>
@@ -68,29 +63,9 @@
             <url-pattern>/faces/docentes/*</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>evaluaciones</web-resource-name>
-            <description/>
-            <url-pattern>/faces/evaluaciones/*</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>fechas_seguimientos</web-resource-name>
-            <description/>
-            <url-pattern>/faces/fechas_seguimientos/*</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
             <web-resource-name>horas</web-resource-name>
             <description/>
             <url-pattern>/faces/horas/*</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>jornadas</web-resource-name>
-            <description/>
-            <url-pattern>/faces/jornadas/*</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>productos</web-resource-name>
-            <description/>
-            <url-pattern>/faces/productos/*</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>tipo_modal</web-resource-name>
@@ -108,24 +83,11 @@
             <web-resource-name>foldereva</web-resource-name>
             <description/>
             <url-pattern>/faces/evaluaciones/*</url-pattern>
-            <url-pattern>/faces/fechas_seguimientos/*</url-pattern>
-            <url-pattern>/faces/indexEvaluador.xhtml</url-pattern>
+            <url-pattern>/faces/index_evaluador.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>evaluador</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <security-constraint>
-        <display-name>mensafaces</display-name>
-        <web-resource-collection>
-            <web-resource-name>foldermensa</web-resource-name>
-            <description/>
-            <url-pattern>/faces/foldermensa/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>mensa</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>
@@ -147,9 +109,5 @@
     <security-role>
         <description/>
         <role-name>evaluador</role-name>
-    </security-role>
-    <security-role>
-        <description/>
-        <role-name>mensa</role-name>
     </security-role>
 </web-app>

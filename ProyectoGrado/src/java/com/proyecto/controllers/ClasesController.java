@@ -3,6 +3,7 @@ package com.proyecto.controllers;
 
 import com.java.utilities.Formulario;
 import com.proyecto.facades.ClasesFacade;
+import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Clases;
 import java.io.Serializable;
 import java.util.List;
@@ -21,10 +22,13 @@ import javax.faces.model.SelectItem;
 @ManagedBean
 @SessionScoped
 public class ClasesController implements Serializable{
+    @EJB
+    private DocentesFacade docentesFacade;
     
     @EJB
     private ClasesFacade clasesFacade;
     private Clases _objClase;
+    
     
     public ClasesController() {
     }
@@ -43,7 +47,8 @@ public class ClasesController implements Serializable{
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarOk");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("GrabarDetalleOk");
             Mensajes.exito(titulo, detalle);*/
-            System.out.println("Docente: " + _objClase);
+            System.out.println("CLASES: " + docentesFacade.getCurrentDocente());
+            _objClase.setCoddocente(docentesFacade.getCurrentDocente());
             clasesFacade.crear(_objClase);
             return "crear";//nombre de la face a la que debe redireccionar
             
@@ -102,6 +107,8 @@ public class ClasesController implements Serializable{
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("Actualizando");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("ActualizarOk");
             Mensajes.exito(titulo, detalle);*/
+            System.out.println("CLASES: " + docentesFacade.getCurrentDocente());
+            _objClase.setCoddocente(docentesFacade.getCurrentDocente());
             clasesFacade.actualizar(_objClase);
             return "administrar";//nombre de la face a la que debe redireccionar
             

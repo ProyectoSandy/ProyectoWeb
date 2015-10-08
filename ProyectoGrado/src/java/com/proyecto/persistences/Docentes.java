@@ -31,12 +31,12 @@ public class Docentes implements Serializable
     private String _apellidos;   
     
     @Column(name = "codigo")
-    @NotNull
     private String _codigo;  
     
     @Column(name = "semestre")   
     @NotNull
-    private int _semestre;  
+    @Size(min = 1, max = 50)
+    private String _semestre;  
     
     @NotNull
     @Column(name = "direccion")
@@ -54,8 +54,9 @@ public class Docentes implements Serializable
     private String _correo;
     
     @NotNull
+    @Size(min = 1, max = 200)
     @Column(name = "unidadacademica") 
-    private int _unidad;
+    private String _unidad;
     
     @NotNull
     @Column(name = "facultad") 
@@ -172,11 +173,11 @@ public class Docentes implements Serializable
         this._correo = _correo;
     }
 
-    public int getUnidad() {
+    public String getUnidad() {
         return _unidad;
     }
 
-    public void setUnidad(int _unidad) {
+    public void setUnidad(String _unidad) {
         this._unidad = _unidad;
     }
 
@@ -187,15 +188,15 @@ public class Docentes implements Serializable
     public void setFacultad(int _facultad) {
         this._facultad = _facultad;
     }
-    
-    public int getSemestre() {
+
+    public String getSemestre() {
         return _semestre;
     }
 
-    public void setSemestre(int _semestre) {
+    public void setSemestre(String _semestre) {
         this._semestre = _semestre;
-    }    
-
+    }
+    
     public String getFormacion() {
         return _formacion;
     }

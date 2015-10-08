@@ -11,8 +11,9 @@
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
-                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexAdmin.xhtml"></p:menuitem>
+                        <p:menuitem url="#"></p:menuitem>
+                        <p:menuitem url="#" ></p:menuitem>
+                        <p:menuitem value="  Bienvenido #{loginController.buscarDocente()}" url="/faces/index_docentes.xhtml"></p:menuitem>
                         <p:menuitem value="Creacion de Clases" url="#"></p:menuitem>
                     </p:breadCrumb>
                 </p:panel>  
@@ -20,19 +21,32 @@
                 <br/>
                 <p:panelGrid columns="2">                    
                     <p:outputLabel value="Dia:  " for="dia" />
-                    <p:inputText id="dia" required="true" value="#{clasesController.campo.dia}"/> 
+                    <p:selectOneMenu id="dia" required="true" requiredMessage="No ha seleccionado"  value="#{clasesController.campo.dia}"> 
+                        <f:selectItem itemValue="1" itemLabel="Lunes"/>
+                        <f:selectItem itemValue="2" itemLabel="Martes" />
+                        <f:selectItem itemValue="3" itemLabel="Miercoles" />
+                        <f:selectItem itemValue="4" itemLabel="Jueves" />
+                        <f:selectItem itemValue="5" itemLabel="Viernes" />
+                        <f:selectItem itemValue="6" itemLabel="Sabado" />
+                    </p:selectOneMenu>
                     
                     <p:outputLabel value="Nombre:  " for="nombre" />
                     <p:inputText id="nombre" required="true" value="#{clasesController.campo.nombre}"/> 
                     
-                    <p:outputLabel value="Jornada:  " for="codjornada" />
-                    <p:selectOneMenu id="codjornada" required="true" requiredMessage=" seleccionado" converter="jornadasConverter" value="#{clasesController.campo.codjornada}"> 
-                        <f:selectItems value="#{jornadasController.combo('Seleccione una opcion')}" />
+                    <p:outputLabel value="Hora Inicial " for="codhorainicio" />
+                    <p:selectOneMenu id="codhorainicio" required="true" requiredMessage="No ha seleccionado" converter="horasConverter" value="#{clasesController.campo.codhorainicio}"> 
+                        <f:selectItems value="#{horasController.combo('Seleccione una opción')}" />
                     </p:selectOneMenu>
                     
-                    <p:outputLabel value="Docente:  " for="coddocente" />
-                    <p:selectOneMenu id="coddocente" required="true" requiredMessage="No ha seleccionado" converter="docentesConverter" value="#{clasesController.campo.coddocente}"> 
-                        <f:selectItems value="#{docentesController.combo('Seleccione una opcion')}" />
+                    
+                    <p:outputLabel value="Hora Final " for="codhorafinal" />
+                    <p:selectOneMenu id="codhorafinal" required="true" requiredMessage="No ha seleccionado" converter="horasConverter" value="#{clasesController.campo.codhorafinal}"> 
+                        <f:selectItems value="#{horasController.combo('Seleccione una opción')}" />
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel value="Convencion:  " for="codconvencion" />
+                    <p:selectOneMenu id="codconvencion" required="true" requiredMessage="No ha seleccionado" converter="convencionesConverter" value="#{clasesController.campo.codconvencion}"> 
+                        <f:selectItems value="#{convencionesController.combo('Seleccione una opcion')}" />
                     </p:selectOneMenu>
                     
                     <f:facet name="footer">

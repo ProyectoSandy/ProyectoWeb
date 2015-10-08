@@ -10,8 +10,8 @@
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
-                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>  
-                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/indexDocentes.xhtml"></p:menuitem> 
+                        <p:menuitem url="#"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/index_docentes.xhtml"></p:menuitem> 
                         <p:menuitem value="Administracion de Actividades" url="#"></p:menuitem> 
                     </p:breadCrumb>
                     <br/>
@@ -27,6 +27,11 @@
                         </p:column> 
                         
                         <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Horas</f:facet>
+                            #{registro.horas}
+                        </p:column> 
+                        
+                        <p:column style="width: 10px; text-align: center">
                             <f:facet name="header">Descripcion</f:facet>
                             #{registro.descripcion}
                         </p:column>
@@ -35,12 +40,6 @@
                             <f:facet name="header">Responsable</f:facet>
                             #{registro.responsable}
                         </p:column>
-                        
-                        <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Valoracion</f:facet>
-                            #{registro.valoracion}
-                        </p:column>
-                        
                         
                         
                         <p:column style="width: 10px; text-align: center">

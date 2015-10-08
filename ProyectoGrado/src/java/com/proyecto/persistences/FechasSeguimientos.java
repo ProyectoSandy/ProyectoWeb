@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -33,7 +34,11 @@ public class FechasSeguimientos implements Serializable
     
     @JoinColumn(name = "codact", referencedColumnName = "codactividad")
     @ManyToOne(optional = false)
-    private Actividades _codactividad;   
+    private Actividades _codactividad;  
+    
+    @Column(name = "hora")
+    @NotNull
+    private int hora;
 
     public FechasSeguimientos() {  }
 
@@ -103,6 +108,14 @@ public class FechasSeguimientos implements Serializable
 
     public void setFechafin(Date _fechafin) {
         this._fechafin = _fechafin;
+    }
+
+    public int getHora() {
+        return hora;
+    }
+
+    public void setHora(int hora) {
+        this.hora = hora;
     }
     
     

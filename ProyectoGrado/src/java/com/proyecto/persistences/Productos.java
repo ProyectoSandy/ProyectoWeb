@@ -25,7 +25,7 @@ public class Productos implements Serializable
     private int _codproducto;
     
     @Column(name = "descripcion")
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 300)
     @NotNull
     private String _descripcion;
     
@@ -37,7 +37,6 @@ public class Productos implements Serializable
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date _fechaentrega;
     
-    @NotNull
     @Column(name = "comentarios") 
     private String _comentarios;
     

@@ -10,24 +10,21 @@
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
-                        <p:menuitem value="login" url="/faces/index.xhtml"></p:menuitem>
+                        <p:menuitem url="#"></p:menuitem>
                         <p:menuitem value="Bienvenido #{loginController.usuario}" url="#"></p:menuitem>
                     </p:breadCrumb>
                     <p:panelGrid>
                         <f:facet name="header">                            
-                            <p:row> 
-                                <p:column>Fechas de Seguimientos</p:column>
+                            <p:row>
                                 <p:column>Evaluaciones</p:column> 
                             </p:row>
                         </f:facet>
                         
                         <p:row> 
-                            <p:column><h:link value="Crear Fecha de Seguimiento" outcome="fechas_seguimientos/crear"></h:link></p:column>
                             <p:column><h:link value="Crear Evaluacion" outcome="evaluaciones/crear"></h:link></p:column>
                         </p:row>
                         
-                        <p:row> 
-                            <p:column><h:link value="Administrar Fechas de Seguimientos" outcome="fechas_seguimientos/administrar"></h:link></p:column>  
+                        <p:row>   
                             <p:column><h:link value="Administrar Evaluaciones" outcome="evaluaciones/administrar"></h:link></p:column>  
                         </p:row>
                     </p:panelGrid>

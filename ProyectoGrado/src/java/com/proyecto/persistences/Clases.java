@@ -35,9 +35,17 @@ public class Clases implements Serializable
     @ManyToOne(optional = false)
     private Docentes _coddocente;
     
-    @JoinColumn(name = "codjornada", referencedColumnName = "codjornada")
+    @JoinColumn(name = "codconvencion", referencedColumnName = "codconvencion")
     @ManyToOne(optional = false)
-    private Jornadas _codjornada;    
+    private Convenciones _codconvencion;    
+        
+    @JoinColumn(name = "codhorainicio", referencedColumnName = "codhora")
+    @ManyToOne(optional = false)
+    private Horas _codhorainicio;   
+    
+    @JoinColumn(name = "codhorafinal", referencedColumnName = "codhora")
+    @ManyToOne(optional = false)
+    private Horas _codhorafinal;  
     
     public Clases() { }
     
@@ -63,18 +71,6 @@ public class Clases implements Serializable
         }
         final Clases other = (Clases) obj;
         if (this._codclase != other._codclase) {
-            return false;
-        }
-        if (!Objects.equals(this._nombre, other._nombre)) {
-            return false;
-        }
-        if (this._dia != other._dia) {
-            return false;
-        }
-        if (!Objects.equals(this._coddocente, other._coddocente)) {
-            return false;
-        }
-        if (!Objects.equals(this._codjornada, other._codjornada)) {
             return false;
         }
         return true;
@@ -111,13 +107,31 @@ public class Clases implements Serializable
     public void setCoddocente(Docentes _coddocente) {
         this._coddocente = _coddocente;
     }
+  
 
-    public Jornadas getCodjornada() {
-        return _codjornada;
+    public Convenciones getCodconvencion() {
+        return _codconvencion;
     }
 
-    public void setCodjornada(Jornadas _codjornada) {
-        this._codjornada = _codjornada;
-    }   
+    public void setCodconvencion(Convenciones _codconvencion) {
+        this._codconvencion = _codconvencion;
+    }
+
+    public Horas getCodhorainicio() {
+        return _codhorainicio;
+    }
+
+    public void setCodhorainicio(Horas _codhorainicio) {
+        this._codhorainicio = _codhorainicio;
+    }
+
+    public Horas getCodhorafinal() {
+        return _codhorafinal;
+    }
+
+    public void setCodhorafinal(Horas _codhorafinal) {
+        this._codhorafinal = _codhorafinal;
+    }
+    
     
 }

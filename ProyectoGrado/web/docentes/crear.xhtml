@@ -11,8 +11,8 @@
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
-                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexAdmin.xhtml"></p:menuitem>
+                        <p:menuitem url="#"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/index_admin.xhtml"></p:menuitem>
                         <p:menuitem value="Creacion de " url="#"></p:menuitem>
                     </p:breadCrumb>
                 </p:panel>  
@@ -29,7 +29,7 @@
                     <p:inputText id="apellidos" required="true" value="#{docentesController.campo.apellidos}"/> 
                     
                     <p:outputLabel value="Codigo:  " for="codigo" />
-                    <p:inputText id="codigo" required="true" value="#{docentesController.campo.codigo}"/> 
+                    <p:inputText id="codigo" required="false" value="#{docentesController.campo.codigo}"/> 
                     
                     <p:outputLabel value="Facultad:  " for="facultad" />
                     <p:selectOneMenu id="facultad" required="true" requiredMessage="No ha seleccionado"  value="#{docentesController.campo.facultad}"> 
@@ -38,17 +38,11 @@
                     </p:selectOneMenu>
                     
                     <p:outputLabel value="Unidad Academica:  " for="unidad" />
-                    <p:selectOneMenu id="unidad" required="true" requiredMessage="No ha seleccionado"  value="#{docentesController.campo.unidad}"> 
-                        <f:selectItem itemValue="1" itemLabel="Departamento"/>
-                        <f:selectItem itemValue="2" itemLabel="Oficina" />
-                        <f:selectItem itemValue="2" itemLabel="Dependencia" />
-                    </p:selectOneMenu>  
+                    <p:inputText id="unidad" required="true" value="#{docentesController.campo.unidad}"/> 
                     
-                    <p:outputLabel value="Semestre:  " for="semestre" />
-                    <p:selectOneMenu id="semestre" required="true" requiredMessage="No ha seleccionado"  value="#{docentesController.campo.semestre}"> 
-                        <f:selectItem itemValue="1" itemLabel="Primero"/>
-                        <f:selectItem itemValue="2" itemLabel="Segundo" />
-                    </p:selectOneMenu>             
+                    <p:outputLabel value="Semestre - Año:  " for="semestre" />
+                    <p:inputText id="semestre" required="true" value="#{docentesController.campo.semestre}"/> 
+                         
                     
                     <p:outputLabel value="Formacion:  " for="formacion" />
                     <p:inputTextarea id="formacion" required="true" value="#{docentesController.campo.formacion}"/>                     

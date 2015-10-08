@@ -36,8 +36,7 @@ public class Actividades implements Serializable
     @NotNull
     private String _responsable;
     
-    @Column(name = "valoracion")   
-    @NotNull
+    @Column(name = "valoracion")  
     private int _valoracion;
     
     @JoinColumn(name = "coddocente", referencedColumnName = "cedula")
@@ -47,6 +46,11 @@ public class Actividades implements Serializable
     @JoinColumn(name = "codtipo", referencedColumnName = "codtipo")
     @ManyToOne(optional = false)
     private TipoModalidades _codtipo;
+    
+    @Column(name = "horas")   
+    @NotNull
+    @Size(min = 1, max = 20)
+    private String _horas;
 
     public Actividades() {  }
 
@@ -154,5 +158,13 @@ public class Actividades implements Serializable
 
     public void setCodtipo(TipoModalidades _codtipo) {
         this._codtipo = _codtipo;
+    }
+
+    public String getHoras() {
+        return _horas;
+    }
+
+    public void setHoras(String _horas) {
+        this._horas = _horas;
     }
 }

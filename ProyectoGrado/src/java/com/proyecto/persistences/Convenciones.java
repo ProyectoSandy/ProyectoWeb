@@ -32,9 +32,6 @@ public class Convenciones implements Serializable
     @NotNull
     private String _color;
     
-    @JoinColumn(name = "codclase", referencedColumnName = "codclase")
-    @ManyToOne(optional = false)
-    private Clases _codclase;
 
     public Convenciones() {  }
 
@@ -57,21 +54,12 @@ public class Convenciones implements Serializable
         if (this._codconvencion != other._codconvencion) {
             return false;
         }
-        if (!Objects.equals(this._nombre, other._nombre)) {
-            return false;
-        }
-        if (!Objects.equals(this._color, other._color)) {
-            return false;
-        }
-        if (!Objects.equals(this._codclase, other._codclase)) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Convenciones{" + "_nombre=" + _nombre + '}';
+        return _nombre;
     }
     
     public int getCodconvencion() {
@@ -97,14 +85,4 @@ public class Convenciones implements Serializable
     public void setColor(String _color) {
         this._color = _color;
     }
-
-    public Clases getCodclase() {
-        return _codclase;
-    }
-
-    public void setCodclase(Clases _codclase) {
-        this._codclase = _codclase;
-    }
-    
-    
 }

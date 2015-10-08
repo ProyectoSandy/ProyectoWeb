@@ -11,8 +11,8 @@
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
-                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexEvaluador.xhtml"></p:menuitem> 
+                        <p:menuitem url="#"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/index_docentes.xhtml"></p:menuitem> 
                         <p:menuitem value="Administracion de Fechas de Seguimiento" url="/faces/fechas_seguimientos/administrar.xhtml"></p:menuitem>  
                         <p:menuitem value="Actualizacion de Fechas de Seguimiento" url="#"></p:menuitem>
                     </p:breadCrumb>
@@ -25,6 +25,9 @@
                     
                     <p:outputLabel value="Fecha de Fin:  " for="fechafin" />                   
                     <p:calendar id="fechafin" required="true" showOn="button" value="#{fechasSeguimientosController.campo.fechafin}"></p:calendar>
+                    
+                    <p:outputLabel value="Horas:  " for="hora" />                   
+                    <p:inputText id="hora" required="true"  value="#{fechasSeguimientosController.campo.hora}"/>
                     
                     <p:outputLabel value="Actividad:  " for="codactividad" />
                     <p:selectOneMenu id="codactividad" required="true" requiredMessage="No ha seleccionado" converter="actividadesConverter" value="#{fechasSeguimientosController.campo.codactividad}"> 

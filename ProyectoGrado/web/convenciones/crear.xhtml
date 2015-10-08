@@ -11,8 +11,8 @@
             <h:form>
                 <p:panel>
                     <p:breadCrumb>
-                        <p:menuitem value="Inicio" url="/faces/index.xhtml"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/indexAdmin.xhtml"></p:menuitem>
+                        <p:menuitem url="#"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/index_admin.xhtml"></p:menuitem>
                         <p:menuitem value="Creacion de Convenciones" url="#"></p:menuitem>
                     </p:breadCrumb>
                 </p:panel>  
@@ -24,11 +24,6 @@
                     
                     <p:outputLabel value="Color  " for="color" />
                     <p:inputText id="color" required="true" value="#{convencionesController.campo.color}"/> 
-                    
-                    <p:outputLabel value="Clase:  " for="codclase" />
-                    <p:selectOneMenu id="codclase" required="true" requiredMessage="No ha seleccionado" converter="clasesConverter" value="#{convencionesController.campo.codclase}"> 
-                        <f:selectItems value="#{clasesController.combo('seleccione una opcion')}" />
-                    </p:selectOneMenu> 
                     
                     <f:facet name="footer">
                         <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{convencionesController.agregar()}"/>
