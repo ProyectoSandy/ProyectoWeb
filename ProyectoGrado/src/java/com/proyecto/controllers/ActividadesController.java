@@ -75,6 +75,15 @@ public class ActividadesController implements Serializable
         return Formulario.addObject(_ejbFacade.listado(), texto);
     }
     
+    public SelectItem[] comboFiltrado(String texto)
+    {
+        Docentes doc=docentesFacade.getCurrentDocente();
+        System.out.println("ActividadesController --- Docente: "+doc.toString());
+        int cedula = doc.getCedula();
+        System.out.println("ActividadesController --- Docente: "+cedula);
+        return Formulario.addObject(_ejbFacade.buscarCampo("_coddocente", ""+cedula), texto);
+    }
+     
     public List<Actividades> getListado()
     {
         Docentes doc = docentesFacade.getCurrentDocente();

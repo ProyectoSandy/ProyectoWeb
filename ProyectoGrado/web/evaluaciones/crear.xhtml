@@ -27,12 +27,13 @@
                     
                     <p:outputLabel value="Docente:  " for="coddoc" />
                     <p:selectOneMenu id="coddoc" required="true" requiredMessage="No ha seleccionado" converter="docentesConverter" value="#{evaluacionesController.campo.coddoc}"> 
+                        <p:ajax event="change" process="@this" update="codprod"></p:ajax>
                         <f:selectItems value="#{docentesController.combo('Seleccione una opcion')}" />
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Producto:  " for="codprod" />
                     <p:selectOneMenu id="codprod" required="true" requiredMessage="No ha seleccionado" converter="productosConverter" value="#{evaluacionesController.campo.codprod}"> 
-                        <f:selectItems value="#{productosController.combo('Seleccione una opcion')}" />
+                        <f:selectItems value="#{productosController.traerItem(evaluacionesController.campo.coddoc)}" />
                     </p:selectOneMenu>
                     
                     <f:facet name="footer">

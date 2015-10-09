@@ -5,6 +5,7 @@ import com.java.utilities.Formulario;
 import com.proyecto.facades.ClasesFacade;
 import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Clases;
+import com.proyecto.persistences.Docentes;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
@@ -69,7 +70,10 @@ public class ClasesController implements Serializable{
     
     public List<Clases> getListado()
     {
-        return clasesFacade.listado();
+        Docentes doc = docentesFacade.getCurrentDocente();
+        String cedula= doc.getCedula()+"";
+       
+        return clasesFacade.buscarCampo("_coddocente",cedula);
     }
     
     public String redireccionar(String faces, Clases facesObj)

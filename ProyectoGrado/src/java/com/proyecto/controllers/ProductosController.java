@@ -3,9 +3,14 @@ package com.proyecto.controllers;
 
 import com.java.utilities.Formulario;
 import com.java.utilities.Mensajes;
+import com.proyecto.facades.ActividadesFacade;
+import com.proyecto.facades.DocentesFacade;
 import com.proyecto.facades.ProductosFacade;
+import com.proyecto.persistences.Actividades;
+import com.proyecto.persistences.Docentes;
 import com.proyecto.persistences.Productos;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,7 +30,13 @@ import javax.faces.model.SelectItem;
 public class ProductosController implements Serializable
 {  
     @EJB
+    private DocentesFacade docentesFacade;
+    @EJB
     private ProductosFacade _ejbFacade;
+    
+    @EJB
+    private ActividadesFacade _actividadesFacade;
+    
     private Productos _obj;
     
     private String _rutaTxt = "/com/java/utilities/txtProductos"; 
@@ -49,7 +60,6 @@ public class ProductosController implements Serializable
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarOk");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("GrabarDetalleOk");
             Mensajes.exito(titulo, detalle);*/
-            System.out.println("Productos: " + _obj);
             _ejbFacade.crear(_obj);
             return "crear";//nombre de la face a la que debe redireccionar
             
@@ -68,9 +78,53 @@ public class ProductosController implements Serializable
         return Formulario.addObject(_ejbFacade.listado(), texto);
     }
     
-    public List<Productos> getListado()
+    public SelectItem[] traerItem(Docentes coddoc)
     {
-        return _ejbFacade.listado();
+        
+        
+        if(coddoc!=null){
+            System.out.println("CEDULA QUE LLENA EL COMBO "+coddoc.getCedula());
+            int valor = coddoc.getCedula();
+            List<Actividades> listaActividades =_actividadesFacade.buscarCampo("_coddocente",valor+"");
+            SelectItem[] itemList = new SelectItem[listaActividades.size()];
+            
+            List<Productos> listaProd = new ArrayList<>();
+            for (Actividades acti : listaActividades)
+            {
+                List<Productos> listaTemp = _ejbFacade.buscarCampo("_codactividad",acti.getCodactividad()+"");
+                if(!listaTemp.isEmpty()) listaProd.addAll(listaTemp);
+
+
+            }   
+
+            /*for(Productos pro : listaProd){
+                    
+            }*/
+            for(int i=0; i<listaProd.size(); i++){
+                    Productos pro = new Productos();
+                    pro=listaProd.get(i);
+                    itemList [i] =new SelectItem(pro,pro.getDescripcion()); 
+                }
+            
+            return itemList;
+        }
+                  
+        return null;        
+    }
+    
+    public List<Productos> getListado()
+    {        
+        Docentes doc =docentesFacade.getCurrentDocente();       
+        List<Actividades> listaActividades =_actividadesFacade.buscarCampo("_coddocente",doc.getCedula()+"");
+        
+        List<Productos> listaProd = new ArrayList<>();
+        for (Actividades acti : listaActividades)
+        {
+            List<Productos> listaTemp = _ejbFacade.buscarCampo("_codactividad",acti.getCodactividad()+"");
+            if(!listaTemp.isEmpty()) listaProd.addAll(listaTemp);
+        }                
+       
+        return listaProd;
     }
     
     public String redireccionar(String faces, Productos facesObj)
@@ -108,6 +162,7 @@ public class ProductosController implements Serializable
             /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("Actualizando");
             detalle = ResourceBundle.getBundle(_rutaTxt).getString("ActualizarOk");
             Mensajes.exito(titulo, detalle);*/
+            System.out.println("CLASES: " + docentesFacade.getCurrentDocente());
             _ejbFacade.actualizar(_obj);
             return "administrar";//nombre de la face a la que debe redireccionar
             

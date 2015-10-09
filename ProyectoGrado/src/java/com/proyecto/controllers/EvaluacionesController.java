@@ -3,7 +3,9 @@ package com.proyecto.controllers;
 
 import com.java.utilities.Formulario;
 import com.proyecto.facades.EvaluacionesFacade;
+import com.proyecto.facades.ProductosFacade;
 import com.proyecto.persistences.Evaluaciones;
+import com.proyecto.persistences.Productos;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
@@ -21,10 +23,13 @@ import javax.faces.model.SelectItem;
 @ManagedBean
 @SessionScoped
 public class EvaluacionesController implements Serializable{
+   
 
     @EJB
     private EvaluacionesFacade _ejbFacade;
     private Evaluaciones _obj;
+    
+    
     
     public EvaluacionesController() {
     }
@@ -57,10 +62,6 @@ public class EvaluacionesController implements Serializable{
         }
     }
     
-    public SelectItem[] combo(String texto)
-    {
-        return Formulario.addObject(_ejbFacade.listado(), texto);
-    }
     
     public List<Evaluaciones> getListado()
     {
@@ -119,6 +120,8 @@ public class EvaluacionesController implements Serializable{
     {
         _obj = null;
     }
+    
+   
     
     @FacesConverter(forClass = Evaluaciones.class, value = "evaluacionesConverter")
     public static class EvaluacionesControllerConverter implements Converter{
