@@ -24,7 +24,7 @@
                     <p:inputText id="nombre" required="true" value="#{convencionesController.campo.nombre}"/> 
                     
                     <p:outputLabel value="Color  " for="color" />
-                    <p:inputText id="color" required="true" value="#{convencionesController.campo.color}"/> 
+                    <p:colorPicker id="color" value="#{convencionesController.campo.color}" />  
                     
                     <f:facet name="footer">
                         <p:commandButton id="btngrabar" value="Actualizar" ajax="false" action="#{convencionesController.actualizar()}"/>

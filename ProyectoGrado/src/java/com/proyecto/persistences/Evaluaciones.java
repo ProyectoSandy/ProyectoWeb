@@ -34,7 +34,7 @@ public class Evaluaciones implements Serializable
     
     @NotNull
     @Column(name = "calificacion")    
-    private int _calificacion;
+    private float _calificacion;
 
     public Evaluaciones() {  }
 
@@ -101,12 +101,14 @@ public class Evaluaciones implements Serializable
         this._codeva = _codeva;
     }   
 
-    public int getCalificacion() {
+    public float getCalificacion() {
         return _calificacion;
     }
 
-    public void setCalificacion(int _calificacion) {
+    public void setCalificacion(float _calificacion) {
         this._calificacion = _calificacion;
     }
+
+    
     
 }

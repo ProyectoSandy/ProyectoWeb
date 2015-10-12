@@ -49,8 +49,7 @@ public class Actividades implements Serializable
     
     @Column(name = "horas")   
     @NotNull
-    @Size(min = 1, max = 20)
-    private String _horas;
+    private double _horas;
 
     public Actividades() {  }
 
@@ -160,11 +159,13 @@ public class Actividades implements Serializable
         this._codtipo = _codtipo;
     }
 
-    public String getHoras() {
+    public double getHoras() {
         return _horas;
     }
 
-    public void setHoras(String _horas) {
+    public void setHoras(double _horas) {
         this._horas = _horas;
     }
+
+    
 }

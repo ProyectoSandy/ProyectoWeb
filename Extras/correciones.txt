@@ -1,16 +1,5 @@
-*GENERAL
-- Separar las tablas del sector de enlaces de navegacion
-- La duracion de la sesion es muy corta a los 20 min o menos la sesion caduca y toca volver a iniciarla, revisar como ampliar esa duracion
+
 
 * DOCENTE
 - Revisar si es necesario dividir en jornadas las horas
 
-* ADMIN
-- En la creacion de docentes no sale el titulo completo, solo dice "creacion de"
-- En el mensaje de bienvenida dice admin.. deberia estar completa la palabra
-- En la opcion de color es mejor hacer que salga un seleccionador de color, en la documentacion de primefaces sale un ejemplo sencillo
-
-* EVALUADOR
--CambiaR tipo de dato de int a float o double para la calificacion
--Cambiar el nombre de Crear Evaluacion por Evaluar Productos
--Cambiar Adminsitrar calificaciones por Calificaciones realizadas

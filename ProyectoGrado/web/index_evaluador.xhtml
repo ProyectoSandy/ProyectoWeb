@@ -13,6 +13,7 @@
                         <p:menuitem url="#"></p:menuitem>
                         <p:menuitem value="Bienvenido #{loginController.usuario}" url="#"></p:menuitem>
                     </p:breadCrumb>
+                    <br/>
                     <p:panelGrid>
                         <f:facet name="header">                            
                             <p:row>
@@ -21,11 +22,11 @@
                         </f:facet>
                         
                         <p:row> 
-                            <p:column><h:link value="Crear Evaluacion" outcome="evaluaciones/crear"></h:link></p:column>
+                            <p:column><h:link value="Evaluar Productos" outcome="evaluaciones/crear"></h:link></p:column>
                         </p:row>
                         
                         <p:row>   
-                            <p:column><h:link value="Administrar Evaluaciones" outcome="evaluaciones/administrar"></h:link></p:column>  
+                            <p:column><h:link value="Calificaciones Realizadas" outcome="evaluaciones/administrar"></h:link></p:column>  
                         </p:row>
                     </p:panelGrid>
                     <f:facet name="footer">

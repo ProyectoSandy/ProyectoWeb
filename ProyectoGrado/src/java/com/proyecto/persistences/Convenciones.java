@@ -67,7 +67,7 @@ public class Convenciones implements Serializable
     }
 
     public void setCodconvencion(int _codconvencion) {
-        this._codconvencion = _codconvencion;
+        this._codconvencion =_codconvencion;
     }
 
     public String getNombre() {
@@ -83,6 +83,6 @@ public class Convenciones implements Serializable
     }
 
     public void setColor(String _color) {
-        this._color = _color;
+        this._color = "#"+_color;
     }
 }
