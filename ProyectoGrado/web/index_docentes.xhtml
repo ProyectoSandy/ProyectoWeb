@@ -39,10 +39,13 @@
                             <p:column><h:link value="Administrar Clases" outcome="clases/administrar"></h:link></p:column>
                             <p:column><h:link value="Administrar Fechas de Seguimientos" outcome="fechas_seguimientos/administrar"></h:link></p:column>  
                         </p:row>
+                      
+                        <p:panel>                            
+                            <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/> 
+                        </p:panel>                           
+                                
                     </p:panelGrid>
-                    <f:facet name="footer">
-                        <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/>
-                    </f:facet> 
+                    
                 </p:panel>
             </h:form>
         </ui:define>

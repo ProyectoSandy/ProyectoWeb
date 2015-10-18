@@ -38,11 +38,11 @@
                             <p:column><h:link value="Administrar Convenciones" outcome="convenciones/administrar"></h:link></p:column>  
                         </p:row>
                         
-                        
-                    </p:panelGrid>
-                    <f:facet name="footer">
+                        <f:facet name="footer">
                         <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/>
                     </f:facet> 
+                    </p:panelGrid>
+                    
                 </p:panel>
             </h:form>
         </ui:define>

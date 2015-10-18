@@ -110,4 +110,9 @@
         <description/>
         <role-name>evaluador</role-name>
     </security-role>
+    
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>south-street</param-value>
+    </context-param>
 </web-app>
