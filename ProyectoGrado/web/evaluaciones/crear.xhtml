@@ -15,31 +15,32 @@
                         <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/index_evaluador.xhtml"></p:menuitem>
                         <p:menuitem value="Evaluar Productos" url="#"></p:menuitem>
                     </p:breadCrumb>
-                </p:panel>  
-                <p:growl id="mensajes" sticky="true" showDetail="true"/>                
-                <br/>
-                
-                
-                
-                <p:panelGrid columns="2">                    
-                    <p:outputLabel value="Calificacion:  " for="calificacion" />
-                    <p:inputText id="calificacion" required="true" value="#{evaluacionesController.campo.calificacion}"/> 
-                    
-                    <p:outputLabel value="Docente:  " for="coddoc" />
-                    <p:selectOneMenu id="coddoc" required="true" requiredMessage="No ha seleccionado" converter="docentesConverter" value="#{evaluacionesController.campo.coddoc}"> 
-                        <p:ajax event="change" process="@this" update="codprod"></p:ajax>
-                        <f:selectItems value="#{docentesController.combo('Seleccione una opcion')}" />
-                    </p:selectOneMenu>
+                 
+                    <p:growl id="mensajes" sticky="true" showDetail="true"/>                
+                    <br/>
 
-                    <p:outputLabel value="Producto:  " for="codprod" />
-                    <p:selectOneMenu id="codprod" required="true" requiredMessage="No ha seleccionado" converter="productosConverter" value="#{evaluacionesController.campo.codprod}"> 
-                        <f:selectItems value="#{productosController.traerItem(evaluacionesController.campo.coddoc)}" />
-                    </p:selectOneMenu>
-                    
-                    <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{evaluacionesController.agregar()}"/>
-                    </f:facet>
-                </p:panelGrid>
+
+
+                    <p:panelGrid columns="2">                    
+                        <p:outputLabel value="Calificacion:  " for="calificacion" />
+                        <p:inputText id="calificacion" required="true" value="#{evaluacionesController.campo.calificacion}"/> 
+
+                        <p:outputLabel value="Docente:  " for="coddoc" />
+                        <p:selectOneMenu id="coddoc" required="true" requiredMessage="No ha seleccionado" converter="docentesConverter" value="#{evaluacionesController.campo.coddoc}"> 
+                            <p:ajax event="change" process="@this" update="codprod"></p:ajax>
+                            <f:selectItems value="#{docentesController.combo('Seleccione una opcion')}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Producto:  " for="codprod" />
+                        <p:selectOneMenu id="codprod" required="true" requiredMessage="No ha seleccionado" converter="productosConverter" value="#{evaluacionesController.campo.codprod}"> 
+                            <f:selectItems value="#{productosController.traerItem(evaluacionesController.campo.coddoc)}" />
+                        </p:selectOneMenu>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{evaluacionesController.agregar()}"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel> 
             </h:form>
         </ui:define>
     </ui:composition>

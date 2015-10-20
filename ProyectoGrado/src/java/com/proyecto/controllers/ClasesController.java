@@ -1,13 +1,15 @@
 
 package com.proyecto.controllers;
 
-import com.java.utilities.Formulario;
+import com.proyecto.utilities.Formulario;
 import com.proyecto.facades.ClasesFacade;
 import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Clases;
 import com.proyecto.persistences.Docentes;
+import com.proyecto.utilities.Mensajes;
 import java.io.Serializable;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -45,19 +47,18 @@ public class ClasesController implements Serializable{
         String titulo,detalle;
         
         try {
-            /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarOk");
-            detalle = ResourceBundle.getBundle(_rutaTxt).getString("GrabarDetalleOk");
-            Mensajes.exito(titulo, detalle);*/
-            System.out.println("CLASES: " + docentesFacade.getCurrentDocente());
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
+            detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
+            Mensajes.exito(titulo, detalle);
             _objClase.setCoddocente(docentesFacade.getCurrentDocente());
             clasesFacade.crear(_objClase);
-            return "crear";//nombre de la face a la que debe redireccionar
+            return "crear";
             
         } catch (Exception e) 
         {
-            /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarError");
-            detalle = ResourceBundle.getBundle(_rutaTxt).getString("GrabarDetalleError");
-            Mensajes.error(titulo, detalle);*/
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
+            detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
+            Mensajes.error(titulo, detalle);
             Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
             return "crear";
         }
@@ -75,6 +76,7 @@ public class ClasesController implements Serializable{
        
         return clasesFacade.buscarCampo("_coddocente",cedula);
     }
+    
     
     public String redireccionar(String faces, Clases facesObj)
     {

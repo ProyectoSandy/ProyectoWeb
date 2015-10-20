@@ -58,4 +58,11 @@
   text-decoration : underline;
 }
 
+.panel{
+    position: relative;
+    height: 560px;
+    background-color: #F0EBE6;
+    padding: 5px;
+    
+}
 

@@ -9,37 +9,38 @@
         <ui:define name="content">
             #{productosController.resetear()}
             <h:form>
-                <p:panel>
+                <p:panel >
                     <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
                         <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/index_docentes.xhtml"></p:menuitem>
                         <p:menuitem value="Creacion de Productos" url="#"></p:menuitem>
                     </p:breadCrumb>
-                </p:panel>  
-                <p:growl id="mensajes" sticky="true" showDetail="true"/>                
-                <br/>
-                <p:panelGrid columns="2">                    
-                    <p:outputLabel value="Descripcion:  " for="descripcion" />
-                    <p:inputText id="descripcion" required="true" value="#{productosController.campo.descripcion}"/> 
-                    
-                    <p:outputLabel value="Fecha de Compromiso:  " for="fechacompromiso" />                    
-                    <p:calendar id="fechacompromiso" required="true" showOn="button" value="#{productosController.campo.fechacompromiso}"></p:calendar>
-                    
-                    <p:outputLabel value="Fecha de Entrega:  " for="fechaentrega" />                   
-                    <p:calendar id="fechaentrega" required="false" showOn="button" value="#{productosController.campo.fechaentrega}"></p:calendar>
-                    
-                    <p:outputLabel value="Comentarios:  " for="comentarios" />
-                    <p:inputTextarea id="comentarios" required="false" value="#{productosController.campo.comentarios}"/> 
-                    
-                    <p:outputLabel value="Actividad:  " for="codact" />
-                    <p:selectOneMenu id="codact" required="true" requiredMessage="No ha seleccionado" converter="actividadesConverter" value="#{productosController.campo.codactividad}"> 
-                        <f:selectItems value="#{actividadesController.comboFiltrado('Selecione un opcion')}" />
-                    </p:selectOneMenu>
-                    
-                    <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{productosController.agregar()}"/>
-                    </f:facet>
-                </p:panelGrid>
+                  
+                    <p:growl id="mensajes" sticky="true" showDetail="true"/>                
+                    <br/>
+                    <p:panelGrid columns="2">                    
+                        <p:outputLabel value="Descripcion:  " for="descripcion" />
+                        <p:inputText id="descripcion" required="true" value="#{productosController.campo.descripcion}"/> 
+
+                        <p:outputLabel value="Fecha de Compromiso:  " for="fechacompromiso" />                    
+                        <p:calendar id="fechacompromiso" required="true" showOn="button" value="#{productosController.campo.fechacompromiso}"></p:calendar>
+
+                        <p:outputLabel value="Fecha de Entrega:  " for="fechaentrega" />                   
+                        <p:calendar id="fechaentrega" required="false" showOn="button" value="#{productosController.campo.fechaentrega}"></p:calendar>
+
+                        <p:outputLabel value="Comentarios:  " for="comentarios" />
+                        <p:inputTextarea id="comentarios" required="false" value="#{productosController.campo.comentarios}"/> 
+
+                        <p:outputLabel value="Actividad:  " for="codact" />
+                        <p:selectOneMenu id="codact" required="true" requiredMessage="No ha seleccionado" converter="actividadesConverter" value="#{productosController.campo.codactividad}"> 
+                            <f:selectItems value="#{actividadesController.comboFiltrado('Selecione un opcion')}" />
+                        </p:selectOneMenu>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{productosController.agregar()}"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel>
             </h:form>
         </ui:define>
     </ui:composition>

@@ -1,8 +1,8 @@
 
 package com.proyecto.controllers;
 
-import com.java.utilities.Formulario;
-import com.java.utilities.Mensajes;
+import com.proyecto.utilities.Formulario;
+import com.proyecto.utilities.Mensajes;
 import com.proyecto.facades.TipoModalidadesFacade;
 import com.proyecto.persistences.TipoModalidades;
 import java.io.Serializable;
@@ -46,17 +46,17 @@ public class TipoModalidadesController implements Serializable
         String titulo,detalle;
         
         try {
-            /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarOk");
-            detalle = ResourceBundle.getBundle(_rutaTxt).getString("GrabarDetalleOk");
-            Mensajes.exito(titulo, detalle);*/
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
+            detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
+            Mensajes.exito(titulo, detalle);
             _ejbFacade.crear(_obj);
-            return "crear";//nombre de la face a la que debe redireccionar
+            return "crear";
             
         } catch (Exception e) 
         {
-            /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarError");
-            detalle = ResourceBundle.getBundle(_rutaTxt).getString("GrabarDetalleError");
-            Mensajes.error(titulo, detalle);*/
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
+            detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
+            Mensajes.error(titulo, detalle);
             Logger.getLogger(TipoModalidades.class.getName()).log(Level.SEVERE,null,e);
             return "crear";
         }

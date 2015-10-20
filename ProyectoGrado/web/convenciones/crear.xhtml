@@ -15,20 +15,21 @@
                         <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/index_admin.xhtml"></p:menuitem>
                         <p:menuitem value="Creacion de Convenciones" url="#"></p:menuitem>
                     </p:breadCrumb>
-                </p:panel>  
-                <p:growl id="mensajes" sticky="true" showDetail="true"/>                
-                <br/>
-                <p:panelGrid columns="2">                    
-                    <p:outputLabel value="Nombre:  " for="nombre" />
-                    <p:inputText id="nombre" required="true" value="#{convencionesController.campo.nombre}"/> 
-                    
-                    <p:outputLabel value="Color  " for="color" />
-                    <p:colorPicker id="color" value="#{convencionesController.campo.color}" /> 
-                    
-                    <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{convencionesController.agregar()}" oncomplete="PF('dlg').show();" update="grid"/>
-                    </f:facet>
-                </p:panelGrid>
+                  
+                    <p:growl id="mensajes" sticky="true" showDetail="true"/>                
+                    <br/>
+                    <p:panelGrid columns="2">                    
+                        <p:outputLabel value="Nombre:  " for="nombre" />
+                        <p:inputText id="nombre" required="true" value="#{convencionesController.campo.nombre}"/> 
+
+                        <p:outputLabel value="Color  " for="color" />
+                        <p:colorPicker id="color" value="#{convencionesController.campo.color}" /> 
+
+                        <f:facet name="footer">
+                            <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{convencionesController.agregar()}" oncomplete="PF('dlg').show();" update="grid"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel>
             </h:form>
         </ui:define>
     </ui:composition>

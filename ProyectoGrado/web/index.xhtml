@@ -12,28 +12,29 @@
                     <p:breadCrumb>
                         <p:menuitem value="login" url="/faces/index.xhtml"></p:menuitem>
                     </p:breadCrumb>
-                </p:panel>  
-                <p:growl id="mensajes" sticky="true" showDetail="true"/>              
-                <br/>
-                
-                #{loginController.resetear()}
-               
-                <p:panelGrid columns="2">
-                    <f:facet name="header">
-                      
-                    </f:facet>
-                    
-                    <p:outputLabel value="usuario"/>
-                    <p:inputText id="usuario" required="true" requiredMessage="ingrese un usuario" value="#{loginController.usuario}"/>
-                    
-                    <p:outputLabel value="clave"/>
-                    <p:password id="clave" required="true" requiredMessage="ingrese una clave" value="#{loginController.clave}"/>
-                   
-                    <f:facet name="footer">
-                        <p:commandButton value="Inciar Sesion" ajax="false" action="#{loginController.login()}"/>
-                    </f:facet>                   
-                   
-                </p:panelGrid>
+                 
+                    <p:growl id="mensajes" sticky="true" showDetail="true"/>              
+                    <br/>
+
+                    #{loginController.resetear()}
+
+                    <p:panelGrid columns="2">
+                        <f:facet name="header">
+
+                        </f:facet>
+
+                        <p:outputLabel value="usuario"/>
+                        <p:inputText id="usuario" required="true" requiredMessage="ingrese un usuario" value="#{loginController.usuario}"/>
+
+                        <p:outputLabel value="clave"/>
+                        <p:password id="clave" required="true" requiredMessage="ingrese una clave" value="#{loginController.clave}"/>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Inciar Sesion" ajax="false" action="#{loginController.login()}"/>
+                        </f:facet>                   
+
+                    </p:panelGrid>
+                </p:panel> 
             </h:form>
         </ui:define>
     </ui:composition>  

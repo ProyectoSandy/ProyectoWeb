@@ -15,50 +15,51 @@
                         <p:menuitem value="Administracion de Docentes" url="/faces/docentes/administrar.xhtml"></p:menuitem>
                         <p:menuitem value="Actualizacion de Docentes" url="#"></p:menuitem>
                     </p:breadCrumb>
+                
+                    <p:growl id="mensajes" sticky="true" showDetail="true"/>                
+                    <br/>
+                    <p:panelGrid columns="2">                    
+                        <p:outputLabel value="Cedula:  " for="cedula" />
+                        <p:inputText id="cedula" required="true" value="#{docentesController.campo.cedula}"/> 
+
+                        <p:outputLabel value="Nombres:  " for="nombres" />
+                        <p:inputText id="nombres" required="true" value="#{docentesController.campo.nombres}"/> 
+
+                        <p:outputLabel value="Apellidos:  " for="apellidos" />
+                        <p:inputText id="apellidos" required="true" value="#{docentesController.campo.apellidos}"/> 
+
+                        <p:outputLabel value="Codigo:  " for="codigo" />
+                        <p:inputText id="codigo" required="true" value="#{docentesController.campo.codigo}"/> 
+
+                        <p:outputLabel value="Facultad:  " for="facultad" />
+                        <p:selectOneMenu id="facultad" required="true" requiredMessage="No ha seleccionado"  value="#{docentesController.campo.facultad}"> 
+                            <f:selectItem itemValue="1" itemLabel="Ciencias Naturales e Ingenierias"/>
+                            <f:selectItem itemValue="2" itemLabel="Ciencias Socioeconomicas y Empresariales" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Unidad Academica:  " for="unidad" />
+                        <p:inputText id="unidad" required="true" value="#{docentesController.campo.unidad}"/> 
+
+                        <p:outputLabel value="Semestre - Año:  " for="semestre" />
+                        <p:inputText id="semestre" required="true" value="#{docentesController.campo.semestre}"/> 
+
+                        <p:outputLabel value="Formacion:  " for="formacion" />
+                        <p:inputTextarea id="formacion" required="true" value="#{docentesController.campo.formacion}"/>                     
+
+                        <p:outputLabel value="Direccion:  " for="direccion" />
+                        <p:inputText id="direccion" required="true" value="#{docentesController.campo.direccion}"/> 
+
+                        <p:outputLabel value="Telefono:  " for="telefono" />
+                        <p:inputText id="telefono" required="true" value="#{docentesController.campo.telefono}"/> 
+
+                        <p:outputLabel value="Correo:  " for="correo" />
+                        <p:inputText id="correo" required="true" value="#{docentesController.campo.correo}"/> 
+
+                        <f:facet name="footer">
+                            <p:commandButton id="btngrabar" value="Actualizar" ajax="false" action="#{docentesController.actualizar()}"/>
+                        </f:facet>
+                    </p:panelGrid>
                 </p:panel>  
-                <p:growl id="mensajes" sticky="true" showDetail="true"/>                
-                <br/>
-                <p:panelGrid columns="2">                    
-                    <p:outputLabel value="Cedula:  " for="cedula" />
-                    <p:inputText id="cedula" required="true" value="#{docentesController.campo.cedula}"/> 
-                    
-                    <p:outputLabel value="Nombres:  " for="nombres" />
-                    <p:inputText id="nombres" required="true" value="#{docentesController.campo.nombres}"/> 
-                    
-                    <p:outputLabel value="Apellidos:  " for="apellidos" />
-                    <p:inputText id="apellidos" required="true" value="#{docentesController.campo.apellidos}"/> 
-                    
-                    <p:outputLabel value="Codigo:  " for="codigo" />
-                    <p:inputText id="codigo" required="true" value="#{docentesController.campo.codigo}"/> 
-                    
-                    <p:outputLabel value="Facultad:  " for="facultad" />
-                    <p:selectOneMenu id="facultad" required="true" requiredMessage="No ha seleccionado"  value="#{docentesController.campo.facultad}"> 
-                        <f:selectItem itemValue="1" itemLabel="Ciencias Naturales e Ingenierias"/>
-                        <f:selectItem itemValue="2" itemLabel="Ciencias Socioeconomicas y Empresariales" />
-                    </p:selectOneMenu>
-                    
-                    <p:outputLabel value="Unidad Academica:  " for="unidad" />
-                    <p:inputText id="unidad" required="true" value="#{docentesController.campo.unidad}"/> 
-                    
-                    <p:outputLabel value="Semestre - Año:  " for="semestre" />
-                    <p:inputText id="semestre" required="true" value="#{docentesController.campo.semestre}"/> 
-                    
-                    <p:outputLabel value="Formacion:  " for="formacion" />
-                    <p:inputTextarea id="formacion" required="true" value="#{docentesController.campo.formacion}"/>                     
-                    
-                    <p:outputLabel value="Direccion:  " for="direccion" />
-                    <p:inputText id="direccion" required="true" value="#{docentesController.campo.direccion}"/> 
-                    
-                    <p:outputLabel value="Telefono:  " for="telefono" />
-                    <p:inputText id="telefono" required="true" value="#{docentesController.campo.telefono}"/> 
-                    
-                    <p:outputLabel value="Correo:  " for="correo" />
-                    <p:inputText id="correo" required="true" value="#{docentesController.campo.correo}"/> 
-                    
-                    <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Actualizar" ajax="false" action="#{docentesController.actualizar()}"/>
-                    </f:facet>
-                </p:panelGrid>
             </h:form>
         </ui:define>
     </ui:composition>

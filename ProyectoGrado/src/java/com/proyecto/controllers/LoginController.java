@@ -3,6 +3,7 @@ package com.proyecto.controllers;
 
 import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Docentes;
+import com.proyecto.utilities.Mensajes;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -60,8 +61,11 @@ public class LoginController implements Serializable{
         {         
             System.out.println("REQUEST: " + request);
             request.login(_usuario, _clave);
-            //titulo=ResourceBundle.getBundle("/com/empresariales/utilities/txtLogin").getString("bienvenidos");
-            //Mensajes.exito(titulo, detalle);
+            titulo=ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("bienvenidos");
+            detalle=ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("msjEntrada");
+            Mensajes.exito(titulo, detalle);
+            
+            
             
             System.out.println("CLAVE: " + _clave);
             System.out.println("USUARIO: " + _usuario);
@@ -85,31 +89,15 @@ public class LoginController implements Serializable{
             return "index";
         } catch (ServletException e)
         {          
-            //titulo=ResourceBundle.getBundle("/com/empresariales/utilities/txtLogin").getString("errorEntrada");
-            //detalle=ResourceBundle.getBundle("/com/empresariales/utilities/txtLogin").getString("msjErrorEntrada");
-            //Mensajes.error(titulo, detalle);
+            titulo=ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
+            detalle=ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("msjErrorEntrada");
+            Mensajes.error(titulo, detalle);
             System.err.println("ERROR "+e);
 
             return "index";
         }
     }
     
-    public String getHash(String clave) 
-    {            
-        try
-        {           
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            String text = "admin";
-            md.update(text.getBytes("UTF-8")); // Change this to 'UTF-16' if needed
-            byte[] digest = md.digest();
-            BigInteger bigInt = new BigInteger(1, digest);
-            return bigInt.toString(16);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) 
-        {
-           Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);           
-        }
-        return clave;
-    }
     
     public String logout() {
         

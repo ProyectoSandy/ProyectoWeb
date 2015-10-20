@@ -1,7 +1,7 @@
 
 package com.proyecto.controllers;
 
-import com.java.utilities.Formulario;
+import com.proyecto.utilities.Formulario;
 import com.proyecto.facades.FechasSeguimientosFacade;
 import com.proyecto.persistences.FechasSeguimientos;
 import java.io.Serializable;

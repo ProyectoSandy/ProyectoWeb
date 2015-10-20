@@ -16,17 +16,18 @@
                         <p:menuitem value="Administracion de Horas" url="/faces/horas/administrar.xhtml"></p:menuitem> 
                         <p:menuitem value="Actualizacion de Horas" url="#"></p:menuitem>
                     </p:breadCrumb>
-                </p:panel>  
-                <p:growl id="mensajes" sticky="true" showDetail="true"/>                
-                <br/>
-                <p:panelGrid columns="2">                    
-                    <p:outputLabel value="Hora:  " for="hora" />
-                    <p:inputText id="hora" required="true" value="#{horasController.campo.hora}"/> 
-                    
-                    <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Actualizar" ajax="false" action="#{horasController.actualizar()}"/>
-                    </f:facet>
-                </p:panelGrid>
+                 
+                    <p:growl id="mensajes" sticky="true" showDetail="true"/>                
+                    <br/>
+                    <p:panelGrid columns="2">                    
+                        <p:outputLabel value="Hora:  " for="hora" />
+                        <p:inputText id="hora" required="true" value="#{horasController.campo.hora}"/> 
+
+                        <f:facet name="footer">
+                            <p:commandButton id="btngrabar" value="Actualizar" ajax="false" action="#{horasController.actualizar()}"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:panel> 
             </h:form>
         </ui:define>
     </ui:composition>
