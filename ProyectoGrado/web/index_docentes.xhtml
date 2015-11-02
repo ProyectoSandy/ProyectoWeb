@@ -9,6 +9,7 @@
         <ui:define name="content">  
             <h:form>
                 <p:panel>
+                    <p:growl id="mensajes" sticky="true" showDetail="true"/> 
                     <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
                         <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="#"></p:menuitem>
@@ -40,6 +41,57 @@
                             <p:column><h:link value="Administrar Fechas de Seguimientos" outcome="fechas_seguimientos/administrar"></h:link></p:column>  
                         </p:row>           
                     </p:panelGrid>
+                    
+                    <p:fieldset legend="Listado Productos" style="margin-bottom:20px" toggleable="true" toggleSpeed="500">
+                        
+                        <p:commandButton value="Crear Producto" actionListener="#{productosController.abrirCrear}" icon="ui-icon-disk" >
+                            <p:ajax event="dialogReturn" listener="#{productosController.cerrarCrear}" update="mensajes" />
+                        </p:commandButton>
+                        
+                        <br/>
+                        <p:dataTable value="#{productosController.listado}" var="registro">
+                        
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Codigo</f:facet>
+                                #{registro.codproducto}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Actividad</f:facet>
+                                #{registro.codactividad}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Descripcion</f:facet>
+                                #{registro.descripcion}
+                            </p:column> 
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Fecha Compromiso</f:facet>
+                                <h:outputText value="#{registro.fechacompromiso}" >
+                                    <f:convertDateTime dateStyle="medium"/>
+                                </h:outputText>   
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Fecha Entrega</f:facet>
+                                <h:outputText value="#{registro.fechaentrega}" >
+                                    <f:convertDateTime dateStyle="medium"/>
+                                </h:outputText>   
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Comentarios</f:facet>
+                                #{registro.comentarios}
+                            </p:column>  
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Opciones</f:facet>
+                                <p:commandButton ajax="false" icon="ui-icon-trash" action="#{productosController.borrar(registro)}"></p:commandButton>
+                                <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{productosController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
+                            </p:column> 
+                        </p:dataTable>                        
+                    </p:fieldset>
                     
                     <f:facet name="footer">                            
                             <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/> 
