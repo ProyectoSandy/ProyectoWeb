@@ -15,34 +15,56 @@
                         <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="#"></p:menuitem>
                     </p:breadCrumb>
                     <br/>
-                    <p:panelGrid>
+                                        
+                    <p:fieldset legend="Actividades" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
-                        <f:facet name="header">                            
-                            <p:row>
-                                <p:column>Actividades</p:column>
-                                <p:column>Productos</p:column> 
-                                <p:column>Clases</p:column>
-                                <p:column>Fechas de Seguimientos</p:column>
-                            </p:row>
-                        </f:facet>
-                        
-                        <p:row>                            
-                            <p:column><h:link value="Crear Actividad" outcome="actividades/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Productos" outcome="productos/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Clase" outcome="clases/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Fecha de Seguimiento" outcome="fechas_seguimientos/crear"></h:link></p:column>
-                        </p:row>
-                        
-                        <p:row>
-                            
-                            <p:column><h:link value="Administrar Actividades" outcome="actividades/administrar"></h:link></p:column>   
-                            <p:column><h:link value="Administrar Productos" outcome="productos/administrar"></h:link></p:column>  
-                            <p:column><h:link value="Administrar Clases" outcome="clases/administrar"></h:link></p:column>
-                            <p:column><h:link value="Administrar Fechas de Seguimientos" outcome="fechas_seguimientos/administrar"></h:link></p:column>  
-                        </p:row>           
-                    </p:panelGrid>
+                        <p:commandButton value="Crear Actividades" actionListener="#{actividadesController.abrirCrear}" icon="ui-icon-disk" >
+                            <p:ajax event="dialogReturn" update="mensajes listar" />                            
+                        </p:commandButton>                   
                     
-                    <p:fieldset legend="Listado Productos" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
+                        <br/>
+                        <p:dataTable id="listar" value="#{actividadesController.listado}" var="registro">
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Codigo</f:facet>
+                            #{registro.codactividad}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Nombre</f:facet>
+                            #{registro.nombre}
+                        </p:column> 
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Horas</f:facet>
+                            #{registro.horas}
+                        </p:column> 
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Descripcion</f:facet>
+                            #{registro.descripcion}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Responsable</f:facet>
+                            #{registro.responsable}
+                        </p:column>
+                        
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Tipo de Modalidad</f:facet>
+                            #{registro.codtipo}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Opciones</f:facet>
+                            <p:commandButton ajax="false" icon="ui-icon-trash" action="#{actividadesController.borrar(registro)}"></p:commandButton>
+                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{actividadesController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
+                        </p:column> 
+                    </p:dataTable>
+                    </p:fieldset>
+                    
+                    
+                    <p:fieldset legend="Productos" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
                         <p:commandButton value="Crear Producto" actionListener="#{productosController.abrirCrear}" icon="ui-icon-disk" >
                             <p:ajax event="dialogReturn" update="mensajes listado" />                            
@@ -93,6 +115,55 @@
                         </p:dataTable>                        
 
                     </p:fieldset>
+                    
+                    
+                    <p:fieldset legend="Clases" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
+                        
+                        <p:commandButton value="Crear Clases" actionListener="#{clasesController.abrirCrear()}" icon="ui-icon-disk" >
+                            <p:ajax event="dialogReturn" update="mensajes listarClases" />                            
+                        </p:commandButton>                   
+                    
+                        <br/>
+                        <p:dataTable id="listarClases" value="#{clasesController.listado}" var="registro">
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Codigo Clase</f:facet>
+                            #{registro.codclase}
+                        </p:column>
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Dia</f:facet>
+                            #{registro.codclase}
+                            
+                        </p:column> 
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Nombre</f:facet>
+                            #{registro.nombre}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Hora Inicio</f:facet>
+                            #{registro.codhorainicio}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Hora Final</f:facet>
+                            #{registro.codhorafinal}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Convencion</f:facet>
+                            #{registro.codconvencion}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Opciones</f:facet>
+                            <p:commandButton ajax="false" icon="ui-icon-trash" action="#{clasesController.borrar(registro)}"></p:commandButton>
+                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{clasesController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
+                        </p:column> 
+                    </p:dataTable>
+                    </p:fieldset>
+                    
+                    
                     <f:facet name="footer">                            
                             <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/> 
                     </f:facet> 

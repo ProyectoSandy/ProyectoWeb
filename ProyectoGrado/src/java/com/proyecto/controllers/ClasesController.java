@@ -8,7 +8,9 @@ import com.proyecto.persistences.Clases;
 import com.proyecto.persistences.Docentes;
 import com.proyecto.utilities.Mensajes;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
+import org.primefaces.context.RequestContext;
 
 
 @ManagedBean
@@ -42,7 +45,15 @@ public class ClasesController implements Serializable{
         return _objClase;        
     }
     
-    public String agregar()
+    public void abrirCrear() {
+        Map<String,Object> options = new HashMap<String, Object>();
+        options.put("resizable", false);
+        options.put("draggable", false);
+        options.put("modal", true);
+        RequestContext.getCurrentInstance().openDialog("faces/clases/crear", options, null);
+    }
+    
+    public void agregar()
     {
         String titulo,detalle;
         
@@ -52,7 +63,9 @@ public class ClasesController implements Serializable{
             Mensajes.exito(titulo, detalle);
             _objClase.setCoddocente(docentesFacade.getCurrentDocente());
             clasesFacade.crear(_objClase);
-            return "crear";
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.closeDialog(null);
+            //return "crear";
             
         } catch (Exception e) 
         {
@@ -60,7 +73,7 @@ public class ClasesController implements Serializable{
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
             Mensajes.error(titulo, detalle);
             Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
-            return "crear";
+            //return "crear";
         }
     }
     
@@ -84,24 +97,24 @@ public class ClasesController implements Serializable{
         return faces;
     }
     
-    public String borrar(Clases faceObj)
+    public void borrar(Clases faceObj)
     {
         String titulo,detalle;
         
         try {
-            /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("BorrarOk");
-            detalle = ResourceBundle.getBundle(_rutaTxt).getString("BorrarDetalleOk");
-            Mensajes.exito(titulo, detalle);*/
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
+            detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
+            Mensajes.exito(titulo, detalle);
             clasesFacade.borrar(faceObj);
-            return "administrar";//nombre de la face a la que debe redireccionar
+            //return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
         {
-            /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("GrabarError");
-            detalle = ResourceBundle.getBundle(_rutaTxt).getString("BorrarDetalleError");
-            Mensajes.error(titulo, detalle);*/
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
+            detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
+            Mensajes.error(titulo, detalle);
             Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
-            return "administrar";
+            //return "administrar";
         }
     }    
     
