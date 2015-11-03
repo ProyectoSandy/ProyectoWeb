@@ -42,15 +42,15 @@
                         </p:row>           
                     </p:panelGrid>
                     
-                    <p:fieldset legend="Listado Productos" style="margin-bottom:20px" toggleable="true" toggleSpeed="500">
+                    <p:fieldset legend="Listado Productos" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
                         <p:commandButton value="Crear Producto" actionListener="#{productosController.abrirCrear}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" listener="#{productosController.cerrarCrear}" update="mensajes" />
-                        </p:commandButton>
-                        
+                            <p:ajax event="dialogReturn" update="mensajes listado" />                            
+                        </p:commandButton>                   
+                    
                         <br/>
-                        <p:dataTable value="#{productosController.listado}" var="registro">
-                        
+                        <p:dataTable id="listado" value="#{productosController.listado}" var="registro">
+
                             <p:column style="width: 10px; text-align: center">
                                 <f:facet name="header">Codigo</f:facet>
                                 #{registro.codproducto}
@@ -91,8 +91,8 @@
                                 <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{productosController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
                             </p:column> 
                         </p:dataTable>                        
+
                     </p:fieldset>
-                    
                     <f:facet name="footer">                            
                             <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/> 
                     </f:facet> 

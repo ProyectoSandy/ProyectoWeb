@@ -80,11 +80,12 @@ public class ProductosController implements Serializable
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
             Mensajes.exito(titulo, detalle);
-            //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,d);
-            //FacesContext.getCurrentInstance().addMessage(null, message);
-            _ejbFacade.crear(_obj);
-            FacesContext.getCurrentInstance().addMessage(null, null);
-            //return "crear";
+            //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
+           // FacesContext.getCurrentInstance().addMessage(null, message);
+            _ejbFacade.crear(_obj);           
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.closeDialog(null);
+            //return "";
             
         } catch (Exception e) 
         {
