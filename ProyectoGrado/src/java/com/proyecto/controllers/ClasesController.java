@@ -8,12 +8,15 @@ import com.proyecto.persistences.Clases;
 import com.proyecto.persistences.Docentes;
 import com.proyecto.utilities.Mensajes;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -23,6 +26,12 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.ScheduleEntryMoveEvent;
+import org.primefaces.event.ScheduleEntryResizeEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleModel;
 
 
 @ManagedBean
@@ -34,15 +43,44 @@ public class ClasesController implements Serializable{
     @EJB
     private ClasesFacade clasesFacade;
     private Clases _objClase;
-    
+    private ScheduleModel eventModel;
     
     public ClasesController() {
+    }
+    
+    @PostConstruct
+    public void init() {
+        eventModel = new DefaultScheduleModel();
+        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", today1Pm(), today1Pm()));
+        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today1Pm()));
+        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", today1Pm(), today1Pm()));
+        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", today1Pm(), today1Pm()));         
+        
+    }
+    
+    public ScheduleModel getEventModel() {
+        return eventModel;
     }
     
     public Clases getCampo()
     {
         if(_objClase==null)  _objClase= new Clases();
         return _objClase;        
+    }
+    
+    private Date today1Pm() {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.HOUR, 1);
+         
+        return t.getTime();
+    }
+    
+    private Calendar today() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
+ 
+        return calendar;
     }
     
     public void abrirCrear() {
@@ -88,6 +126,34 @@ public class ClasesController implements Serializable{
         String cedula= doc.getCedula()+"";
        
         return clasesFacade.buscarCampo("_coddocente",cedula);
+    }
+    
+    public void onEventSelect(SelectEvent selectEvent) 
+    {
+        System.out.print("onEventSelect: " + selectEvent);
+        //event = (ScheduleEvent) selectEvent.getObject();
+    }
+     
+    public void onDateSelect(SelectEvent selectEvent)
+    {
+        System.out.print("onDateSelect: " + selectEvent);
+        //event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+    }
+     
+    public void onEventMove(ScheduleEntryMoveEvent event)
+    {
+        System.out.print("onEventMove: " + event);
+        /*FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
+         
+        addMessage(message);*/
+    }
+     
+    public void onEventResize(ScheduleEntryResizeEvent event) 
+    {
+        System.out.print("onEventResize: " + event);
+        /*FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
+         
+        addMessage(message);*/
     }
     
     public void borrar(Clases faceObj)
@@ -176,5 +242,5 @@ public class ClasesController implements Serializable{
             }
             return null;
         }
-    }
+    }  
 }

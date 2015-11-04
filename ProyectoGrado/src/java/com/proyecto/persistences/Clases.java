@@ -1,6 +1,7 @@
 package com.proyecto.persistences;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -39,13 +42,13 @@ public class Clases implements Serializable
     @ManyToOne(optional = false)
     private Convenciones _codconvencion;    
         
-    @JoinColumn(name = "codhorainicio", referencedColumnName = "codhora")
-    @ManyToOne(optional = false)
-    private Horas _codhorainicio;   
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "codhorainicio")    
+    private Date _codhorainicio;   
     
-    @JoinColumn(name = "codhorafinal", referencedColumnName = "codhora")
-    @ManyToOne(optional = false)
-    private Horas _codhorafinal;  
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "codhorafinal")    
+    private Date _codhorafinal;  
     
     public Clases() { }
     
@@ -117,21 +120,20 @@ public class Clases implements Serializable
         this._codconvencion = _codconvencion;
     }
 
-    public Horas getCodhorainicio() {
+    public Date getCodhorainicio() {
         return _codhorainicio;
     }
 
-    public void setCodhorainicio(Horas _codhorainicio) {
+    public void setCodhorainicio(Date _codhorainicio) {
         this._codhorainicio = _codhorainicio;
     }
 
-    public Horas getCodhorafinal() {
+    public Date getCodhorafinal() {
         return _codhorafinal;
     }
 
-    public void setCodhorafinal(Horas _codhorafinal) {
+    public void setCodhorafinal(Date _codhorafinal) {
         this._codhorafinal = _codhorafinal;
     }
-    
     
 }
