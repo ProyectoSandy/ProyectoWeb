@@ -6,43 +6,49 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/plantilla.xhtml">
+        
         <ui:define name="content">
-            #{evaluacionesController.resetear()}
+            #{actividadesController.resetear()}
+            
             <h:form>
                 <p:panel>
+                
                     <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/index_evaluador.xhtml"></p:menuitem>
-                        <p:menuitem value="Evaluar Productos" url="#"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/index_docentes.xhtml"></p:menuitem>
+                        <p:menuitem value="Creacion de Actividades" url="#"></p:menuitem>
                     </p:breadCrumb>
                  
                     <p:growl id="mensajes" sticky="true" showDetail="true"/>                
                     <br/>
+                    <p:panelGrid columns="2">
 
+                        <p:outputLabel value="Nombre:  " for="nombre" />
+                        <p:inputText id="nombre" required="true" value="#{actividadesController.campo.nombre}"/> 
 
+                        <p:outputLabel value="Horas  " for="horas" />
+                        <p:inputText id="horas" required="true" value="#{actividadesController.campo.horas}"/> 
 
-                    <p:panelGrid columns="2">                    
-                        <p:outputLabel value="Calificacion:  " for="calificacion" />
-                        <p:inputText id="calificacion" required="true" value="#{evaluacionesController.campo.calificacion}"/> 
+                        <p:outputLabel value="Descripcion:  " for="descripcion" />
+                        <p:inputText id="descripcion" required="true" value="#{actividadesController.campo.descripcion}"/> 
 
-                        <p:outputLabel value="Docente:  " for="coddoc" />
-                        <p:selectOneMenu id="coddoc" required="true" requiredMessage="No ha seleccionado" converter="docentesConverter" value="#{evaluacionesController.campo.coddoc}"> 
-                            <p:ajax event="change" process="@this" update="codprod"></p:ajax>
-                            <f:selectItems value="#{docentesController.combo('Seleccione una opcion')}" />
-                        </p:selectOneMenu>
+                        <p:outputLabel value="Responsable:  " for="responsable" />
+                        <p:inputText id="responsable" required="true" value="#{actividadesController.campo.responsable}"/> 
 
-                        <p:outputLabel value="Producto:  " for="codprod" />
-                        <p:selectOneMenu id="codprod" required="true" requiredMessage="No ha seleccionado" converter="productosConverter" value="#{evaluacionesController.campo.codprod}"> 
-                            <f:selectItems value="#{productosController.traerItem(evaluacionesController.campo.coddoc)}" />
+                        <p:outputLabel value="Tipo Modalidad:  " for="codtipo" />
+                        <p:selectOneMenu id="codtipo" required="true" requiredMessage="No ha seleccionado" converter="tipoModalidadesConverter" value="#{actividadesController.campo.codtipo}"> 
+                            <f:selectItems value="#{tipoModalidadesController.combo('Selecione un opcion')}" />
                         </p:selectOneMenu>
 
                         <f:facet name="footer">
-                            <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{evaluacionesController.agregar()}"/>
+                            <p:commandButton id="btngrabar" value="Guardar" ajax="true" action="#{actividadesController.agregar()}"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:panel> 
             </h:form>
+            
         </ui:define>
+        
     </ui:composition>
 </html>
 

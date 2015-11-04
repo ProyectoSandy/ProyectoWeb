@@ -66,12 +66,6 @@ public class ProductosController implements Serializable
         RequestContext.getCurrentInstance().openDialog("faces/productos/crear", options, null);
     }
     
-    public void cerrarCrear(SelectEvent event) 
-    {        
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,"prueba","se supone k esto se muestra");         
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-    
     public void agregar()
     {
         String titulo,detalle;
@@ -143,13 +137,9 @@ public class ProductosController implements Serializable
         return listaProd;
     }
     
-    public String redireccionar(String faces, Productos facesObj)
-    {
-        _obj = facesObj;
-        return faces;
-    }
     
-    public String borrar(Productos faceObj)
+    
+    public void borrar(Productos faceObj)
     {
         String titulo,detalle;
         
@@ -158,27 +148,38 @@ public class ProductosController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
             Mensajes.exito(titulo, detalle);
             _ejbFacade.borrar(faceObj);
-            return "administrar";
+            //return "administrar";
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
             Mensajes.error(titulo, detalle);
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
-            return "administrar";
+            //return "administrar";
         }
     }    
     
-    public String actualizar()
+    public void abrirActualiar(Productos objTemp) {
+        _obj=objTemp;
+        Map<String,Object> options = new HashMap<String, Object>();
+        options.put("resizable", false);
+        options.put("draggable", false);
+        options.put("modal", true);
+        RequestContext.getCurrentInstance().openDialog("faces/productos/actualizar", options, null);
+    }
+    
+    public void actualizar()
     {
         String titulo,detalle;
         
         try {
-            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exito");
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
             Mensajes.exito(titulo, detalle);
             _ejbFacade.actualizar(_obj);
-            return "administrar";
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.closeDialog(null);
+            //return "administrar";
             
         } catch (Exception e) 
         {
@@ -186,7 +187,7 @@ public class ProductosController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
             Mensajes.error(titulo, detalle);
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
-            return "administrar";
+            //return "administrar";
         }
     }  
     

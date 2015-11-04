@@ -1,10 +1,19 @@
 package com.proyecto.controllers;
 
+import com.proyecto.facades.ActividadesFacade;
+import com.proyecto.facades.DocentesFacade;
 import com.proyecto.utilities.Mensajes;
 import com.proyecto.facades.EvaluacionesFacade;
+import com.proyecto.facades.ProductosFacade;
+import com.proyecto.persistences.Actividades;
+import com.proyecto.persistences.Docentes;
 import com.proyecto.persistences.Evaluaciones;
+import com.proyecto.persistences.Productos;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.context.RequestContext;
 
 
 @ManagedBean
@@ -25,8 +35,13 @@ public class EvaluacionesController implements Serializable{
     @EJB
     private EvaluacionesFacade _ejbFacade;
     private Evaluaciones _obj;
+    @EJB
+    private ActividadesFacade _actividadesFacade;
     
+    @EJB
+    private DocentesFacade docentesFacade;
     
+    private int coddoc;
     
     public EvaluacionesController() {
     }
@@ -35,6 +50,14 @@ public class EvaluacionesController implements Serializable{
     {
         if(_obj==null)  _obj= new Evaluaciones();
         return _obj;        
+    }
+    
+    public void abrirActualizar(Actividades obj) {
+        Map<String,Object> options = new HashMap<String, Object>();
+        options.put("resizable", false);
+        options.put("draggable", false);
+        options.put("modal", true);
+        RequestContext.getCurrentInstance().openDialog("faces/evaluaciones/actualizar", options, null);
     }
     
     public String agregar()
@@ -63,12 +86,6 @@ public class EvaluacionesController implements Serializable{
     public List<Evaluaciones> getListado()
     {
         return _ejbFacade.listado();
-    }
-    
-    public String redireccionar(String faces, Evaluaciones facesObj)
-    {
-        _obj = facesObj;
-        return faces;
     }
     
     public String borrar(Evaluaciones faceObj)
@@ -119,7 +136,22 @@ public class EvaluacionesController implements Serializable{
         _obj = null;
     }
     
-   
+    public void btnBuscar(){
+        Docentes objDoc = new Docentes();
+        System.out.println("CODIGO DE DOCENTES "+coddoc);
+        getListar();
+    }
+    
+   public List<Actividades> getListar()
+    {
+        /*Docentes doc = docentesFacade.getCurrentDocente();
+        String cedula= doc.getCedula()+"";
+       if(cedula!=null){
+           return _actividadesFacade.buscarCampo("_coddocente",cedula);
+       }
+        return null;*/
+        return _actividadesFacade.listado();
+    }
     
    /* @FacesConverter(forClass = Evaluaciones.class, value = "evaluacionesConverter")
     public static class EvaluacionesControllerConverter implements Converter{
@@ -148,4 +180,13 @@ public class EvaluacionesController implements Serializable{
             return null;
         }
     }*/
+
+    public int getCoddoc() {
+        return coddoc;
+    }
+
+    public void setCoddoc(int coddoc) {
+        this.coddoc = coddoc;
+    }
+
 }

@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/plantilla.xhtml">
         <ui:define name="content">  
-            <h:form>
+            <h:form id="pagDocente">
                 <p:panel>
                     <p:growl id="mensajes" sticky="true" showDetail="true"/> 
                     <p:breadCrumb>
@@ -19,7 +19,7 @@
                     <p:fieldset legend="Actividades" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
                         <p:commandButton value="Crear Actividades" actionListener="#{actividadesController.abrirCrear}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update="mensajes listar" />                            
+                            <p:ajax event="dialogReturn" update=":pagDocente:listar :pagDocente:mensajes" />                            
                         </p:commandButton>                   
                     
                         <br/>
@@ -58,7 +58,9 @@
                         <p:column style="width: 10px; text-align: center">
                             <f:facet name="header">Opciones</f:facet>
                             <p:commandButton ajax="false" icon="ui-icon-trash" action="#{actividadesController.borrar(registro)}"></p:commandButton>
-                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{actividadesController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
+                            <p:commandButton icon="ui-icon-pencil" action="#{actividadesController.abrirActualizar(registro)}">
+                                <p:ajax event="dialogReturn" update=":pagDocente:listar" />                            
+                            </p:commandButton>  
                         </p:column> 
                     </p:dataTable>
                     </p:fieldset>
@@ -67,7 +69,7 @@
                     <p:fieldset legend="Productos" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
                         <p:commandButton value="Crear Producto" actionListener="#{productosController.abrirCrear}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update="mensajes listado" />                            
+                            <p:ajax event="dialogReturn" update=":pagDocente:listado" />                            
                         </p:commandButton>                   
                     
                         <br/>
@@ -110,7 +112,9 @@
                             <p:column style="width: 10px; text-align: center">
                                 <f:facet name="header">Opciones</f:facet>
                                 <p:commandButton ajax="false" icon="ui-icon-trash" action="#{productosController.borrar(registro)}"></p:commandButton>
-                                <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{productosController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
+                                <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{productosController.abrirActualiar(registro)}">
+                                    <p:ajax event="dialogReturn" update=":pagDocente:listado" />                            
+                                </p:commandButton> 
                             </p:column> 
                         </p:dataTable>                        
 
@@ -120,7 +124,7 @@
                     <p:fieldset legend="Clases" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
                         <p:commandButton value="Crear Clases" actionListener="#{clasesController.abrirCrear()}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update="mensajes listarClases" />                            
+                            <p:ajax event="dialogReturn" update=":pagDocente:listarClases" />                            
                         </p:commandButton>                   
                     
                         <br/>
@@ -158,7 +162,9 @@
                         <p:column style="width: 10px; text-align: center">
                             <f:facet name="header">Opciones</f:facet>
                             <p:commandButton ajax="false" icon="ui-icon-trash" action="#{clasesController.borrar(registro)}"></p:commandButton>
-                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{clasesController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
+                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{clasesController.abrirActualizar(registro)}"> 
+                                <p:ajax event="dialogReturn" update=":pagDocente:listarClases" />                            
+                            </p:commandButton> 
                         </p:column> 
                     </p:dataTable>
                     </p:fieldset>

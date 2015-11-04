@@ -7,39 +7,177 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/plantilla.xhtml">
         <ui:define name="content">  
-            <h:form>
+            <h:form id="form">
+                
                 <p:panel>
                     <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
                         <p:menuitem value="Bienvenido #{loginController.usuario}" url="#"></p:menuitem>
                     </p:breadCrumb>
                     <br/>
-                    <p:panelGrid>
-                        <f:facet name="header">                            
-                            <p:row>
-                                <p:column>Tipo Modalidad</p:column>  
-                                <p:column>Horas</p:column> 
-                                <p:column>Docentes</p:column> 
-                                <p:column>Convenciones</p:column>
-                            </p:row>
-                        </f:facet>
+                                   
+                    <p:fieldset legend="Tipo Modalidad" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
-                        <p:row>                            
-                            <p:column><h:link value="Crear Tipo de Modalidad" outcome="tipo_modalidad/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Hora" outcome="horas/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Docente" outcome="docentes/crear"></h:link></p:column>
-                            <p:column><h:link value="Crear Convencion" outcome="convenciones/crear"></h:link></p:column>
-                        </p:row>
+                        <p:commandButton value="Crear Modalidad" actionListener="#{tipoModalidadesController.abrirCrear()}" icon="ui-icon-disk" >
+                            <p:ajax event="dialogReturn" update=":form:ListarModalidad" />                            
+                        </p:commandButton>                   
+                    
+                        <br/>
+                        <p:dataTable id="ListarModalidad" value="#{tipoModalidadesController.listado}" var="registro">
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Codigo Bodega</f:facet>
+                                #{registro.codtipo}
+                            </p:column>
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Nombre</f:facet>
+                                #{registro.nombre}
+                            </p:column>                            
+
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Opciones</f:facet>
+                                <p:commandButton ajax="false" icon="ui-icon-trash" action="#{tipoModalidadesController.borrar(registro)}"></p:commandButton>
+                                <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{tipoModalidadesController.abrirActualizar(registro)}">
+                                    <p:ajax event="dialogReturn" update=":form:ListarModalidad" />                            
+                                </p:commandButton>  
+
+                            </p:column> 
+                        </p:dataTable>
+                    </p:fieldset>
+                    
+                    <p:fieldset legend="Horas" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
-                        <p:row>
-                            <p:column><h:link value="Administrar Tipo de Modalidad" outcome="tipo_modalidad/administrar"></h:link></p:column> 
-                            <p:column><h:link value="Administrar Horas" outcome="horas/administrar"></h:link></p:column> 
-                            <p:column><h:link value="Administrar Docentes" outcome="docentes/administrar"></h:link></p:column> 
-                            <p:column><h:link value="Administrar Convenciones" outcome="convenciones/administrar"></h:link></p:column>  
-                        </p:row>
+                        <p:commandButton value="Crear Hora" actionListener="#{horasController.abrirCrear()}" icon="ui-icon-disk" >
+                            <p:ajax event="dialogReturn" update=":form:listarHoras" />                            
+                        </p:commandButton>                   
+                    
+                        <br/>
+                        <p:dataTable id="listarHoras" value="#{horasController.listado}" var="registro">
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Codigo Hora</f:facet>
+                                #{registro.codhora}
+                            </p:column>
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Hora</f:facet>
+                                #{registro.hora}
+                            </p:column> 
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Opciones</f:facet>
+                                <p:commandButton ajax="false" icon="ui-icon-trash" action="#{horasController.borrar(registro)}"></p:commandButton>
+                                <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{horasController.abrirActualizar(registro)}">
+                                    <p:ajax event="dialogReturn" update=":form:listarHoras" />                            
+                                </p:commandButton> 
+                            </p:column> 
+                        </p:dataTable>
+                    </p:fieldset>
+                    
+                    <p:fieldset legend="Docentes" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
+                        <p:commandButton value="Crear Docente" actionListener="#{docentesController.abrirCrear()}" icon="ui-icon-disk" >
+                            <p:ajax event="dialogReturn" update=":form:listarDoc" />                            
+                        </p:commandButton>                   
+                    
+                        <br/>
+                        <p:dataTable id="listarDoc" value="#{docentesController.listado}" var="registro">
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Cedula</f:facet>
+                                #{registro.cedula}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Nombres</f:facet>
+                                #{registro.nombres}
+                            </p:column> 
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Apellidos</f:facet>
+                                #{registro.apellidos}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Codigo</f:facet>
+                                #{registro.codigo}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Facultad</f:facet>
+                                #{registro.facultad}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Unidad Academica</f:facet>
+                                #{registro.unidad}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Semestre</f:facet>
+                                #{registro.semestre}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Formacion</f:facet>
+                                #{registro.formacion}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Direccion</f:facet>
+                                #{registro.direccion}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Telefono</f:facet>
+                                #{registro.telefono}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Correo</f:facet>
+                                #{registro.correo}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Opciones</f:facet>
+                                <p:commandButton ajax="false" icon="ui-icon-trash" action="#{docentesController.borrar(registro)}"></p:commandButton>
+                                <p:commandButton  icon="ui-icon-pencil" action="#{docentesController.abrirActualizar(registro)}">
+                                    <p:ajax event="dialogReturn" update=":form:listarDoc" />                            
+                                </p:commandButton> 
+                            </p:column> 
+                        </p:dataTable>
+                    </p:fieldset> 
+                    
+                    <p:fieldset legend="Convenciones" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
-                    </p:panelGrid>
+                        <p:commandButton value="Crear Convencion" actionListener="#{convencionesController.abrirCrear()}" icon="ui-icon-disk" >
+                            <p:ajax event="dialogReturn" update=":form:listarConv" />                            
+                        </p:commandButton>                   
+                    
+                        <br/>
+                        <p:dataTable id="listarConv" value="#{convencionesController.listado}" var="registro">
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Codigo Convenciones</f:facet>
+                                #{registro.codconvencion}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Color</f:facet>
+                                #{registro.nombre}
+                            </p:column>
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Color</f:facet>
+                                #{registro.color}
+                            </p:column>
+
+
+                            <p:column style="width: 10px; text-align: center">
+                                <f:facet name="header">Opciones</f:facet>
+                                <p:commandButton ajax="false" icon="ui-icon-trash" action="#{convencionesController.borrar(registro)}"></p:commandButton>
+                                <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{convencionesController.abrirActualizar(registro)}">
+                                    <p:ajax event="dialogReturn" update=":form:listarConv" />                            
+                                </p:commandButton>   
+                            </p:column> 
+                        </p:dataTable>
+                    </p:fieldset>
                     <f:facet name="footer">
                         <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/>
                     </f:facet> 

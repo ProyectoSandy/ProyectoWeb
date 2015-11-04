@@ -106,11 +106,6 @@ public class ActividadesController implements Serializable
         return _ejbFacade.buscarCampo("_coddocente",cedula);
     }
     
-    public String redireccionar(String faces, Actividades facesObj)
-    {
-        _obj = facesObj;
-        return faces;
-    }
     
     public void borrar(Actividades faceObj)
     {
@@ -133,25 +128,37 @@ public class ActividadesController implements Serializable
         }
     }    
     
-    public String actualizar()
+    public void abrirActualizar(Actividades objtemp) {
+        
+        _obj = objtemp;
+        Map<String,Object> options = new HashMap<String, Object>();
+        options.put("resizable", false);
+        options.put("draggable", false);
+        options.put("modal", true);
+        RequestContext.getCurrentInstance().openDialog("faces/actividades/actualizar", options, null);
+    }
+    
+    public void actualizar()
     {
         String titulo,detalle;
         
         try {
-            /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("Actualizando");
-            detalle = ResourceBundle.getBundle(_rutaTxt).getString("ActualizarOk");
-            Mensajes.exito(titulo, detalle);*/
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
+            detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
+            Mensajes.exito(titulo, detalle);
             _obj.setCoddocente(docentesFacade.getCurrentDocente());
             _ejbFacade.actualizar(_obj);
-            return "administrar";//nombre de la face a la que debe redireccionar
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.closeDialog(null);
+           // return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
         {
-            /*titulo = ResourceBundle.getBundle(_rutaTxt).getString("Actualizando");
-            detalle = ResourceBundle.getBundle(_rutaTxt).getString("ActualizarError");
-            Mensajes.error(titulo, detalle);*/
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
+            detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
+            Mensajes.error(titulo, detalle);
             Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
-            return "administrar";
+            //return "administrar";
         }
     }  
     

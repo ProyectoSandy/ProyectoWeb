@@ -43,6 +43,7 @@ public class Productos implements Serializable
     @JoinColumn(name = "codact", referencedColumnName = "codactividad")
     @ManyToOne(optional = false)
     private Actividades _codactividad;
+    
 
     public Productos() {  }
 
@@ -122,5 +123,5 @@ public class Productos implements Serializable
     public void setCodactividad(Actividades _codactividad) {
         this._codactividad = _codactividad;
     }
-    
+
 }

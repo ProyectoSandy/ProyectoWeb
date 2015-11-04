@@ -9,36 +9,48 @@
         <ui:define name="content">
             <h:form>
                 <p:panel>
-                    <p:breadCrumb> 
+                    <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/index_evaluador.xhtml"></p:menuitem> 
-                        <p:menuitem value="Calificaciones Realizadas" url="#"></p:menuitem>                       
+                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/index_docentes.xhtml"></p:menuitem> 
+                        <p:menuitem value="Administracion de Actividades" url="#"></p:menuitem> 
                     </p:breadCrumb>
                     <br/>
-                    <p:dataTable value="#{evaluacionesController.listado}" var="registro">
+                    <p:dataTable value="#{actividadesController.listado}" var="registro">
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Codigo Eva</f:facet>
-                            #{registro.codeva}
+                            <f:facet name="header">Codigo</f:facet>
+                            #{registro.codactividad}
                         </p:column>
+                        
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Calificacion</f:facet>
-                            #{registro.calificacion}
+                            <f:facet name="header">Nombre</f:facet>
+                            #{registro.nombre}
                         </p:column> 
                         
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Docentes</f:facet>
-                            #{registro.coddoc}
+                            <f:facet name="header">Horas</f:facet>
+                            #{registro.horas}
                         </p:column> 
                         
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Producto</f:facet>
-                            #{registro.codprod}
-                        </p:column> 
+                            <f:facet name="header">Descripcion</f:facet>
+                            #{registro.descripcion}
+                        </p:column>
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Responsable</f:facet>
+                            #{registro.responsable}
+                        </p:column>
+                        
+                        
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Tipo de Modalidad</f:facet>
+                            #{registro.codtipo}
+                        </p:column>
                         
                         <p:column style="width: 10px; text-align: center">
                             <f:facet name="header">Opciones</f:facet>
-                            <p:commandButton ajax="false" icon="ui-icon-trash" action="#{evaluacionesController.borrar(registro)}"></p:commandButton>
-                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{evaluacionesController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
+                            <p:commandButton ajax="false" icon="ui-icon-trash" action="#{actividadesController.borrar(registro)}"></p:commandButton>
+                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{actividadesController.redireccionar('actualizar', registro)}"></p:commandButton>                                  
                         </p:column> 
                     </p:dataTable>
                 </p:panel>                
