@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.2.3
 -- Dumped by pg_dump version 9.2.3
--- Started on 2015-11-05 14:01:39
+-- Started on 2015-11-05 15:42:12
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -582,6 +582,9 @@ COPY clases (codclase, dia, nombre, coddocente, codconvencion, horainicio, horaf
 37	3	ytrds	109877	15	\N	\N
 39	1	sdfsfsf	109877	16	1969-12-31	2015-11-17
 40	1	sdfsfsf	109877	16	1969-12-31	2015-11-17
+41	1	asdasdasd	109877	16	1969-12-31	2015-11-04
+42	1	asdasdasd	109877	16	1969-12-31	2015-11-04
+43	3	dssdfsdf	109877	16	1969-12-31	2015-11-15
 \.
 
 
@@ -591,7 +594,7 @@ COPY clases (codclase, dia, nombre, coddocente, codconvencion, horainicio, horaf
 -- Name: clases_codclase_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('clases_codclase_seq', 40, true);
+SELECT pg_catalog.setval('clases_codclase_seq', 43, true);
 
 
 --
@@ -992,7 +995,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2015-11-05 14:01:39
+-- Completed on 2015-11-05 15:42:12
 
 --
 -- PostgreSQL database dump complete
