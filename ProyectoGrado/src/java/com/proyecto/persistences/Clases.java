@@ -43,11 +43,11 @@ public class Clases implements Serializable
     private Convenciones _codconvencion;    
         
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "codhorainicio")    
+    @Column(name = "horainicio")    
     private Date _codhorainicio;   
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "codhorafinal")    
+    @Column(name = "horafinal")    
     private Date _codhorafinal;  
     
     public Clases() { }

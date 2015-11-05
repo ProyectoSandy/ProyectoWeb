@@ -7,6 +7,7 @@ import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Clases;
 import com.proyecto.persistences.Docentes;
 import com.proyecto.utilities.Mensajes;
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -91,8 +92,9 @@ public class ClasesController implements Serializable{
         RequestContext.getCurrentInstance().openDialog("faces/clases/crear", options, null);
     }
     
-    public void agregar()
+    public void agregar(ActionEvent actionEvent)
     {
+        System.out.print("Final ---- " + _objClase.getCodhorafinal());
         String titulo,detalle;
         
         try {
@@ -102,7 +104,7 @@ public class ClasesController implements Serializable{
             _objClase.setCoddocente(docentesFacade.getCurrentDocente());
             clasesFacade.crear(_objClase);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.closeDialog(null);
+            //context.closeDialog(null);
             //return "crear";
             
         } catch (Exception e) 

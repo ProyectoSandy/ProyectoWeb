@@ -146,22 +146,11 @@
                                 <p:outputLabel value="Nombre:  " for="nombre" />
                                 <p:inputText id="nombre" required="true" value="#{clasesController.campo.nombre}"/> 
                                 
-                                <p:outputLabel for="from" value="From:" />
-                                <p:calendar id="from" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm"/>
+                                <p:outputLabel for="from" value="Hora Inicio:" />
+                                <p:calendar id="from" timeZone="GMT+5" pattern="HH:mm" value="#{clasesController.campo.codhorainicio}"/>
 
-                                <p:outputLabel for="to" value="To:" />
-                                <p:calendar id="to" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm"/>
-                                    
-                                <p:outputLabel value="Hora Inicial " for="codhorainicio" />
-                                <p:selectOneMenu id="codhorainicio" required="true" requiredMessage="No ha seleccionado" converter="horasConverter" value="#{clasesController.campo.codhorainicio}"> 
-                                    <f:selectItems value="#{horasController.combo('Seleccione una opción')}" />
-                                </p:selectOneMenu>
-
-
-                                <p:outputLabel value="Hora Final " for="codhorafinal" />
-                                <p:selectOneMenu id="codhorafinal" required="true" requiredMessage="No ha seleccionado" converter="horasConverter" value="#{clasesController.campo.codhorafinal}"> 
-                                    <f:selectItems value="#{horasController.combo('Seleccione una opción')}" />
-                                </p:selectOneMenu>
+                                <p:outputLabel for="to" value="Hora Final:" />
+                                <p:calendar id="to" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm" value="#{clasesController.campo.codhorafinal}"/>
 
                                 <p:outputLabel value="Convencion:  " for="codconvencion" />
                                 <p:selectOneMenu id="codconvencion" required="true" requiredMessage="No ha seleccionado" converter="convencionesConverter" value="#{clasesController.campo.codconvencion}"> 
@@ -169,7 +158,7 @@
                                 </p:selectOneMenu>
 
                                 <f:facet name="footer">
-                                    <p:commandButton id="btngrabar" value="Guardar" ajax="true" action="#{clasesController.agregar()}"/>
+                                    <p:commandButton id="btngrabar" value="Guardar" actionListener="#{clasesController.agregar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
                                 </f:facet>
                             </h:panelGrid>
                         </p:dialog>
