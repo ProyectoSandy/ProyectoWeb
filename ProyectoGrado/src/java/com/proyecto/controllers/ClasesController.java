@@ -46,6 +46,7 @@ public class ClasesController implements Serializable{
     private ClasesFacade clasesFacade;
     private Clases _objClase;
     private ScheduleModel eventModel;
+    private ScheduleEvent evento= new DefaultScheduleEvent();
     
     public ClasesController() {
     }
@@ -60,6 +61,7 @@ public class ClasesController implements Serializable{
             System.out.print("ClasesController.init time OBJ----------> "+obj.getCodhorainicio());
             eventModel.addEvent(new DefaultScheduleEvent(obj.getNombre(), obj.getCodhorainicio(), obj.getCodhorafinal(),obj));
         }
+        
         /*eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", today1Pm(), today1Pm()));
         eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today1Pm()));
         eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", today1Pm(), today1Pm()));
@@ -102,7 +104,7 @@ public class ClasesController implements Serializable{
     
     public void agregar(ActionEvent actionEvent)
     {
-        System.out.print("Final ---- " + _objClase.getCodhorafinal());
+        
         String titulo,detalle;
         
         try {
@@ -110,7 +112,20 @@ public class ClasesController implements Serializable{
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
             Mensajes.exito(titulo, detalle);
             _objClase.setCoddocente(docentesFacade.getCurrentDocente());
-            clasesFacade.crear(_objClase);
+            
+            if(evento.getId()==null) {
+                System.out.print("Agrego ---- " + _objClase.getNombre());
+                clasesFacade.crear(_objClase);
+                
+            }
+            else{
+                System.out.print("Actualizo ---- " + evento);                
+                clasesFacade.actualizar(_objClase);                
+                eventModel.deleteEvent(evento);
+            }
+            
+            eventModel.addEvent(new DefaultScheduleEvent(_objClase.getNombre(), _objClase.getCodhorainicio(), _objClase.getCodhorafinal(),_objClase));
+            evento = new DefaultScheduleEvent();
             RequestContext context = RequestContext.getCurrentInstance();
             //context.closeDialog(null);
             //return "crear";
@@ -138,16 +153,19 @@ public class ClasesController implements Serializable{
         return clasesFacade.buscarCampo("_coddocente",cedula);
     }
     
+    //se ejecuta cuando se selecciona un evento
     public void onEventSelect(SelectEvent selectEvent) 
     {
         System.out.print("onEventSelect: " + ((ScheduleEvent)selectEvent.getObject()));
-        //selectEvent.get;
+        evento = (ScheduleEvent)selectEvent.getObject();        
+        _objClase=(Clases)evento.getData();       
     }
      
+    //se ejecuta cuando se selecciona una fecha
     public void onDateSelect(SelectEvent selectEvent)
     {
-        System.out.print("onDateSelect: " + selectEvent);
-        //event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        evento = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject()); 
+        _objClase=null;       
     }
      
     public void onEventMove(ScheduleEntryMoveEvent event)
@@ -166,7 +184,7 @@ public class ClasesController implements Serializable{
         addMessage(message);*/
     }
     
-    public void borrar(Clases faceObj)
+    public void borrar(ActionEvent actionEvent)
     {
         String titulo,detalle;
         
@@ -174,7 +192,17 @@ public class ClasesController implements Serializable{
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
             Mensajes.exito(titulo, detalle);
-            clasesFacade.borrar(faceObj);
+            
+            
+            if(evento.getId()!=null) {
+                
+                System.out.print("Borrar ---- " + _objClase.getNombre());                
+                clasesFacade.borrar(_objClase);            
+                eventModel.deleteEvent(evento);
+            }           
+            
+            evento = new DefaultScheduleEvent();
+            
             //return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
