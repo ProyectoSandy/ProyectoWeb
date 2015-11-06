@@ -104,10 +104,12 @@ public class ActividadesController implements Serializable
     
     public void btnBuscar(){
         
-        System.out.println("CODIGO DE DOCENTES "+_obj.getCoddocente().getCedula());
+        System.out.println("CLICK EN BTN BUSCAR");
         cedula= _obj.getCoddocente().getCedula()+"";
         getListarEvaluaciones();
+        
     }
+    
     
     public List<Actividades> getListarEvaluaciones()
     {
@@ -119,9 +121,6 @@ public class ActividadesController implements Serializable
            System.out.println("NO ES NULO");
             return _ejbFacade.buscarCampo("_coddocente",cedula);
        }
-      
-       
-        //return _actividadesFacade.listado();
     }
      
     public List<Actividades> getListado()
@@ -176,6 +175,10 @@ public class ActividadesController implements Serializable
         options.put("modal", true);
         System.out.println("VA A ABRIR EVALUACIO");
         RequestContext.getCurrentInstance().openDialog("evaluaciones/actualizar", options, null);
+    }
+    
+    public void hixoClick(){
+        System.out.println("HIXO CLICL EN EL BOTON ");
     }
     
     public void guardarEvaluacion()

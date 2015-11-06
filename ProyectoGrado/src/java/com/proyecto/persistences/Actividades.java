@@ -37,7 +37,7 @@ public class Actividades implements Serializable
     private String _responsable;
     
     @Column(name = "valoracion")  
-    private int _valoracion;
+    private double _valoracion;
     
     @JoinColumn(name = "coddocente", referencedColumnName = "cedula")
     @ManyToOne(optional = false)
@@ -135,13 +135,15 @@ public class Actividades implements Serializable
         this._responsable = _responsable;
     }
 
-    public int getValoracion() {
+    public double getValoracion() {
         return _valoracion;
     }
 
-    public void setValoracion(int _valoracion) {
+    public void setValoracion(double _valoracion) {
         this._valoracion = _valoracion;
     }
+
+    
 
     public Docentes getCoddocente() {
         return _coddocente;

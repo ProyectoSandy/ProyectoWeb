@@ -25,7 +25,7 @@
                                 <f:selectItems value="#{docentesController.combo('Seleccion un Docente')}" />
                             </p:selectOneMenu>
                             <p:commandButton value="Buscar" actionListener="#{actividadesController.btnBuscar()}">
-                                <p:ajax event="dialogReturn" update=":form:listar" />                            
+                                <p:ajax event="dialogReturn" update="listar" />                            
                             </p:commandButton> 
                         </p:panelGrid>
                     
@@ -71,7 +71,7 @@
                             <f:facet name="header">Evaluar</f:facet>
                             
                             <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{actividadesController.abrirEvaluacion(registro)}">
-                                                        
+                                <p:ajax event="dialogReturn" update="listar" />                    
                             </p:commandButton> 
                         </p:column> 
                     </p:dataTable>
