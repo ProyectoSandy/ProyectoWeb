@@ -40,8 +40,8 @@ public class ProductosFacade extends AbstractFacade<Productos>{
         CriteriaQuery<Productos> cq= cb.createQuery(Productos.class);
         Root<Productos> objActividades = cq.from(Productos.class);
         
-        System.out.println("COLUMNA "+columna);
-        System.out.println("VALOR "+valorBuscar);
+        //System.out.println("COLUMNA "+columna);
+        //System.out.println("VALOR "+valorBuscar);
         
         if(!valorBuscar.equals("") && !columna.equals(""))
         {            

@@ -158,6 +158,7 @@
                                 </p:selectOneMenu>
 
                                 <f:facet name="footer">
+                                    <p:commandButton id="btnborrar" value="Borrar" actionListener="#{clasesController.borrar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
                                     <p:commandButton id="btngrabar" value="Guardar" actionListener="#{clasesController.agregar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
                                 </f:facet>
                             </h:panelGrid>

@@ -39,8 +39,8 @@ public class ClasesFacade extends AbstractFacade<Clases>{
         CriteriaQuery<Clases> cq= cb.createQuery(Clases.class);
         Root<Clases> objActividades = cq.from(Clases.class);
         
-        System.out.println("COLUMNA "+columna);
-        System.out.println("VALOR "+valorBuscar);
+        //System.out.println("COLUMNA "+columna);
+        //System.out.println("VALOR "+valorBuscar);
         
         if(!valorBuscar.equals("") && !columna.equals(""))
         {            

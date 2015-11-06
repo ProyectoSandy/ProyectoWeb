@@ -45,8 +45,8 @@ public class ActividadesFacade extends AbstractFacade<Actividades>{
         CriteriaQuery<Actividades> cq= cb.createQuery(Actividades.class);
         Root<Actividades> objActividades = cq.from(Actividades.class);
         
-        System.out.println("COLUMNA "+columna);
-        System.out.println("VALOR "+valorBuscar);
+        //System.out.println("COLUMNA "+columna);
+        //System.out.println("VALOR "+valorBuscar);
         
         if(!valorBuscar.equals("") && !columna.equals(""))
         {            
