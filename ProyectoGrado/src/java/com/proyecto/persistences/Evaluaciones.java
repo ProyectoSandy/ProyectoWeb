@@ -27,10 +27,10 @@ public class Evaluaciones implements Serializable
     @ManyToOne(optional = false)
     private Docentes _coddoc;
     
-    @JoinColumn(name = "codprod", referencedColumnName = "codproducto")
+    @JoinColumn(name = "codact", referencedColumnName = "codactividad")
     @OneToOne(optional = false)  
     //@Column(name = "codprod")
-    private Productos _codprod;
+    private Actividades _coact;
     
     @NotNull
     @Column(name = "calificacion")    
@@ -40,10 +40,8 @@ public class Evaluaciones implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + this._codeva;
-        hash = 53 * hash + Objects.hashCode(this._coddoc);
-        hash = 53 * hash + Objects.hashCode(this._codprod);
+        int hash = 7;
+        hash = 79 * hash + this._codeva;
         return hash;
     }
 
@@ -59,20 +57,12 @@ public class Evaluaciones implements Serializable
         if (this._codeva != other._codeva) {
             return false;
         }
-        if (!Objects.equals(this._coddoc, other._coddoc)) {
-            return false;
-        }
-        if (!Objects.equals(this._codprod, other._codprod)) {
-            return false;
-        }
         return true;
     }
 
-    
-
     @Override
     public String toString() {
-        return "Evaluaciones{" + "_coddocente=" + _coddoc + ", _codproducto=" + _codprod + ", _calificacion=" + _calificacion + '}';
+        return "Evaluaciones{" + "_coddocente=" + _coddoc + ", _codproducto=" + _coact + ", _calificacion=" + _calificacion + '}';
     }
 
     public Docentes getCoddoc() {
@@ -83,15 +73,13 @@ public class Evaluaciones implements Serializable
         this._coddoc = _coddoc;
     }
 
-    public Productos getCodprod() {
-        return _codprod;
+    public Actividades getCoact() {
+        return _coact;
     }
 
-    public void setCodprod(Productos _codprod) {
-        this._codprod = _codprod;
+    public void setCoact(Actividades _coact) {
+        this._coact = _coact;
     }
-
-    
 
     public int getCodeva() {
         return _codeva;

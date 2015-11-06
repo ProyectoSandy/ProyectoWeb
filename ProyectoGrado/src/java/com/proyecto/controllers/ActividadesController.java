@@ -39,6 +39,8 @@ public class ActividadesController implements Serializable
     
     private Actividades _obj;
     
+    private String cedula="";
+    
     private String _rutaTxt = "/com/java/utilities/txtActividades"; 
     private String _titulo="Operacion";
     private String _mensajeCorrecto = "Se ha realizado correctamente";
@@ -59,6 +61,8 @@ public class ActividadesController implements Serializable
         options.put("modal", true);
         RequestContext.getCurrentInstance().openDialog("faces/actividades/crear", options, null);
     }
+    
+    
     
     public void agregar()
     {
@@ -96,6 +100,28 @@ public class ActividadesController implements Serializable
         int cedula = doc.getCedula();
         System.out.println("ActividadesController --- Docente: "+cedula);
         return Formulario.addObject(_ejbFacade.buscarCampo("_coddocente", ""+cedula), texto);
+    }
+    
+    public void btnBuscar(){
+        
+        System.out.println("CODIGO DE DOCENTES "+_obj.getCoddocente().getCedula());
+        cedula= _obj.getCoddocente().getCedula()+"";
+        getListarEvaluaciones();
+    }
+    
+    public List<Actividades> getListarEvaluaciones()
+    {
+       
+       if(cedula==""){
+           System.out.println("ES NULO");
+            return null;
+       }else{
+           System.out.println("NO ES NULO");
+            return _ejbFacade.buscarCampo("_coddocente",cedula);
+       }
+      
+       
+        //return _actividadesFacade.listado();
     }
      
     public List<Actividades> getListado()
@@ -137,6 +163,44 @@ public class ActividadesController implements Serializable
         options.put("modal", true);
         RequestContext.getCurrentInstance().openDialog("faces/actividades/actualizar", options, null);
     }
+    
+    public void abrirEvaluacion(Actividades objTemp) {
+        
+        System.out.println("ENTRO A ABRIR EVALUACION");
+        _obj= objTemp;
+        Map<String,Object> options = new HashMap<String, Object>();
+        options.put("resizable", false);
+        options.put("draggable", false);
+        options.put("modal", true);
+        System.out.println("VA A ABRIR EVALUACIO");
+        RequestContext.getCurrentInstance().openDialog("evaluaciones/actualizar", options, null);
+    }
+    
+    public void guardarEvaluacion()
+    {
+        System.out.println("ENTRO A GUARDAR EVAUACION1");
+        String titulo,detalle;
+        System.out.println("ENTRO GUARDAR EVALUACION ");
+        try {
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
+            detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
+            Mensajes.exito(titulo, detalle);
+            //_obj.setCoddocente(docentesFacade.getCurrentDocente());
+            System.out.println("GUARDAR EVALUACION "+_obj.getValoracion());
+            _ejbFacade.actualizar(_obj);
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.closeDialog(null);
+           // return "administrar";//nombre de la face a la que debe redireccionar
+            
+        } catch (Exception e) 
+        {
+            titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
+            detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
+            Mensajes.error(titulo, detalle);
+            Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
+            //return "administrar";
+        }
+    }  
     
     public void actualizar()
     {

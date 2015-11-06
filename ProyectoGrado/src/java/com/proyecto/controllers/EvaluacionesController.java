@@ -41,7 +41,10 @@ public class EvaluacionesController implements Serializable{
     @EJB
     private DocentesFacade docentesFacade;
     
-    private int coddoc;
+    private Docentes coddoc;
+    
+    private String cedula="";
+    private Actividades act = new Actividades();
     
     public EvaluacionesController() {
     }
@@ -53,6 +56,8 @@ public class EvaluacionesController implements Serializable{
     }
     
     public void abrirActualizar(Actividades obj) {
+        act=obj;
+        System.out.println("ABRIR ACTUALIZAR "+act.getNombre());
         Map<String,Object> options = new HashMap<String, Object>();
         options.put("resizable", false);
         options.put("draggable", false);
@@ -60,17 +65,23 @@ public class EvaluacionesController implements Serializable{
         RequestContext.getCurrentInstance().openDialog("faces/evaluaciones/actualizar", options, null);
     }
     
-    public String agregar()
+    public void agregar()
     {
         String titulo,detalle;
-        
+       // act=acti;
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
             Mensajes.exito(titulo, detalle);
-            System.out.println("Evaluaciones: " + _obj);
-            _ejbFacade.crear(_obj);
-            return "crear";
+            System.out.println("ACTIVIDAD PARA AGREGAR: " + act.getNombre());
+            coddoc=_obj.getCoddoc();
+            System.out.println("DOCENTE "+coddoc.getCedula());
+            //_obj.setCoddoc(coddoc);
+            //_obj.setCoact(act);
+            _actividadesFacade.actualizar(act);
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.closeDialog(null);
+           // return "crear";
             
         } catch (Exception e) 
         {
@@ -78,7 +89,7 @@ public class EvaluacionesController implements Serializable{
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
             Mensajes.error(titulo, detalle);
             Logger.getLogger(Evaluaciones.class.getName()).log(Level.SEVERE,null,e);
-            return "crear";
+            //return "crear";
         }
     }
     
@@ -118,7 +129,7 @@ public class EvaluacionesController implements Serializable{
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
             System.out.println("actualizarExitoso");
             Mensajes.exito(titulo, detalle);
-            _ejbFacade.actualizar(_obj);
+           // _actividadesFacade.actualizar(_obj);
             return "administrar";
             
         } catch (Exception e) 
@@ -131,26 +142,27 @@ public class EvaluacionesController implements Serializable{
         }
     }  
     
-    public void resetear()
-    {
-        _obj = null;
-    }
     
     public void btnBuscar(){
-        Docentes objDoc = new Docentes();
-        System.out.println("CODIGO DE DOCENTES "+coddoc);
+        
+        System.out.println("CODIGO DE DOCENTES "+_obj.getCoddoc().getCedula());
+        cedula= _obj.getCoddoc().getCedula()+"";
         getListar();
     }
     
    public List<Actividades> getListar()
     {
-        /*Docentes doc = docentesFacade.getCurrentDocente();
-        String cedula= doc.getCedula()+"";
-       if(cedula!=null){
-           return _actividadesFacade.buscarCampo("_coddocente",cedula);
+       
+       if(cedula==""){
+           System.out.println("ES NULO");
+            return null;
+       }else{
+           System.out.println("NO ES NULO");
+            return _actividadesFacade.buscarCampo("_coddocente",cedula);
        }
-        return null;*/
-        return _actividadesFacade.listado();
+      
+       
+        //return _actividadesFacade.listado();
     }
     
    /* @FacesConverter(forClass = Evaluaciones.class, value = "evaluacionesConverter")
@@ -181,12 +193,24 @@ public class EvaluacionesController implements Serializable{
         }
     }*/
 
-    public int getCoddoc() {
+    public Docentes getCoddoc() {
         return coddoc;
     }
 
-    public void setCoddoc(int coddoc) {
+    public void setCoddoc(Docentes coddoc) {
         this.coddoc = coddoc;
     }
+
+    public Actividades getAct() {
+        return act;
+    }
+
+    public void setAct(Actividades act) {
+        this.act = act;
+    }
+
+   
+    
+    
 
 }

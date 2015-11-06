@@ -121,18 +121,22 @@ public class DocentesController implements Serializable
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("faces/docentes/actualizar", options, null);
+        System.out.println("VA A ABRIR ACTUALIZAR");
+        RequestContext.getCurrentInstance().openDialog("docentes/actualizar", options, null);
     }
     
     public void actualizar()
     {
+        System.out.println("ENTRO A LA FUNCION ACTUALIZAR");
         String titulo,detalle;
         
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
             Mensajes.exito(titulo, detalle);
+            System.out.println("INTENTA ACTUALIZAR");
             _ejbFacade.actualizar(_obj);
+            System.out.println("YA ACTUALIZA");
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
             //return "administrar";//nombre de la face a la que debe redireccionar

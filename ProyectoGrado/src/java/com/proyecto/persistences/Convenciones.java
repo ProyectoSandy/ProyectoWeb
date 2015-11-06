@@ -83,6 +83,6 @@ public class Convenciones implements Serializable
     }
 
     public void setColor(String _color) {
-        this._color = "#"+_color;
+        this._color = _color;
     }
 }

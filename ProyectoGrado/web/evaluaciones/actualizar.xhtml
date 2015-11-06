@@ -11,7 +11,7 @@
                 <p:panel>
                     <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/index_docentes.xhtml"></p:menuitem>
+                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/index_docentes.xhtml"></p:menuitem>
                         <p:menuitem value="Administracion de Actividades" url="/faces/actividades/administrar.xhtml"></p:menuitem>
                         <p:menuitem value="Actualizacion de Actividades" url="#"></p:menuitem>
                     </p:breadCrumb>
@@ -21,26 +21,26 @@
                     <p:panelGrid columns="2">
 
                         <p:outputLabel value="Nombre:  " for="nombre" />
-                        <p:inputText id="nombre" required="true" value="#{actividadesController.campo.nombre}"/> 
+                        <p:outputLabel id="nombre" value="#{actividadesController.campo.nombre}"/> 
 
                         <p:outputLabel value="Horas  " for="horas" />
-                        <p:inputText id="horas" required="true" value="#{actividadesController.campo.horas}"/> 
+                        <p:outputLabel id="horas" value="#{actividadesController.campo.horas}"/> 
 
                         <p:outputLabel value="Descripcion:  " for="descripcion" />
-                        <p:inputText id="descripcion" required="true" value="#{actividadesController.campo.descripcion}"/> 
+                        <p:outputLabel id="descripcion" value="#{actividadesController.campo.descripcion}"/> 
 
                         <p:outputLabel value="Responsable:  " for="responsable" />
-                        <p:inputText id="responsable" required="true" value="#{actividadesController.campo.responsable}"/> 
+                        <p:outputLabel id="responsable" value="#{actividadesController.campo.responsable}"/> 
 
 
                         <p:outputLabel value="Tipo Modalidad:  " for="codtipo" />
-                        <p:selectOneMenu id="codtipo" required="true" requiredMessage="No ha seleccionado" converter="tipoModalidadesConverter" value="#{actividadesController.campo.codtipo}"> 
-                            <f:selectItems value="#{tipoModalidadesController.combo('Selecione un opcion')}" />
-                        </p:selectOneMenu>
-
+                        <p:outputLabel id="codtipo" value="#{actividadesController.campo.codtipo}"/> 
+                        
+                        <p:outputLabel value="Valoracion:  " for="val" />
+                        <p:inputText id="val" value="#{actividadesController.campo.valoracion}"/> 
 
                         <f:facet name="footer">
-                            <p:commandButton id="btngrabar" value="Actualizar" ajax="true" action="#{actividadesController.actualizar()}"/>
+                            <p:commandButton id="btngrabar" value="Calificar" ajax="true" action="#{actividadesController.guardarEvaluacion()}"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:panel>  

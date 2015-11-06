@@ -54,6 +54,7 @@ public class ConvencionesController implements Serializable{
         String titulo,detalle;
         
         try {
+            _obj.setColor("#"+_obj.getColor());
             _ejbFacade.crear(_obj);
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");

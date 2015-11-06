@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/plantilla.xhtml">
         <ui:define name="content">  
-            <h:form>
+            <h:form id="form">
                 <p:panel>
                     <p:growl id="mensajes" sticky="true" showDetail="true"/> 
                     <p:breadCrumb>
@@ -15,24 +15,22 @@
                         <p:menuitem value="Bienvenido #{loginController.usuario}" url="#"></p:menuitem>
                     </p:breadCrumb>
                     <br/>
-                    <p:panelGrid columns="3" style="border-color: gray; border-width: 2px; border-style: double">
-                        <p:outputLabel value="Docente:  " for="doc" />
-                        <p:selectOneMenu id="doc" required="false" requiredMessage="No ha seleccionado" value="#{docentesController.campo.cedula}" converter="docentesConverter"> 
-                            <f:selectItems value="#{docentesController.combo('Seleccion un Docente')}" />
-                        </p:selectOneMenu>
-                        <p:commandButton value="Buscar" actionListener="#{evaluacionesController.btnBuscar()}">
-                            <p:ajax event="dialogReturn" update="mensajes listar" />                            
-                        </p:commandButton> 
-                    </p:panelGrid>
+                    
                     
                     <p:fieldset legend="Evaluaciones" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
-                        
-                        <p:commandButton value="Crear Actividades" actionListener="#{evaluacionesController.abrirCrear()}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update="mensajes listar" />                            
-                        </p:commandButton>                   
+                           
+                        <p:panelGrid columns="3" style="border-color: gray; border-width: 2px; border-style: double">
+                            <p:outputLabel value="Docente:  " for="doc" />
+                            <p:selectOneMenu id="doc" required="false" requiredMessage="No ha seleccionado" value="#{actividadesController.campo.coddocente}" converter="docentesConverter"> 
+                                <f:selectItems value="#{docentesController.combo('Seleccion un Docente')}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Buscar" actionListener="#{actividadesController.btnBuscar()}">
+                                <p:ajax event="dialogReturn" update=":form:listar" />                            
+                            </p:commandButton> 
+                        </p:panelGrid>
                     
                         <br/>
-                        <p:dataTable id="listar" value="#{evaluacionesController.listar}" var="registro">
+                        <p:dataTable id="listar" value="#{actividadesController.listarEvaluaciones}" var="registro">
                         <p:column style="width: 10px; text-align: center">
                             <f:facet name="header">Codigo</f:facet>
                             #{registro.codactividad}
@@ -70,9 +68,11 @@
                         </p:column>
                         
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Opciones</f:facet>
-                            <p:commandButton ajax="false" icon="ui-icon-trash" action="#{actividadesController.borrar(registro)}"></p:commandButton>
-                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{evaluacionesController.abrirActualizar(registro)}"></p:commandButton>                                  
+                            <f:facet name="header">Evaluar</f:facet>
+                            
+                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{actividadesController.abrirEvaluacion(registro)}">
+                                                        
+                            </p:commandButton> 
                         </p:column> 
                     </p:dataTable>
                     </p:fieldset>
