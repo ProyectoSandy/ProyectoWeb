@@ -7,7 +7,6 @@ import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Clases;
 import com.proyecto.persistences.Docentes;
 import com.proyecto.utilities.Mensajes;
-import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,6 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.ScheduleEntryMoveEvent;
@@ -32,6 +32,7 @@ import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
 
@@ -51,11 +52,18 @@ public class ClasesController implements Serializable{
     
     @PostConstruct
     public void init() {
-        eventModel = new DefaultScheduleModel();
-        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", today1Pm(), today1Pm()));
+        eventModel = new DefaultScheduleModel();        
+        
+        System.out.print("ClasesController.init time ----------> "+today1Pm());
+        for(Clases obj:getListado())
+        {
+            System.out.print("ClasesController.init time OBJ----------> "+obj.getCodhorainicio());
+            eventModel.addEvent(new DefaultScheduleEvent(obj.getNombre(), obj.getCodhorainicio(), obj.getCodhorafinal(),obj));
+        }
+        /*eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", today1Pm(), today1Pm()));
         eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today1Pm()));
         eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", today1Pm(), today1Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", today1Pm(), today1Pm()));         
+        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", today1Pm(), today1Pm()));  */       
         
     }
     
@@ -132,8 +140,8 @@ public class ClasesController implements Serializable{
     
     public void onEventSelect(SelectEvent selectEvent) 
     {
-        System.out.print("onEventSelect: " + selectEvent);
-        //event = (ScheduleEvent) selectEvent.getObject();
+        System.out.print("onEventSelect: " + ((ScheduleEvent)selectEvent.getObject()));
+        //selectEvent.get;
     }
      
     public void onDateSelect(SelectEvent selectEvent)
