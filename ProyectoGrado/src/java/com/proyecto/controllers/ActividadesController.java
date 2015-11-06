@@ -156,12 +156,14 @@ public class ActividadesController implements Serializable
     
     public void abrirActualizar(Actividades objtemp) {
         
+        System.out.println("ENTRO A ABRIR ACTUALIZAR");
         _obj = objtemp;
         Map<String,Object> options = new HashMap<String, Object>();
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("faces/actividades/actualizar", options, null);
+        System.out.println("VA A ABRIR ACTULIZAR");
+        RequestContext.getCurrentInstance().openDialog("actividades/actualizar", options, null);
     }
     
     public void abrirEvaluacion(Actividades objTemp) {
@@ -204,14 +206,17 @@ public class ActividadesController implements Serializable
     
     public void actualizar()
     {
+        System.out.println("ENTRO A ACTULIZAR");
         String titulo,detalle;
         
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
             Mensajes.exito(titulo, detalle);
+            System.out.println("INTENTA ACTULIZAR");
             _obj.setCoddocente(docentesFacade.getCurrentDocente());
             _ejbFacade.actualizar(_obj);
+            System.out.println("YA ACTULIZA");
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
            // return "administrar";//nombre de la face a la que debe redireccionar
