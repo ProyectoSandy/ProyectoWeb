@@ -16,18 +16,19 @@
                     </p:breadCrumb>
                     <br/>
                     
-                    
+                    <p:panelGrid columns="3" style="border-color: gray; border-width: 2px; border-style: double">
+                        <p:outputLabel value="Docente:  " for="doc" />
+                        <p:selectOneMenu id="doc" required="false" requiredMessage="No ha seleccionado" value="#{actividadesController.campo.coddocente}" converter="docentesConverter"> 
+                            <f:selectItems value="#{docentesController.combo('Seleccion un Docente')}" />
+                        </p:selectOneMenu>
+                        <p:commandButton value="Buscar" update="listar" actionListener="#{actividadesController.btnBuscar()}">
+                                                      
+                        </p:commandButton> 
+                    </p:panelGrid>
+                    <br/>
                     <p:fieldset legend="Evaluaciones" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                            
-                        <p:panelGrid columns="3" style="border-color: gray; border-width: 2px; border-style: double">
-                            <p:outputLabel value="Docente:  " for="doc" />
-                            <p:selectOneMenu id="doc" required="false" requiredMessage="No ha seleccionado" value="#{actividadesController.campo.coddocente}" converter="docentesConverter"> 
-                                <f:selectItems value="#{docentesController.combo('Seleccion un Docente')}" />
-                            </p:selectOneMenu>
-                            <p:commandButton value="Buscar" actionListener="#{actividadesController.btnBuscar()}">
-                                <p:ajax event="dialogReturn" update="listar" />                            
-                            </p:commandButton> 
-                        </p:panelGrid>
+                        
                     
                         <br/>
                         <p:dataTable id="listar" value="#{actividadesController.listarEvaluaciones}" var="registro">

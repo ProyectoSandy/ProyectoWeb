@@ -8,8 +8,9 @@
     <ui:composition template="/plantilla.xhtml">
         <ui:define name="content">  
             <h:form id="form">
-                
+                <p:growl id="mensajes" sticky="true" showDetail="true"/> 
                 <p:panel>
+                    
                     <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
                         <p:menuitem value="Bienvenido #{loginController.usuario}" url="#"></p:menuitem>
@@ -19,7 +20,7 @@
                     <p:fieldset legend="Tipo Modalidad" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
                         <p:commandButton value="Crear Modalidad" actionListener="#{tipoModalidadesController.abrirCrear()}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update=":form:ListarModalidad" />                            
+                            <p:ajax event="dialogReturn" update="mensajes :form:ListarModalidad" />                            
                         </p:commandButton>                   
                     
                         <br/>

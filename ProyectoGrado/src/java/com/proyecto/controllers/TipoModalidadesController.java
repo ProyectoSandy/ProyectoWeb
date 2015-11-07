@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -50,6 +51,7 @@ public class TipoModalidadesController implements Serializable
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
+        
         RequestContext.getCurrentInstance().openDialog("faces/tipo_modalidad/crear", options, null);
     }
     
@@ -62,6 +64,7 @@ public class TipoModalidadesController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
             Mensajes.exito(titulo, detalle);
             _ejbFacade.crear(_obj);
+            
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
             //return "crear";

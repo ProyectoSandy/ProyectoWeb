@@ -22,6 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -60,6 +61,7 @@ public class ActividadesController implements Serializable
         options.put("draggable", false);
         options.put("modal", true);
         RequestContext.getCurrentInstance().openDialog("faces/actividades/crear", options, null);
+        
     }
     
     
@@ -102,12 +104,13 @@ public class ActividadesController implements Serializable
         return Formulario.addObject(_ejbFacade.buscarCampo("_coddocente", ""+cedula), texto);
     }
     
-    public void btnBuscar(){
+    public String btnBuscar(){
         
+       
         System.out.println("CLICK EN BTN BUSCAR");
         cedula= _obj.getCoddocente().getCedula()+"";
-        getListarEvaluaciones();
         
+        return "index_evaluador";
     }
     
     
