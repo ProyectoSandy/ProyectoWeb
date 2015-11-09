@@ -47,6 +47,7 @@ public class ActividadesController implements Serializable
     private String _titulo="Operacion";
     private String _mensajeCorrecto = "Se ha realizado correctamente";
     private String _mensajeError = "No se completo la operacion";
+    private FacesMessage message;
     
     public ActividadesController() { }
     
@@ -64,8 +65,6 @@ public class ActividadesController implements Serializable
         RequestContext.getCurrentInstance().openDialog("faces/actividades/crear", options, null);
         
     }
-    
-    
     
     public void agregar()
     {
@@ -193,23 +192,39 @@ public class ActividadesController implements Serializable
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
-            Mensajes.exito(titulo, detalle);
+            //Mensajes.exito(titulo, detalle);
             //_obj.setCoddocente(docentesFacade.getCurrentDocente());
             System.out.println("GUARDAR EVALUACION "+_obj.getValoracion());
             _ejbFacade.actualizar(_obj);
             RequestContext context = RequestContext.getCurrentInstance();
-            context.closeDialog(null);
+            //context.closeDialog(null);           
            // return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
-            Mensajes.error(titulo, detalle);
+            //Mensajes.error(titulo, detalle);
             Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
             //return "administrar";
         }
     }  
+    
+    public void error()
+    {
+        String titulo,detalle;
+        titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
+        detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
+        Mensajes.error(titulo, detalle);
+        /*FacesMessage mensajito=new FacesMessage(FacesMessage.SEVERITY_INFO,"Lo Hicimos", "Felicidades lo has logrado");
+        FacesContext.getCurrentInstance().addMessage("mensajes", mensajito);*/
+    }
+    
+    public void mostrarMensaje()
+    {        
+        if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
+        message=null;
+    }
     
     public void actualizar()
     {
@@ -219,22 +234,29 @@ public class ActividadesController implements Serializable
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
-            Mensajes.exito(titulo, detalle);
+            
             System.out.println("INTENTA ACTULIZAR");
             _obj.setCoddocente(docentesFacade.getCurrentDocente());
             _ejbFacade.actualizar(_obj);
             System.out.println("YA ACTULIZA");
-            RequestContext context = RequestContext.getCurrentInstance();
+            RequestContext context = RequestContext.getCurrentInstance();             
+            //Mensajes.exito(titulo, detalle);
+            //FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             context.closeDialog(null);
+            
+            //return "";
            // return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
-            Mensajes.error(titulo, detalle);
+            //Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
             //return "administrar";
+            //return "";
         }
     }  
     

@@ -5,11 +5,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <script name="jquery/jquery.js" library="primefaces"></script>
+    </h:head>
     <ui:composition template="/plantilla.xhtml">
+        
         <ui:define name="content">  
-            <h:form id="pagDocente">
+            <h:form id="formActividades">
                 <p:panel>
-                    <p:growl id="mensajes" sticky="true" showDetail="true"/> 
+                    
                     <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
                         <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="#"></p:menuitem>
@@ -19,7 +23,7 @@
                     <p:fieldset legend="Actividades" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
                         <p:commandButton value="Crear Actividades" actionListener="#{actividadesController.abrirCrear}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update="listar mensajes" />                            
+                            <p:ajax event="dialogReturn" update=":formActividades:listar :formActividades:mensajesActividades" />                            
                         </p:commandButton>                   
                     
                         <br/>
@@ -59,17 +63,21 @@
                             <f:facet name="header">Opciones</f:facet>
                             <p:commandButton ajax="false" icon="ui-icon-trash" action="#{actividadesController.borrar(registro)}"></p:commandButton>
                             <p:commandButton icon="ui-icon-pencil" action="#{actividadesController.abrirActualizar(registro)}">
-                                <p:ajax event="dialogReturn" update="listar" />                            
+                                <p:ajax event="dialogReturn" update=":formActividades:listar :formActividades:mensajesActividades" oncomplete="#{actividadesController.mostrarMensaje()}"/>                                  
                             </p:commandButton>  
                         </p:column> 
                     </p:dataTable>
-                    </p:fieldset>
-                    
-                    
-                    <p:fieldset legend="Productos" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
+                        
+                    </p:fieldset>                    
+                </p:panel>  
+                
+                <p:growl id="mensajesActividades" showDetail="true" sticky="true"/> 
+                           
+                <p:panel>
+                    <p:fieldset legend="Productos" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
                         
                         <p:commandButton value="Crear Producto" actionListener="#{productosController.abrirCrear}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update="listado" />                            
+                            <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesProductos" />                            
                         </p:commandButton>                   
                     
                         <br/>
@@ -113,35 +121,28 @@
                                 <f:facet name="header">Opciones</f:facet>
                                 <p:commandButton ajax="false" icon="ui-icon-trash" action="#{productosController.borrar(registro)}"></p:commandButton>
                                 <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{productosController.abrirActualiar(registro)}">
-                                    <p:ajax event="dialogReturn" update="listado" />                            
+                                    <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesProductos" />                            
                                 </p:commandButton> 
                             </p:column> 
-                        </p:dataTable>                        
+                        </p:dataTable>                      
 
-                    </p:fieldset>
-                    
-                    
-                    <p:fieldset legend="Clases" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
+                    </p:fieldset>                    
+                </p:panel>
+                <p:growl id="mensajesProductos" showDetail="true" sticky="true"/> 
+                      
+                    <p:panel>
+                       <p:fieldset legend="Clases" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
+                       
                         
                         <p:schedule id="schedule" value="#{clasesController.eventModel}" widgetVar="myschedule" timeZone="GMT+5"> 
                             <p:ajax event="dateSelect" listener="#{clasesController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                             <p:ajax event="eventSelect" listener="#{clasesController.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                            <p:ajax event="eventMove" listener="#{clasesController.onEventMove}" update="mensajes" />
-                            <p:ajax event="eventResize" listener="#{clasesController.onEventResize}" update="mensajes" />
+                            
                         </p:schedule>
                         
                         <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
                             
-                            <h:panelGrid id="eventDetails" columns="2">
-                                <p:outputLabel value="Dia:  " for="dia" />
-                                <p:selectOneMenu id="dia" required="true" requiredMessage="No ha seleccionado"  value="#{clasesController.campo.dia}"> 
-                                    <f:selectItem itemValue="1" itemLabel="Lunes"/>
-                                    <f:selectItem itemValue="2" itemLabel="Martes" />
-                                    <f:selectItem itemValue="3" itemLabel="Miercoles" />
-                                    <f:selectItem itemValue="4" itemLabel="Jueves" />
-                                    <f:selectItem itemValue="5" itemLabel="Viernes" />
-                                    <f:selectItem itemValue="6" itemLabel="Sabado" />
-                                </p:selectOneMenu>
+                            <h:panelGrid id="eventDetails" columns="2" rendered="false">                           
 
                                 <p:outputLabel value="Nombre:  " for="nombre" />
                                 <p:inputText id="nombre" required="true" value="#{clasesController.campo.nombre}"/> 
@@ -152,7 +153,7 @@
                                 <p:outputLabel for="to" value="Hora Final:" />
                                 <p:calendar id="to" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm" value="#{clasesController.campo.codhorafinal}"/>
 
-                                <p:outputLabel value="Convencion:  " for="codconvencion" />
+                                <p:outputLabel value="Convencion:" for="codconvencion" />
                                 <p:selectOneMenu id="codconvencion" required="true" requiredMessage="No ha seleccionado" converter="convencionesConverter" value="#{clasesController.campo.codconvencion}"> 
                                     <f:selectItems value="#{convencionesController.combo('Seleccione una opcion')}" />
                                 </p:selectOneMenu>
@@ -164,7 +165,7 @@
                             </h:panelGrid>
                         </p:dialog>
                         <p:commandButton value="Crear Clases" actionListener="#{clasesController.abrirCrear()}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update="listarClases" />                            
+                            <p:ajax event="dialogReturn" update=":formActividades:listarClases :formActividades:mensajesClases" />                            
                         </p:commandButton>                   
                     
                         <br/>
@@ -203,20 +204,17 @@
                             <f:facet name="header">Opciones</f:facet>
                             <p:commandButton ajax="false" icon="ui-icon-trash" action="#{clasesController.borrar(registro)}"></p:commandButton>
                             <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{clasesController.abrirActualizar(registro)}"> 
-                                <p:ajax event="dialogReturn" update="listarClases" />                            
+                                <p:ajax event="dialogReturn" update=":formActividades:listarClases :formActividades:mensajesClases" />                            
                             </p:commandButton> 
                         </p:column> 
                     </p:dataTable>
                     </p:fieldset>
-                    
-                    
-                    <f:facet name="footer">                            
-                            <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/> 
-                    </f:facet> 
-                    
-                </p:panel>
-            </h:form>
+                        <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/> 
+                    </p:panel>
+                    <p:growl id="mensajesClases" showDetail="true" sticky="true"/> 
+                </h:form> 
+                
         </ui:define>
-        </ui:composition>
+    </ui:composition>
 </html>
 

@@ -4,19 +4,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition template="/plantilla.xhtml">
         <ui:define name="content">           
-            <h:form>
+            <h:form id="form">
                 <p:panel>
-                    <p:breadCrumb>
-                        <p:menuitem url="#"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="/faces/index_docentes.xhtml"></p:menuitem>
-                        <p:menuitem value="Administracion de Actividades" url="/faces/actividades/administrar.xhtml"></p:menuitem>
-                        <p:menuitem value="Actualizacion de Actividades" url="#"></p:menuitem>
-                    </p:breadCrumb>
-                
-                    <p:growl id="mensajes" sticky="true" showDetail="true"/>                
+                    
+                    <p:growl id="mensajito" sticky="true" showDetail="true" autoUpdate="true"/>           
                     <br/>
                     <p:panelGrid columns="2">
 
@@ -40,7 +35,7 @@
 
 
                         <f:facet name="footer">
-                            <p:commandButton id="btngrabar" value="Actualizar" ajax="true" action="#{actividadesController.actualizar()}"/>
+                            <p:commandButton id="btngrabar" value="Actualizar" ajax="true" action="#{actividadesController.actualizar()}"/>                                
                         </f:facet>
                     </p:panelGrid>
                 </p:panel>  
