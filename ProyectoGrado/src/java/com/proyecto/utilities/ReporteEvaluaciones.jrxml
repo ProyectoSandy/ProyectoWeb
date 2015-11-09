@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0835d6a7-c420-40ba-b1b4-559f75e141ab">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#5CB95C">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFE6CF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="46a03a6e-8144-4788-8ed7-c2aeca4e976c"/>
+	<queryString>
+		<![CDATA[select docentes.nombres, apellidos,  actividades.nombre, actividades.descripcion, responsable, valoracion 
+from docentes, actividades
+where docentes.cedula= actividades.coddocente
+order by apellidos]]>
+	</queryString>
+	<field name="nombres" class="java.lang.String"/>
+	<field name="apellidos" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="responsable" class="java.lang.String"/>
+	<field name="valoracion" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="19" width="558" height="60" uuid="33ef2d51-53bf-4b8a-8dd5-ce726b59087d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Berlin Sans FB" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESULTADOS EVALUACION DE LAS ACTIVIDADES DE CADA DOCENTE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="174" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20" uuid="0f38f783-8d83-4299-9005-9b89abec12c7"/>
+				<text><![CDATA[nombres]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="40" width="100" height="20" uuid="fa61c0db-1379-4a0d-b1bb-7ff8214867da"/>
+				<textFieldExpression><![CDATA[$F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="40" width="100" height="20" uuid="404c6855-fa00-4284-9bea-43ba32115261"/>
+				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="82" width="100" height="20" uuid="d86e7ba3-6fd1-4c68-a521-bded5af623eb"/>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="102" width="100" height="72" uuid="74b6b49e-800b-42d2-8263-e1392cd3ce20"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="119" y="82" width="157" height="20" uuid="4d340955-8116-4cf9-a71a-83dc173bbad5"/>
+				<text><![CDATA[descripcion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="102" width="157" height="72" uuid="bc663d93-d03e-48a3-9a19-70a05baf7158"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="82" width="143" height="20" uuid="3a7c9d85-e869-4ee7-bce4-b6567786d841"/>
+				<text><![CDATA[responsable]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="297" y="102" width="143" height="20" uuid="5dd61807-0000-4396-9b06-eb8156481f8e"/>
+				<textFieldExpression><![CDATA[$F{responsable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="457" y="82" width="100" height="20" uuid="feda372d-9009-49f7-8031-717fe7696d29"/>
+				<text><![CDATA[valoracion]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="457" y="102" width="100" height="20" uuid="a37cbcb9-7a87-41fe-936b-9f4f6f9c2596"/>
+				<textFieldExpression><![CDATA[$F{valoracion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -7,6 +7,7 @@ import com.proyecto.facades.ActividadesFacade;
 import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Actividades;
 import com.proyecto.persistences.Docentes;
+import com.proyecto.utilities.IniciarReporte;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -240,6 +241,11 @@ public class ActividadesController implements Serializable
     public void resetear()
     {
         _obj = null;
+    }
+    
+    public void generarReporte(){
+        IniciarReporte reporte = new IniciarReporte();
+        reporte.runReport();
     }
     
     @FacesConverter(forClass = Actividades.class, value = "actividadesConverter")
