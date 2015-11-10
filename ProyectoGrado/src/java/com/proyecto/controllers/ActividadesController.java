@@ -267,7 +267,7 @@ public class ActividadesController implements Serializable
     
     public void generarReporte(){
         IniciarReporte reporte = new IniciarReporte();
-        reporte.runReport();
+        //reporte.runReport();
     }
     
     @FacesConverter(forClass = Actividades.class, value = "actividadesConverter")
