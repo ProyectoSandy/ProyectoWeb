@@ -48,6 +48,8 @@ public class ClasesController implements Serializable{
     private ScheduleModel eventModel;
     private ScheduleEvent evento= new DefaultScheduleEvent();
     
+    private boolean _puedeMostrar=false;
+    
     public ClasesController() {
     }
     
@@ -95,6 +97,7 @@ public class ClasesController implements Serializable{
     }
     
     public void abrirCrear() {
+        _puedeMostrar=true;
         Map<String,Object> options = new HashMap<String, Object>();
         options.put("resizable", false);
         options.put("draggable", false);
@@ -127,6 +130,7 @@ public class ClasesController implements Serializable{
             eventModel.addEvent(new DefaultScheduleEvent(_objClase.getNombre(), _objClase.getCodhorainicio(), _objClase.getCodhorafinal(),_objClase));
             evento = new DefaultScheduleEvent();
             RequestContext context = RequestContext.getCurrentInstance();
+            _puedeMostrar=false;
             //context.closeDialog(null);
             //return "crear";
             
@@ -156,6 +160,7 @@ public class ClasesController implements Serializable{
     //se ejecuta cuando se selecciona un evento
     public void onEventSelect(SelectEvent selectEvent) 
     {
+        _puedeMostrar=true;
         System.out.print("onEventSelect: " + ((ScheduleEvent)selectEvent.getObject()));
         evento = (ScheduleEvent)selectEvent.getObject();        
         _objClase=(Clases)evento.getData();       
@@ -164,6 +169,7 @@ public class ClasesController implements Serializable{
     //se ejecuta cuando se selecciona una fecha
     public void onDateSelect(SelectEvent selectEvent)
     {
+        _puedeMostrar=true;
         evento = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject()); 
         _objClase=null;       
     }
@@ -213,6 +219,8 @@ public class ClasesController implements Serializable{
             Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
             //return "administrar";
         }
+        
+         _puedeMostrar=false;
     }    
     
     public void abrirActualizar(Clases objTemp) {
@@ -252,6 +260,14 @@ public class ClasesController implements Serializable{
     public void resetear()
     {
         _objClase = null;
+    }
+
+    public boolean isPuedeMostrar() {
+        return _puedeMostrar;
+    }
+
+    public void setPuedeMostrar(boolean _puedeMostrar) {
+        this._puedeMostrar = _puedeMostrar;
     }
     
     @FacesConverter(forClass = Clases.class, value = "clasesConverter")

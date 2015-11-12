@@ -22,8 +22,8 @@
                                         
                     <p:fieldset legend="Actividades" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
-                        <p:commandButton value="Crear Actividades" actionListener="#{actividadesController.abrirCrear}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update=":formActividades:listar :formActividades:mensajesActividades" />                            
+                        <p:commandButton value="Crear Actividades" actionListener="#{actividadesController.abrirCrear()}" icon="ui-icon-disk" >
+                            <p:ajax event="dialogReturn" update=":formActividades:listar :formActividades:mensajesActividades"/>                            
                         </p:commandButton>                   
                     
                         <br/>
@@ -77,7 +77,7 @@
                     <p:fieldset legend="Productos" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
                         
                         <p:commandButton value="Crear Producto" actionListener="#{productosController.abrirCrear}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesProductos" />                            
+                            <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesProductos" oncomplete="#{productosController.mostrarMensaje()}"/>                            
                         </p:commandButton>                   
                     
                         <br/>
@@ -142,7 +142,7 @@
                         
                         <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
                             
-                            <h:panelGrid id="eventDetails" columns="2">                           
+                            <h:panelGrid id="eventDetails" columns="2" rendered="#{clasesController.puedeMostrar}">                           
 
                                 <p:outputLabel value="Nombre:  " for="nombre" />
                                 <p:inputText id="nombre" required="true" value="#{clasesController.campo.nombre}"/> 
@@ -154,7 +154,7 @@
                                 <p:calendar id="to" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm" value="#{clasesController.campo.codhorafinal}"/>
 
                                 <p:outputLabel value="Convencion:" for="codconvencion" />
-                                <p:selectOneMenu id="codconvencion" required="true" requiredMessage="No ha seleccionado" converter="convencionesConverter" value="#{clasesController.campo.codconvencion}"> 
+                                <p:selectOneMenu id="codconvencion" required="true" requiredMessage="No ha seleccionado" value="#{clasesController.campo.codconvencion}"> 
                                     <f:selectItems value="#{convencionesController.combo('Seleccione una opcion')}" />
                                 </p:selectOneMenu>
 

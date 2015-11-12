@@ -47,7 +47,7 @@ public class ActividadesController implements Serializable
     private String _titulo="Operacion";
     private String _mensajeCorrecto = "Se ha realizado correctamente";
     private String _mensajeError = "No se completo la operacion";
-    private FacesMessage message;
+    private FacesMessage _message;
     
     public ActividadesController() { }
     
@@ -57,7 +57,8 @@ public class ActividadesController implements Serializable
         return _obj;        
     }
     
-    public void abrirCrear() {
+    public void abrirCrear()
+    {
         Map<String,Object> options = new HashMap<String, Object>();
         options.put("resizable", false);
         options.put("draggable", false);
@@ -73,7 +74,8 @@ public class ActividadesController implements Serializable
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
-            Mensajes.exito(titulo, detalle);
+            //Mensajes.exito(titulo, detalle);
+            _message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _obj.setCoddocente(docentesFacade.getCurrentDocente());
             _ejbFacade.crear(_obj);
             RequestContext context = RequestContext.getCurrentInstance();
@@ -84,7 +86,7 @@ public class ActividadesController implements Serializable
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
-            Mensajes.error(titulo, detalle);
+            _message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
            // return "crear";
         }
@@ -222,8 +224,8 @@ public class ActividadesController implements Serializable
     
     public void mostrarMensaje()
     {        
-        if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
-        message=null;
+        if(_message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", _message);
+        _message=null;
     }
     
     public void actualizar()
@@ -242,7 +244,7 @@ public class ActividadesController implements Serializable
             RequestContext context = RequestContext.getCurrentInstance();             
             //Mensajes.exito(titulo, detalle);
             //FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
+            _message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             context.closeDialog(null);
             
             //return "";
@@ -253,7 +255,7 @@ public class ActividadesController implements Serializable
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
             //Mensajes.error(titulo, detalle);
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
+            _message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
             //return "administrar";
             //return "";
