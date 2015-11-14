@@ -142,7 +142,7 @@
                         
                         <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
                             
-                            <h:panelGrid id="eventDetails" columns="2" rendered="false">                           
+                            <h:panelGrid id="eventDetails" columns="2">                           
 
                                 <p:outputLabel value="Nombre:  " for="nombre" />
                                 <p:inputText id="nombre" required="true" value="#{clasesController.campo.nombre}"/> 
@@ -154,7 +154,7 @@
                                 <p:calendar id="to" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm" value="#{clasesController.campo.codhorafinal}"/>
 
                                 <p:outputLabel value="Convencion:" for="codconvencion" />
-                                <p:selectOneMenu id="codconvencion" required="true" requiredMessage="No ha seleccionado" converter="convencionesConverter" value="#{clasesController.campo.codconvencion}"> 
+                                <p:selectOneMenu id="codconvencion" value="#{clasesController.codigo}"> 
                                     <f:selectItems value="#{convencionesController.combo('')}" />
                                 </p:selectOneMenu>
 

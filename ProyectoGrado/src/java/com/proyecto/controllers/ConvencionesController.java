@@ -77,7 +77,19 @@ public class ConvencionesController implements Serializable{
     
     public SelectItem[] combo(String texto)
     {
-        return Formulario.addObject(_ejbFacade.listado(), texto);
+        List<Convenciones> lista =_ejbFacade.listado(); 
+        SelectItem[] listaItems = new SelectItem[lista.size()];
+        int index=0;
+        for (Convenciones convencion : lista) {
+            System.out.println("ClasesController.Test: " + convencion.getNombre());
+            SelectItem item = new SelectItem(convencion.getCodconvencion(), convencion.getNombre());
+            
+            listaItems[index]=item;
+            index++;
+        }
+        
+        return listaItems;
+        //return Formulario.addObject(_ejbFacade.listado(), texto);
     }
     
     public List<Convenciones> getListado()

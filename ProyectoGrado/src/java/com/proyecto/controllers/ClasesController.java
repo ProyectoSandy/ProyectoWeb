@@ -3,8 +3,10 @@ package com.proyecto.controllers;
 
 import com.proyecto.utilities.Formulario;
 import com.proyecto.facades.ClasesFacade;
+import com.proyecto.facades.ConvencionesFacade;
 import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Clases;
+import com.proyecto.persistences.Convenciones;
 import com.proyecto.persistences.Docentes;
 import com.proyecto.utilities.Mensajes;
 import java.io.Serializable;
@@ -44,11 +46,16 @@ public class ClasesController implements Serializable{
     
     @EJB
     private ClasesFacade clasesFacade;
+    
+    @EJB
+    private ConvencionesFacade _convencionesFacade;
+    
     private Clases _objClase;
     private ScheduleModel eventModel;
     private ScheduleEvent evento= new DefaultScheduleEvent();
     
     private boolean _puedeMostrar=false;
+    private int _codigo;
     
     public ClasesController() {
     }
@@ -146,7 +153,7 @@ public class ClasesController implements Serializable{
     
     public SelectItem[] combo(String texto)
     {
-        return Formulario.addObject(clasesFacade.listado(), texto);
+        return Formulario.addObject(clasesFacade.listado(), texto);        
     }
     
     public List<Clases> getListado()
@@ -268,6 +275,14 @@ public class ClasesController implements Serializable{
 
     public void setPuedeMostrar(boolean _puedeMostrar) {
         this._puedeMostrar = _puedeMostrar;
+    }
+
+    public int getCodigo() {
+        return _codigo;
+    }
+
+    public void setCodigo(int _codigo) {
+        this._codigo = _codigo;
     }
     
     @FacesConverter(forClass = Clases.class, value = "clasesConverter")
