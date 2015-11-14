@@ -49,6 +49,9 @@ public class ProductosController implements Serializable
     private String _mensajeCorrecto = "Se ha realizado correctamente";
     private String _mensajeError = "No se completo la operacion";
     
+    private FacesMessage message;
+    private int _codigo;
+    
     public ProductosController() { }
     
     public Productos getCampo()
@@ -69,13 +72,13 @@ public class ProductosController implements Serializable
     public void agregar()
     {
         String titulo,detalle;
-        
+        Actividades actividad= _actividadesFacade.buscar(_codigo);
+        _obj.setCodactividad(actividad);
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
-            Mensajes.exito(titulo, detalle);
-            //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
-           // FacesContext.getCurrentInstance().addMessage(null, message);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
+           
             _ejbFacade.crear(_obj);           
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
@@ -85,8 +88,12 @@ public class ProductosController implements Serializable
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.closeDialog(null);
+            
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
+            
             //return "crear";
         }
     }
@@ -191,9 +198,23 @@ public class ProductosController implements Serializable
         }
     }  
     
+    public void mostrarMensaje()
+    {        
+        if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
+        message=null;
+    }
+    
     public void resetear()
     {
         _obj = null;
+    }
+
+    public int getCodigo() {
+        return _codigo;
+    }
+
+    public void setCodigo(int _codigo) {
+        this._codigo = _codigo;
     }
     
     @FacesConverter(forClass = Productos.class, value = "productosConverter")

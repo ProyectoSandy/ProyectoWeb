@@ -81,7 +81,19 @@ public class TipoModalidadesController implements Serializable
     
     public SelectItem[] combo(String texto)
     {
-        return Formulario.addObject(_ejbFacade.listado(), texto);
+        List<TipoModalidades> lista =_ejbFacade.listado(); 
+        SelectItem[] listaItems = new SelectItem[lista.size()];
+        int index=0;
+        for (TipoModalidades modalidad : lista) {
+            System.out.println("Test: " + modalidad.getCodtipo());
+            SelectItem item = new SelectItem(modalidad.getCodtipo(), modalidad.getNombre());
+            
+            listaItems[index]=item;
+            index++;
+        }
+        
+        return listaItems;
+        //return Formulario.addObject(texto);
     }
     
     public List<TipoModalidades> getListado()
