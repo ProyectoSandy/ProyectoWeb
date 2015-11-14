@@ -106,8 +106,7 @@ public class LoginController implements Serializable{
     public String logout() {
         
         FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) 
-            context.getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
           request.logout();
           return "/faces/index?faces-redirect=true";
