@@ -46,7 +46,7 @@ public class ConvencionesController implements Serializable{
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("faces/convenciones/crear", options, null);
+        RequestContext.getCurrentInstance().openDialog("/convenciones/crear", options, null);
     }
     
     public void agregar()
@@ -81,7 +81,7 @@ public class ConvencionesController implements Serializable{
         SelectItem[] listaItems = new SelectItem[lista.size()];
         int index=0;
         for (Convenciones convencion : lista) {
-            System.out.println("ClasesController.Test: " + convencion.getNombre());
+            //System.out.println("ClasesController.Test: " + convencion.getNombre());
             SelectItem item = new SelectItem(convencion.getCodconvencion(), convencion.getNombre());
             
             listaItems[index]=item;

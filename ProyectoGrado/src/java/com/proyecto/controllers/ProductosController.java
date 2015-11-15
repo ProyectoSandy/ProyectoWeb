@@ -88,7 +88,7 @@ public class ProductosController implements Serializable
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
             
@@ -153,14 +153,14 @@ public class ProductosController implements Serializable
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
-            Mensajes.exito(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _ejbFacade.borrar(faceObj);
             //return "administrar";
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
             //return "administrar";
         }
@@ -182,7 +182,7 @@ public class ProductosController implements Serializable
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
-            Mensajes.exito(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _ejbFacade.actualizar(_obj);
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
@@ -192,7 +192,7 @@ public class ProductosController implements Serializable
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
             //return "administrar";
         }

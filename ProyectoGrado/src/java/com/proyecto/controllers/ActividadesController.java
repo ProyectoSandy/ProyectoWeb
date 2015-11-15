@@ -63,6 +63,7 @@ public class ActividadesController implements Serializable
     }
     
     public void abrirCrear() {
+        System.out.print("Enttro");
         Map<String,Object> options = new HashMap<String, Object>();
         options.put("resizable", false);
         options.put("draggable", false);
@@ -92,7 +93,7 @@ public class ActividadesController implements Serializable
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
@@ -108,15 +109,15 @@ public class ActividadesController implements Serializable
     public SelectItem[] comboFiltrado(String texto)
     {
         Docentes doc=docentesFacade.getCurrentDocente();
-        System.out.println("ActividadesController --- Docente: "+doc.toString());
+        //System.out.println("ActividadesController --- Docente: "+doc.toString());
         int ced = doc.getCedula();
-        System.out.println("ActividadesController --- Docente: "+ced);
+        //System.out.println("ActividadesController --- Docente: "+ced);
         
         List<Actividades> lista =_ejbFacade.buscarCampo("_coddocente", ""+ced); 
         SelectItem[] listaItems = new SelectItem[lista.size()];
         int index=0;
         for (Actividades actividad : lista) {
-            System.out.println("Test: " + actividad.getCodtipo());
+            //System.out.println("Test: " + actividad.getCodtipo());
             SelectItem item = new SelectItem(actividad.getCodactividad(), actividad.getNombre());
             
             listaItems[index]=item;
@@ -127,12 +128,10 @@ public class ActividadesController implements Serializable
        // return Formulario.addObject(_ejbFacade.buscarCampo("_coddocente", ""+ced), texto);
     }
     
-    public String btnBuscar(){
-        
-       
-        System.out.println("CLICK EN BTN BUSCAR");
-        cedula= _obj.getCoddocente().getCedula()+"";
-        
+    public String btnBuscar()
+    {       
+        //System.out.println("CLICK EN BTN BUSCAR");
+        cedula= _obj.getCoddocente().getCedula()+"";        
         return "index_evaluador";
     }
     
@@ -152,8 +151,8 @@ public class ActividadesController implements Serializable
     public List<Actividades> getListado()
     {
         Docentes doc = docentesFacade.getCurrentDocente();
-        String cedula= doc.getCedula()+"";
-       
+        cedula= doc.getCedula()+"";
+        //System.out.print("ActividadesController.getListado cedula: " + cedula);
         return _ejbFacade.buscarCampo("_coddocente",cedula);
     }
     
@@ -179,27 +178,25 @@ public class ActividadesController implements Serializable
         }
     }    
     
-    public void abrirActualizar(Actividades objtemp) {
-        
-        System.out.println("ENTRO A ABRIR ACTUALIZAR");
+    public void abrirActualizar(Actividades objtemp)
+    {
         _obj = objtemp;
         Map<String,Object> options = new HashMap<String, Object>();
         options.put("resizable", false);
         options.put("draggable", false);
-        options.put("modal", true);
-        System.out.println("VA A ABRIR ACTULIZAR");
+        options.put("modal", true);       
         RequestContext.getCurrentInstance().openDialog("actividades/actualizar", options, null);
     }
     
     public void abrirEvaluacion(Actividades objTemp) {
         
-        System.out.println("ENTRO A ABRIR EVALUACION");
+       
         _obj= objTemp;
         Map<String,Object> options = new HashMap<String, Object>();
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        System.out.println("VA A ABRIR EVALUACIO");
+       
         RequestContext.getCurrentInstance().openDialog("evaluaciones/actualizar", options, null);
     }
     
@@ -208,16 +205,14 @@ public class ActividadesController implements Serializable
     }
     
     public void guardarEvaluacion()
-    {
-        System.out.println("ENTRO A GUARDAR EVAUACION1");
+    {        
         String titulo,detalle;
-        System.out.println("ENTRO GUARDAR EVALUACION ");
+        
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
-            //Mensajes.exito(titulo, detalle);
-            //_obj.setCoddocente(docentesFacade.getCurrentDocente());
-            System.out.println("GUARDAR EVALUACION "+_obj.getValoracion());
+         
+           
             _ejbFacade.actualizar(_obj);
             RequestContext context = RequestContext.getCurrentInstance();
             //context.closeDialog(null);           
