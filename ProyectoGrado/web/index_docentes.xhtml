@@ -45,7 +45,7 @@
                         </p:column> 
                         
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Descripcion</f:facet>
+                            <f:facet name="header">Descripción</f:facet>
                             #{registro.descripcion}
                         </p:column>
                         
@@ -94,7 +94,7 @@
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Descripcion</f:facet>
+                                <f:facet name="header">Descripción</f:facet>
                                 #{registro.descripcion}
                             </p:column> 
 
@@ -133,77 +133,73 @@
                 <p:growl id="mensajesProductos" showDetail="true" sticky="true"/> 
                       
                 <p:panel>
-                   <p:fieldset legend="Clases" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
+                    <p:fieldset legend="Clases" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
+
+                        <p:schedule id="schedule" value="#{clasesController.eventModel}" widgetVar="myschedule" timeZone="GMT+5" locale="es"> 
+                            <p:ajax event="dateSelect" listener="#{clasesController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                            <p:ajax event="eventSelect" listener="#{clasesController.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />                        
+                        </p:schedule>
+
+                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" onHide="#{clasesController.mostrarMensaje()}">
+                            <p:ajax event="close" update=":formActividades:mensajesClases :formActividades:listarClases" listener="#{clasesController.mostrarMensaje()}" />
+                            <h:panelGrid id="eventDetails" columns="2">                           
+
+                                <p:outputLabel value="Nombre:  " for="nombre" />
+                                <p:inputText id="nombre" value="#{clasesController.campo.nombre}"/> 
+
+                                <p:outputLabel for="from" value="Hora Inicio:" />
+                                <p:calendar id="from" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm" value="#{clasesController.campo.codhorainicio}"/>
+
+                                <p:outputLabel for="to" value="Hora Final:" />
+                                <p:calendar id="to" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm" value="#{clasesController.campo.codhorafinal}"/>
+
+                                <p:outputLabel value="Convención:" for="codconvencion" />
+                                <p:selectOneMenu id="codconvencion" value="#{clasesController.codigo}"> 
+                                    <f:selectItems value="#{convencionesController.combo('')}" />
+                                </p:selectOneMenu>
+
+                                <f:facet name="footer">
+                                    <p:commandButton id="btngrabar" value="Guardar" actionListener="#{clasesController.agregar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>                                    
+                                    <p:commandButton id="btnborrar" value="Borrar" ajax="true" actionListener="#{clasesController.borrar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>                                                                   
+                                </f:facet>
+                            </h:panelGrid>
+                        </p:dialog>
 
 
-                    <p:schedule id="schedule" value="#{clasesController.eventModel}" widgetVar="myschedule" timeZone="GMT+5" locale="es"> 
-                        <p:ajax event="dateSelect" listener="#{clasesController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                        <p:ajax event="eventSelect" listener="#{clasesController.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                        
-                    </p:schedule>
+                        <br/>
+                        <p:dataTable id="listarClases" value="#{clasesController.listado}" var="registro">
+                        <f:facet name="header">LISTA DE CLASES</f:facet>
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Codigo Clase</f:facet>
+                            #{registro.codclase}
+                        </p:column>
 
-                       <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" onHide="#{clasesController.mostrarMensaje()}">
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Nombre</f:facet>
+                            #{registro.nombre}
+                        </p:column>
 
-                        <h:panelGrid id="eventDetails" columns="2">                           
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Fecha Inicio</f:facet>
+                            <h:outputText value="#{registro.codhorainicio}">
+                                <f:convertDateTime dateStyle="full"/>                                
+                            </h:outputText>
+                        </p:column>
 
-                            <p:outputLabel value="Nombre:  " for="nombre" />
-                            <p:inputText id="nombre" value="#{clasesController.campo.nombre}"/> 
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Fecha Final</f:facet>
+                            <h:outputText value="#{registro.codhorafinal}">
+                                <f:convertDateTime dateStyle="full"/>                                
+                            </h:outputText>
+                        </p:column>
 
-                            <p:outputLabel for="from" value="Hora Inicio:" />
-                            <p:calendar id="from" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm" value="#{clasesController.campo.codhorainicio}"/>
-
-                            <p:outputLabel for="to" value="Hora Final:" />
-                            <p:calendar id="to" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm" value="#{clasesController.campo.codhorafinal}"/>
-
-                            <p:outputLabel value="Convencion:" for="codconvencion" />
-                            <p:selectOneMenu id="codconvencion" value="#{clasesController.codigo}"> 
-                                <f:selectItems value="#{convencionesController.combo('')}" />
-                            </p:selectOneMenu>
-
-                            <f:facet name="footer">
-                                <p:commandButton id="btngrabar" value="Guardar" actionListener="#{clasesController.agregar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();">
-                                    <p:ajax update=":formActividades:listarClases :formActividades:mensajesClases" oncomplete="#{clasesController.mostrarMensaje()}"/>                            
-                                </p:commandButton>
-                                <p:commandButton id="btnborrar" value="Borrar" ajax="true" actionListener="#{clasesController.borrar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>                                                                   
-                            </f:facet>
-                        </h:panelGrid>
-                    </p:dialog>
-
-
-                    <br/>
-                    <p:dataTable id="listarClases" value="#{clasesController.listado}" var="registro">
-                    <f:facet name="header">LISTA DE CLASES</f:facet>
-                    <p:column style="width: 10px; text-align: center">
-                        <f:facet name="header">Codigo Clase</f:facet>
-                        #{registro.codclase}
-                    </p:column>
-
-                    <p:column style="width: 10px; text-align: center">
-                        <f:facet name="header">Nombre</f:facet>
-                        #{registro.nombre}
-                    </p:column>
-
-                    <p:column style="width: 10px; text-align: center">
-                        <f:facet name="header">Fecha Inicio</f:facet>
-                        <h:outputText value="#{registro.codhorainicio}">
-                            <f:convertDateTime dateStyle="full"/>                                
-                        </h:outputText>
-                    </p:column>
-
-                    <p:column style="width: 10px; text-align: center">
-                        <f:facet name="header">Fecha Final</f:facet>
-                        <h:outputText value="#{registro.codhorafinal}">
-                            <f:convertDateTime dateStyle="full"/>                                
-                        </h:outputText>
-                    </p:column>
-
-                    <p:column style="width: 10px; text-align: center">
-                        <f:facet name="header">Convencion</f:facet>
-                        #{registro.codconvencion}
-                    </p:column>                                                
-                </p:dataTable>
+                        <p:column style="width: 10px; text-align: center">
+                            <f:facet name="header">Convención</f:facet>
+                            #{registro.codconvencion}
+                        </p:column>                                                
+                    </p:dataTable>
                 </p:fieldset>
-                    <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/> 
+                    <p:commandButton value="Cerrar Sesión" ajax="false" action="#{loginController.logout()}"/> 
                 </p:panel>
                 <p:growl id="mensajesClases" showDetail="true" sticky="true" widgetVar="mensaje"/> 
                 </h:form> 

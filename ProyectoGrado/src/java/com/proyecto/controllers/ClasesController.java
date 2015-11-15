@@ -64,19 +64,11 @@ public class ClasesController implements Serializable{
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();        
-        
-        System.out.print("ClasesController.init time ----------> "+today1Pm());
+                
         for(Clases obj:getListado())
-        {
-            System.out.print("ClasesController.init time OBJ----------> "+obj.getCodhorainicio());
+        {            
             eventModel.addEvent(new DefaultScheduleEvent(obj.getNombre(), obj.getCodhorainicio(), obj.getCodhorafinal(),obj));
         }
-        
-        /*eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", today1Pm(), today1Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today1Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", today1Pm(), today1Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", today1Pm(), today1Pm()));  */       
-        
     }
     
     public ScheduleModel getEventModel() {
@@ -89,21 +81,6 @@ public class ClasesController implements Serializable{
         return _objClase;        
     }
     
-    private Date today1Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.HOUR, 1);
-         
-        return t.getTime();
-    }
-    
-    private Calendar today() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
- 
-        return calendar;
-    }
-    
     public void abrirCrear() {       
         Map<String,Object> options = new HashMap<String, Object>();
         options.put("resizable", false);
@@ -113,8 +90,7 @@ public class ClasesController implements Serializable{
     }
     
     public void agregar(ActionEvent actionEvent)
-    {
-        
+    {        
         String titulo,detalle;
         Convenciones convencion = _convencionesFacade.buscar(_codigo);
         _objClase.setCodconvencion(convencion);
@@ -125,30 +101,24 @@ public class ClasesController implements Serializable{
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _objClase.setCoddocente(docentesFacade.getCurrentDocente());
             
-            if(evento.getId()==null) {
-                System.out.print("Agrego ---- " + _objClase.getNombre());
-                clasesFacade.crear(_objClase);
-                
+            if(evento.getId()==null)
+            {               
+                clasesFacade.crear(_objClase);                
             }
-            else{
-                System.out.print("Actualizo ---- " + evento);                
+            else{                           
                 clasesFacade.actualizar(_objClase);                
                 eventModel.deleteEvent(evento);
             }
             
             eventModel.addEvent(new DefaultScheduleEvent(_objClase.getNombre(), _objClase.getCodhorainicio(), _objClase.getCodhorafinal(),_objClase));
-            evento = new DefaultScheduleEvent();
-            RequestContext context = RequestContext.getCurrentInstance();          
-            context.closeDialog(null);
-            //return "crear";
+            evento = new DefaultScheduleEvent();          
             
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
-            Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
-            //return "crear";
+            Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);           
         }
     }
     
@@ -168,7 +138,7 @@ public class ClasesController implements Serializable{
     //se ejecuta cuando se selecciona un evento
     public void onEventSelect(SelectEvent selectEvent) 
     {        
-        System.out.print("onEventSelect: " + ((ScheduleEvent)selectEvent.getObject()));
+        //System.out.print("onEventSelect: " + ((ScheduleEvent)selectEvent.getObject()));
         evento = (ScheduleEvent)selectEvent.getObject();        
         _objClase=(Clases)evento.getData();       
     }
