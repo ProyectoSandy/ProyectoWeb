@@ -66,7 +66,7 @@ public class ProductosController implements Serializable
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("faces/productos/crear", options, null);
+        RequestContext.getCurrentInstance().openDialog("/productos/crear", options, null);
     }
     
     public void agregar()

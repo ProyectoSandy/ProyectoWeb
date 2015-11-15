@@ -8,8 +8,7 @@
     <ui:composition template="/plantilla.xhtml">
         <ui:define name="content">  
             <h:form id="form">
-                <p:panel>
-                    <p:growl id="mensajes" sticky="true" showDetail="true"/> 
+                <p:panel>                    
                     <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
                         <p:menuitem value="Bienvenido #{loginController.usuario}" url="#"></p:menuitem>
@@ -26,10 +25,11 @@
                         </p:commandButton> 
                     </p:panelGrid>
                     <br/>
-                    <p:fieldset legend="Evaluaciones" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
+                    
+                    
+                    <p:fieldset legend="Evaluaciones" style="margin-bottom:20px" collapsed="false" toggleable="true" toggleSpeed="500" >                        
                            
                         
-                    
                         <br/>
                         <p:dataTable id="listar" value="#{actividadesController.listarEvaluaciones}" var="registro">
                         <p:column style="width: 10px; text-align: center">
@@ -71,11 +71,12 @@
                         <p:column style="width: 10px; text-align: center">
                             <f:facet name="header">Evaluar</f:facet>
                             
-                            <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{actividadesController.abrirEvaluacion(registro)}">
-                                <p:ajax event="dialogReturn" update="listar" />                    
+                            <p:commandButton ajax="true" icon="ui-icon-pencil" actionListener="#{actividadesController.abrirEvaluacion(registro)}">
+                                <p:ajax event="dialogReturn" update=":form:listar :form:mensajes" oncomplete="#{actividadesController.mostrarMensaje()}"/>                                                
                             </p:commandButton> 
                         </p:column> 
                     </p:dataTable>
+                    <p:growl id="mensajes" sticky="true" showDetail="true"/> 
                     </p:fieldset>
                     
                     <f:facet name="footer">

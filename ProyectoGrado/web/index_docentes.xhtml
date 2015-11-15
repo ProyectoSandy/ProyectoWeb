@@ -76,7 +76,7 @@
                 <p:panel>
                     <p:fieldset legend="Productos" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
                         
-                        <p:commandButton value="Crear Producto" actionListener="#{productosController.abrirCrear}" icon="ui-icon-disk" >
+                        <p:commandButton value="Crear Producto" actionListener="#{productosController.abrirCrear()}" icon="ui-icon-disk" >
                             <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesProductos" />                            
                         </p:commandButton>                   
                         <p:separator/>

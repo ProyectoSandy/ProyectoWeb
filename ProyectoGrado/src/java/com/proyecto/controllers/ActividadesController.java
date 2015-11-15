@@ -138,12 +138,11 @@ public class ActividadesController implements Serializable
     
     public List<Actividades> getListarEvaluaciones()
     {
-       
        if(cedula==""){
-           System.out.println("ES NULO");
+            //System.out.println("ES NULO");
             return null;
        }else{
-           System.out.println("NO ES NULO");
+           //System.out.println("NO ES NULO");
             return _ejbFacade.buscarCampo("_coddocente",cedula);
        }
     }
@@ -164,7 +163,7 @@ public class ActividadesController implements Serializable
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
-            Mensajes.exito(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _ejbFacade.borrar(faceObj);
             //return "administrar";//nombre de la face a la que debe redireccionar
             
@@ -190,7 +189,6 @@ public class ActividadesController implements Serializable
     
     public void abrirEvaluacion(Actividades objTemp) {
         
-       
         _obj= objTemp;
         Map<String,Object> options = new HashMap<String, Object>();
         options.put("resizable", false);
@@ -212,20 +210,20 @@ public class ActividadesController implements Serializable
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
          
-           
             _ejbFacade.actualizar(_obj);
-            RequestContext context = RequestContext.getCurrentInstance();
-            //context.closeDialog(null);           
-           // return "administrar";//nombre de la face a la que debe redireccionar
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);          
             
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
-            //Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
+          
         }
+        
+        RequestContext context = RequestContext.getCurrentInstance();  
+        context.closeDialog(null);
     }  
     
     public void error()
@@ -240,6 +238,7 @@ public class ActividadesController implements Serializable
     
     public void mostrarMensaje()
     {        
+        System.out.print("Mostrar Mensaje");
         if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
         message=null;
     }
@@ -247,6 +246,8 @@ public class ActividadesController implements Serializable
     public void actualizar()
     {        
         String titulo,detalle;
+        TipoModalidades modalidad= _modalidadFacade.buscar(_codigo);
+        _obj.setCodtipo(modalidad);
         
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
