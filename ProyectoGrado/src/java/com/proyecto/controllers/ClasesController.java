@@ -214,8 +214,8 @@ public class ClasesController implements Serializable{
             }           
             
             evento = new DefaultScheduleEvent();
-            RequestContext context = RequestContext.getCurrentInstance();          
-            context.closeDialog(null);
+            /*RequestContext context = RequestContext.getCurrentInstance();          
+            context.closeDialog(null);*/
             //return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
@@ -224,8 +224,8 @@ public class ClasesController implements Serializable{
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
-            RequestContext context = RequestContext.getCurrentInstance();          
-            context.closeDialog(null);
+            /*RequestContext context = RequestContext.getCurrentInstance();          
+            context.closeDialog(null);*/
             //return "administrar";
         }        
     }    

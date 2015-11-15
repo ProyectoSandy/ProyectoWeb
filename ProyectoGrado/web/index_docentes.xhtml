@@ -142,7 +142,7 @@
                         
                     </p:schedule>
 
-                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                       <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" onHide="#{clasesController.mostrarMensaje()}">
 
                         <h:panelGrid id="eventDetails" columns="2">                           
 
@@ -164,9 +164,7 @@
                                 <p:commandButton id="btngrabar" value="Guardar" actionListener="#{clasesController.agregar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();">
                                     <p:ajax update=":formActividades:listarClases :formActividades:mensajesClases" oncomplete="#{clasesController.mostrarMensaje()}"/>                            
                                 </p:commandButton>
-                                <p:commandButton id="btnborrar" value="Borrar" ajax="true" actionListener="#{clasesController.borrar}" oncomplete="#{clasesController.mostrarMensaje()}">                                    
-                                    
-                                </p:commandButton>
+                                <p:commandButton id="btnborrar" value="Borrar" ajax="true" actionListener="#{clasesController.borrar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>                                                                   
                             </f:facet>
                         </h:panelGrid>
                     </p:dialog>
