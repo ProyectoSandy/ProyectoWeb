@@ -24,7 +24,7 @@
                     <p:fieldset legend="Actividades" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
                         <p:commandButton value="Crear Actividades" actionListener="#{actividadesController.abrirCrear()}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update=":formActividades:listar :formActividades:mensajesActividades" />                            
+                            <p:ajax event="dialogReturn" update=":formActividades:listar :formActividades:mensajesClases" />                            
                         </p:commandButton>                   
                         <p:separator/>
                         <br/>
@@ -64,20 +64,20 @@
                             <f:facet name="header">Opciones</f:facet>
                             <p:commandButton ajax="false" icon="ui-icon-trash" action="#{actividadesController.borrar(registro)}"></p:commandButton>
                             <p:commandButton icon="ui-icon-pencil" action="#{actividadesController.abrirActualizar(registro)}">
-                                <p:ajax event="dialogReturn" update=":formActividades:listar :formActividades:mensajesActividades" oncomplete="#{actividadesController.mostrarMensaje()}"/>                                  
+                                <p:ajax event="dialogReturn" update=":formActividades:listar :formActividades:mensajesClases" oncomplete="#{actividadesController.mostrarMensaje()}"/>                                  
                             </p:commandButton>  
                         </p:column> 
                     </p:dataTable>
                         
                     </p:fieldset>                    
                 </p:panel>                  
-                <p:growl id="mensajesActividades" showDetail="true" sticky="true"/> 
+                
                            
                 <p:panel>
                     <p:fieldset legend="Productos" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
                         
                         <p:commandButton value="Crear Producto" actionListener="#{productosController.abrirCrear()}" icon="ui-icon-disk" >
-                            <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesProductos" />                            
+                            <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesClases" />                            
                         </p:commandButton>                   
                         <p:separator/>
                         <br/>
@@ -119,18 +119,16 @@
 
                             <p:column style="width: 10px; text-align: center">
                                 <f:facet name="header">Opciones</f:facet>
-                                <p:commandButton ajax="false" icon="ui-icon-trash" action="#{productosController.borrar(registro)}">
-                                    <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesProductos" oncomplete="#{productosController.mostrarMensaje()}"/>                            
-                                </p:commandButton>
-                                <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{productosController.abrirActualiar(registro)}">
-                                    <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesProductos" oncomplete="#{productosController.mostrarMensaje()}"/>                            
+                                <p:commandButton ajax="false" icon="ui-icon-trash" action="#{productosController.borrar(registro)}"/>                                    
+                                <p:commandButton icon="ui-icon-pencil" action="#{productosController.abrirActualiar(registro)}">
+                                    <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesClases" oncomplete="#{productosController.mostrarMensaje()}"/>                            
                                 </p:commandButton> 
                             </p:column> 
                         </p:dataTable>                      
 
                     </p:fieldset>                    
                 </p:panel>
-                <p:growl id="mensajesProductos" showDetail="true" sticky="true"/> 
+                
                       
                 <p:panel>
                     <p:fieldset legend="Clases" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
