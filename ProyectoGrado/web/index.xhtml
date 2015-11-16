@@ -11,6 +11,7 @@
                 <p:panel>
                     <p:breadCrumb>
                         <p:menuitem value="login" url="/faces/index.xhtml"></p:menuitem>
+                        <p:menuitem value="Formato de Registro y Evaluación de Actividades" url="/faces/index.xhtml"></p:menuitem>
                     </p:breadCrumb>
 
                     <p:growl id="mensajes" sticky="true" showDetail="true"/>              
@@ -18,15 +19,11 @@
 
                     #{loginController.resetear()}
 
-                    <p:panelGrid columns="2">
-                        <f:facet name="header">
-
-                        </f:facet>
-
-                        <p:outputLabel value="usuario"/>
+                    <p:panelGrid columns="2">                        
+                        <p:outputLabel value="Usuario"/>
                         <p:inputText id="usuario" required="true" requiredMessage="ingrese un usuario" value="#{loginController.usuario}"/>
 
-                        <p:outputLabel value="clave"/>
+                        <p:outputLabel value="Clave"/>
                         <p:password id="clave" required="true" requiredMessage="ingrese una clave" value="#{loginController.clave}"/>
 
                         <f:facet name="footer">
