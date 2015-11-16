@@ -9,23 +9,15 @@
         <ui:define name="content">
             
             <h:form>
-                <p:panel>
-                    <p:breadCrumb>
-                        <p:menuitem url="#"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/index_admin.xhtml"></p:menuitem>
-                        <p:menuitem value="Administracion de Tipos Modalidad" url="/faces/tipo_modalidad/administrar.xhtml"></p:menuitem> 
-                        <p:menuitem value="Actualizacion de Tipos Modalidad" url="#"></p:menuitem>
-                    </p:breadCrumb>
-                  
-                    <p:growl id="mensajes" sticky="true" showDetail="true"/>                
+                <p:panel>                         
                     <br/>
                     <p:panelGrid columns="2">
                         <f:facet name="header">Nombre</f:facet>
                         <p:outputLabel value="Nombre " for="nombre" />
-                        <p:inputText id="nombre" required="true" value="#{tipoModalidadesController.campo.nombre}"/>                    
+                        <p:inputText id="nombre" value="#{tipoModalidadesController.campo.nombre}"/>                    
 
                         <f:facet name="footer">
-                            <p:commandButton id="btngrabar" value="Actualizar" ajax="false" action="#{tipoModalidadesController.actualizar()}"/>
+                            <p:commandButton id="btngrabar" value="Actualizar" ajax="true" action="#{tipoModalidadesController.actualizar()}"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:panel>

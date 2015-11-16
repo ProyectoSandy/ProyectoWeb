@@ -48,7 +48,9 @@ public class ProductosController implements Serializable
     private String _titulo="Operacion";
     private String _mensajeCorrecto = "Se ha realizado correctamente";
     private String _mensajeError = "No se completo la operacion";
-    private FacesMessage _message;
+    
+    private FacesMessage message;
+    private int _codigo;
     
     public ProductosController() { }
     
@@ -64,20 +66,19 @@ public class ProductosController implements Serializable
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("faces/productos/crear", options, null);
+        RequestContext.getCurrentInstance().openDialog("/productos/crear", options, null);
     }
     
     public void agregar()
     {
         String titulo,detalle;
-        
+        Actividades actividad= _actividadesFacade.buscar(_codigo);
+        _obj.setCodactividad(actividad);
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
-            Mensajes.exito(titulo, detalle);
-            //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
-           // FacesContext.getCurrentInstance().addMessage(null, message);
-            _message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
+           
             _ejbFacade.crear(_obj);           
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
@@ -87,17 +88,14 @@ public class ProductosController implements Serializable
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
-            //Mensajes.error(titulo, detalle);
-            _message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.closeDialog(null);
+            
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
+            
             //return "crear";
         }
-    }
-    
-    public void mostrarMensaje()
-    {        
-        if(_message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", _message);
-        _message=null;
     }
     
     public SelectItem[] combo(String texto)
@@ -155,14 +153,14 @@ public class ProductosController implements Serializable
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
-            Mensajes.exito(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _ejbFacade.borrar(faceObj);
             //return "administrar";
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
             //return "administrar";
         }
@@ -184,7 +182,7 @@ public class ProductosController implements Serializable
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
-            Mensajes.exito(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _ejbFacade.actualizar(_obj);
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
@@ -194,15 +192,29 @@ public class ProductosController implements Serializable
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
             //return "administrar";
         }
     }  
     
+    public void mostrarMensaje()
+    {        
+        if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
+        message=null;
+    }
+    
     public void resetear()
     {
         _obj = null;
+    }
+
+    public int getCodigo() {
+        return _codigo;
+    }
+
+    public void setCodigo(int _codigo) {
+        this._codigo = _codigo;
     }
     
     @FacesConverter(forClass = Productos.class, value = "productosConverter")

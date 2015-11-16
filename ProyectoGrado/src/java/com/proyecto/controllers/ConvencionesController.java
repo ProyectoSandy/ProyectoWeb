@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -31,6 +32,7 @@ public class ConvencionesController implements Serializable{
     @EJB
     private ConvencionesFacade _ejbFacade;
     private Convenciones _obj;
+    private FacesMessage message;
     
     public ConvencionesController() {
     }
@@ -46,7 +48,7 @@ public class ConvencionesController implements Serializable{
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("faces/convenciones/crear", options, null);
+        RequestContext.getCurrentInstance().openDialog("/convenciones/crear", options, null);
     }
     
     public void agregar()
@@ -54,30 +56,41 @@ public class ConvencionesController implements Serializable{
         String titulo,detalle;
         
         try {
-            _obj.setColor("#"+_obj.getColor());
-            _ejbFacade.crear(_obj);
+            _obj.setColor("#"+_obj.getColor());            
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
-            Mensajes.exito(titulo, detalle);
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.closeDialog(null);
-            //return "crear";
+             message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);             
+            _ejbFacade.crear(_obj);
             
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Convenciones.class.getName()).log(Level.SEVERE,null,e);
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.closeDialog(null);
-            //return "crear";
+            
+           
         }
+        
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.closeDialog(null);
     }
     
     public SelectItem[] combo(String texto)
     {
-        return Formulario.addObject(_ejbFacade.listado(), texto);
+        List<Convenciones> lista =_ejbFacade.listado(); 
+        SelectItem[] listaItems = new SelectItem[lista.size()];
+        int index=0;
+        for (Convenciones convencion : lista) {
+            //System.out.println("ClasesController.Test: " + convencion.getNombre());
+            SelectItem item = new SelectItem(convencion.getCodconvencion(), convencion.getNombre());
+            
+            listaItems[index]=item;
+            index++;
+        }
+        
+        return listaItems;
+        //return Formulario.addObject(_ejbFacade.listado(), texto);
     }
     
     public List<Convenciones> getListado()
@@ -113,7 +126,7 @@ public class ConvencionesController implements Serializable{
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("faces/convenciones/actualizar", options, null);
+        RequestContext.getCurrentInstance().openDialog("/convenciones/actualizar", options, null);
     }
     
     public void actualizar()
@@ -121,24 +134,33 @@ public class ConvencionesController implements Serializable{
         String titulo,detalle;
         
         try {
-            _ejbFacade.actualizar(_obj);
+            
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
-            Mensajes.exito(titulo, detalle);
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.closeDialog(null);
-            //return "administrar";
+            _ejbFacade.actualizar(_obj);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle); 
+            
             
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Convenciones.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
+           
         }
+        
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.closeDialog(null);
     }  
     
+    public void mostrarMensaje()
+    {        
+        //System.out.print("DocentesController.MostrarMensaje");
+        if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
+        message=null;
+    }
+       
     public void resetear()
     {
         _obj = null;

@@ -3,8 +3,10 @@ package com.proyecto.controllers;
 
 import com.proyecto.utilities.Formulario;
 import com.proyecto.facades.ClasesFacade;
+import com.proyecto.facades.ConvencionesFacade;
 import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Clases;
+import com.proyecto.persistences.Convenciones;
 import com.proyecto.persistences.Docentes;
 import com.proyecto.utilities.Mensajes;
 import java.io.Serializable;
@@ -18,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -44,11 +47,16 @@ public class ClasesController implements Serializable{
     
     @EJB
     private ClasesFacade clasesFacade;
+    
+    @EJB
+    private ConvencionesFacade _convencionesFacade;
+    
     private Clases _objClase;
     private ScheduleModel eventModel;
-    private ScheduleEvent evento= new DefaultScheduleEvent();
-    
-    private boolean _puedeMostrar=false;
+    private ScheduleEvent evento= new DefaultScheduleEvent();   
+   
+    private FacesMessage message;
+    private int _codigo;
     
     public ClasesController() {
     }
@@ -56,19 +64,11 @@ public class ClasesController implements Serializable{
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();        
-        
-        System.out.print("ClasesController.init time ----------> "+today1Pm());
+                
         for(Clases obj:getListado())
-        {
-            System.out.print("ClasesController.init time OBJ----------> "+obj.getCodhorainicio());
+        {            
             eventModel.addEvent(new DefaultScheduleEvent(obj.getNombre(), obj.getCodhorainicio(), obj.getCodhorafinal(),obj));
         }
-        
-        /*eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", today1Pm(), today1Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today1Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", today1Pm(), today1Pm()));
-        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", today1Pm(), today1Pm()));  */       
-        
     }
     
     public ScheduleModel getEventModel() {
@@ -81,23 +81,7 @@ public class ClasesController implements Serializable{
         return _objClase;        
     }
     
-    private Date today1Pm() {
-        Calendar t = (Calendar) today().clone();
-        t.set(Calendar.AM_PM, Calendar.PM);
-        t.set(Calendar.HOUR, 1);
-         
-        return t.getTime();
-    }
-    
-    private Calendar today() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
- 
-        return calendar;
-    }
-    
-    public void abrirCrear() {
-        _puedeMostrar=true;
+    public void abrirCrear() {       
         Map<String,Object> options = new HashMap<String, Object>();
         options.put("resizable", false);
         options.put("draggable", false);
@@ -106,47 +90,41 @@ public class ClasesController implements Serializable{
     }
     
     public void agregar(ActionEvent actionEvent)
-    {
-        
+    {        
         String titulo,detalle;
+        Convenciones convencion = _convencionesFacade.buscar(_codigo);
+        _objClase.setCodconvencion(convencion);
         
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
-            Mensajes.exito(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _objClase.setCoddocente(docentesFacade.getCurrentDocente());
             
-            if(evento.getId()==null) {
-                System.out.print("Agrego ---- " + _objClase.getNombre());
-                clasesFacade.crear(_objClase);
-                
+            if(evento.getId()==null)
+            {               
+                clasesFacade.crear(_objClase);                
             }
-            else{
-                System.out.print("Actualizo ---- " + evento);                
+            else{                           
                 clasesFacade.actualizar(_objClase);                
                 eventModel.deleteEvent(evento);
             }
             
             eventModel.addEvent(new DefaultScheduleEvent(_objClase.getNombre(), _objClase.getCodhorainicio(), _objClase.getCodhorafinal(),_objClase));
-            evento = new DefaultScheduleEvent();
-            RequestContext context = RequestContext.getCurrentInstance();
-            _puedeMostrar=false;
-            //context.closeDialog(null);
-            //return "crear";
+            evento = new DefaultScheduleEvent();          
             
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
-            Mensajes.error(titulo, detalle);
-            Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
-            //return "crear";
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
+            Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);           
         }
     }
     
     public SelectItem[] combo(String texto)
     {
-        return Formulario.addObject(clasesFacade.listado(), texto);
+        return Formulario.addObject(clasesFacade.listado(), texto);        
     }
     
     public List<Clases> getListado()
@@ -159,17 +137,15 @@ public class ClasesController implements Serializable{
     
     //se ejecuta cuando se selecciona un evento
     public void onEventSelect(SelectEvent selectEvent) 
-    {
-        _puedeMostrar=true;
-        System.out.print("onEventSelect: " + ((ScheduleEvent)selectEvent.getObject()));
+    {        
+        //System.out.print("onEventSelect: " + ((ScheduleEvent)selectEvent.getObject()));
         evento = (ScheduleEvent)selectEvent.getObject();        
         _objClase=(Clases)evento.getData();       
     }
      
     //se ejecuta cuando se selecciona una fecha
     public void onDateSelect(SelectEvent selectEvent)
-    {
-        _puedeMostrar=true;
+    {        
         evento = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject()); 
         _objClase=null;       
     }
@@ -197,7 +173,7 @@ public class ClasesController implements Serializable{
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
-            Mensajes.exito(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             
             
             if(evento.getId()!=null) {
@@ -208,20 +184,28 @@ public class ClasesController implements Serializable{
             }           
             
             evento = new DefaultScheduleEvent();
-            
+            /*RequestContext context = RequestContext.getCurrentInstance();          
+            context.closeDialog(null);*/
             //return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
+            /*RequestContext context = RequestContext.getCurrentInstance();          
+            context.closeDialog(null);*/
             //return "administrar";
-        }
-        
-         _puedeMostrar=false;
+        }        
     }    
+    
+    public void mostrarMensaje()
+    {        
+        System.out.println("ClasesController.MostrarMensaje");
+        if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
+        message=null;
+    }
     
     public void abrirActualizar(Clases objTemp) {
         _objClase = objTemp;
@@ -239,7 +223,7 @@ public class ClasesController implements Serializable{
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
-            Mensajes.exito(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             System.out.println("CLASES: " + docentesFacade.getCurrentDocente());
             _objClase.setCoddocente(docentesFacade.getCurrentDocente());
             clasesFacade.actualizar(_objClase);
@@ -251,7 +235,7 @@ public class ClasesController implements Serializable{
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
             //return "administrar";
         }
@@ -262,12 +246,12 @@ public class ClasesController implements Serializable{
         _objClase = null;
     }
 
-    public boolean isPuedeMostrar() {
-        return _puedeMostrar;
+    public int getCodigo() {
+        return _codigo;
     }
 
-    public void setPuedeMostrar(boolean _puedeMostrar) {
-        this._puedeMostrar = _puedeMostrar;
+    public void setCodigo(int _codigo) {
+        this._codigo = _codigo;
     }
     
     @FacesConverter(forClass = Clases.class, value = "clasesConverter")

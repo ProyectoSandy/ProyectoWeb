@@ -9,22 +9,15 @@
         <ui:define name="content">
             #{tipoModalidadesController.resetear()}
             <h:form>
-                <p:panel>
-                    <p:breadCrumb>
-                        <p:menuitem url="#"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/index_admin.xhtml"></p:menuitem>
-                        <p:menuitem value="Creacion de Tipos Modalidad" url="#"></p:menuitem>
-                    </p:breadCrumb>
-                  
-                    <p:growl id="mensajes" sticky="true" showDetail="true"/>                
+                <p:panel>                                       
                     <br/>
                     <p:panelGrid columns="2">
                         <f:facet name="header">Nombre</f:facet>
                         <p:outputLabel value="Nombre " for="nombre" />
-                        <p:inputText id="nombre" required="true" value="#{tipoModalidadesController.campo.nombre}"/>                    
+                        <p:inputText id="nombre" value="#{tipoModalidadesController.campo.nombre}"/>                    
 
                         <f:facet name="footer">
-                            <p:commandButton id="btngrabar" value="Guardar" ajax="false" action="#{tipoModalidadesController.agregar()}"/>
+                            <p:commandButton id="btngrabar" value="Guardar" ajax="true" action="#{tipoModalidadesController.agregar()}"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:panel>
