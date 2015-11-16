@@ -238,7 +238,7 @@ public class ActividadesController implements Serializable
     
     public void mostrarMensaje()
     {        
-        System.out.print("Mostrar Mensaje");
+        //System.out.print("Mostrar Mensaje");
         if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
         message=null;
     }

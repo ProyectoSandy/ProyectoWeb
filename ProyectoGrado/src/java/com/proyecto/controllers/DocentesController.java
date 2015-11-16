@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -37,7 +38,7 @@ public class DocentesController implements Serializable
     private String _titulo="Operacion";
     private String _mensajeCorrecto = "Se ha realizado correctamente";
     private String _mensajeError = "No se completo la operacion";
-    
+    private FacesMessage message;
     
     private String usuDocente;
     private LoginController _loginController;
@@ -55,7 +56,7 @@ public class DocentesController implements Serializable
         options.put("resizable", false);
         options.put("draggable", false);
         options.put("modal", true);
-        RequestContext.getCurrentInstance().openDialog("faces/docentes/crear", options, null);
+        RequestContext.getCurrentInstance().openDialog("/docentes/crear", options, null);
     }
     
     public void agregar()
@@ -65,21 +66,22 @@ public class DocentesController implements Serializable
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
-            Mensajes.exito(titulo, detalle);
-            System.out.println("Docente: " + _obj);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);            
             _ejbFacade.crear(_obj);
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.closeDialog(null);
+            
             //return "crear";
             
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Docentes.class.getName()).log(Level.SEVERE,null,e);
             //return "crear";
         }
+        
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.closeDialog(null);
     }
     
     public SelectItem[] combo(String texto)
@@ -122,7 +124,7 @@ public class DocentesController implements Serializable
         options.put("draggable", false);
         options.put("modal", true);
         System.out.println("VA A ABRIR ACTUALIZAR");
-        RequestContext.getCurrentInstance().openDialog("docentes/actualizar", options, null);
+        RequestContext.getCurrentInstance().openDialog("/docentes/actualizar", options, null);
     }
     
     public void actualizar()
@@ -133,27 +135,33 @@ public class DocentesController implements Serializable
         try {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarExitoso");
-            Mensajes.exito(titulo, detalle);
-            System.out.println("INTENTA ACTUALIZAR");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);              
             _ejbFacade.actualizar(_obj);
-            System.out.println("YA ACTUALIZA");
-            RequestContext context = RequestContext.getCurrentInstance();
-            context.closeDialog(null);
-            //return "administrar";//nombre de la face a la que debe redireccionar
+           
             
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
-            Mensajes.error(titulo, detalle);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Docentes.class.getName()).log(Level.SEVERE,null,e);
             //return "administrar";
         }
+        
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.closeDialog(null);
     }  
     
     public void resetear()
     {
         _obj = null;
+    }
+    
+    public void mostrarMensaje()
+    {        
+        //System.out.print("DocentesController.MostrarMensaje");
+        if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
+        message=null;
     }
     
     public Docentes buscar(){

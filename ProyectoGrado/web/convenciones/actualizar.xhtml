@@ -9,19 +9,12 @@
         <ui:define name="content">
            
             <h:form>
-                <p:panel>
-                    <p:breadCrumb>
-                        <p:menuitem url="#"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="/faces/index_admin.xhtml"></p:menuitem>
-                        <p:menuitem value="Administracion de Convenciones" url="/faces/convenciones/administrar.xhtml"></p:menuitem> 
-                        <p:menuitem value="Actualizacion de Convenciones" url="#"></p:menuitem>
-                    </p:breadCrumb>
-                 
-                    <p:growl id="mensajes" sticky="true" showDetail="true"/>                
+                <p:panel>                   
+                             
                     <br/>
                     <p:panelGrid columns="2">                    
                         <p:outputLabel value="Nombre:  " for="nombre" />
-                        <p:inputText id="nombre" required="true" value="#{convencionesController.campo.nombre}"/> 
+                        <p:inputText id="nombre" value="#{convencionesController.campo.nombre}"/> 
 
                         <p:outputLabel value="Color  " for="color" />
                         <p:colorPicker id="color" value="#{convencionesController.campo.color}" />  
