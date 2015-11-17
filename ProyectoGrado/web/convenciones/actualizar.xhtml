@@ -16,9 +16,6 @@
                         <p:outputLabel value="Nombre:  " for="nombre" />
                         <p:inputText id="nombre" value="#{convencionesController.campo.nombre}"/> 
 
-                        <p:outputLabel value="Color  " for="color" />
-                        <p:colorPicker id="color" value="#{convencionesController.campo.color}" />  
-
                         <f:facet name="footer">
                             <p:commandButton id="btngrabar" value="Actualizar" ajax="true" action="#{convencionesController.actualizar()}"/>
                         </f:facet>

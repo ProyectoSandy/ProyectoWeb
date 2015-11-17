@@ -27,10 +27,7 @@ public class Convenciones implements Serializable
     @NotNull
     private String _nombre;
     
-    @Column(name = "color")
-    @Size(min = 1, max = 100)
-    @NotNull
-    private String _color;
+   
     
 
     public Convenciones() {  }
@@ -78,11 +75,4 @@ public class Convenciones implements Serializable
         this._nombre = _nombre;
     }
 
-    public String getColor() {
-        return _color;
-    }
-
-    public void setColor(String _color) {
-        this._color = _color;
-    }
 }

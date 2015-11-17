@@ -55,8 +55,7 @@ public class ConvencionesController implements Serializable{
     {
         String titulo,detalle;
         
-        try {
-            _obj.setColor("#"+_obj.getColor());            
+        try {         
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardaExitoso");
              message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);             
