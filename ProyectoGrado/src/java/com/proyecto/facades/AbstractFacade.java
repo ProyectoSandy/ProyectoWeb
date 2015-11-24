@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.proyecto.facades;
 
 import java.util.List;
@@ -10,10 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-/**
- *
- * @author sala14
- */
+
 public abstract class AbstractFacade <T>
 {
     private final Class<T> _ent;

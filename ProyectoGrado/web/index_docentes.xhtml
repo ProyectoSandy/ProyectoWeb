@@ -17,51 +17,51 @@
                     
                     <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.buscarDocente()}" url="#"></p:menuitem>
+                        <p:menuitem value="#{GeneralTxt.bienvenidos} #{loginController.buscarDocente()}" url="#"></p:menuitem>
                     </p:breadCrumb>
                     <br/>
                                         
-                    <p:fieldset legend="Actividades" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
+                    <p:fieldset legend="#{actividadesTxt.actividades}" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
-                        <p:commandButton value="Crear Actividades" actionListener="#{actividadesController.abrirCrear()}" icon="ui-icon-disk" >
+                        <p:commandButton value="#{actividadesTxt.crear} #{actividadesTxt.actividades}" actionListener="#{actividadesController.abrirCrear()}" icon="ui-icon-disk" >
                             <p:ajax event="dialogReturn" update=":formActividades:listar :formActividades:mensajesClases" />                            
                         </p:commandButton>                   
                         <p:separator/>
                         <br/>
                         <p:dataTable id="listar" value="#{actividadesController.listado}" var="registro">
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Codigo</f:facet>
+                            <f:facet name="header">#{actividadesTxt.codigo}</f:facet>
                             #{registro.codactividad}
                         </p:column>
                         
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Nombre</f:facet>
+                            <f:facet name="header">#{actividadesTxt.nombre}</f:facet>
                             #{registro.nombre}
                         </p:column> 
                         
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Horas</f:facet>
+                            <f:facet name="header">#{actividadesTxt.horas}</f:facet>
                             #{registro.horas}
                         </p:column> 
                         
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Descripción</f:facet>
+                            <f:facet name="header">#{actividadesTxt.descripcion}</f:facet>
                             #{registro.descripcion}
                         </p:column>
                         
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Responsable</f:facet>
+                            <f:facet name="header">#{actividadesTxt.responsable}</f:facet>
                             #{registro.responsable}
                         </p:column>
                         
                         
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Tipo de Modalidad</f:facet>
+                            <f:facet name="header">#{actividadesTxt.tipoMod}</f:facet>
                             #{registro.codtipo}
                         </p:column>
                         
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Opciones</f:facet>
+                            <f:facet name="header">#{actividadesTxt.opciones}</f:facet>
                             <p:commandButton ajax="false" icon="ui-icon-trash" action="#{actividadesController.borrar(registro)}"></p:commandButton>
                             <p:commandButton icon="ui-icon-pencil" action="#{actividadesController.abrirActualizar(registro)}">
                                 <p:ajax event="dialogReturn" update=":formActividades:listar :formActividades:mensajesClases" oncomplete="#{actividadesController.mostrarMensaje()}"/>                                  
@@ -74,9 +74,9 @@
                 
                            
                 <p:panel>
-                    <p:fieldset legend="Productos" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
+                    <p:fieldset legend="#{productosTxt.productos}" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
                         
-                        <p:commandButton value="Crear Producto" actionListener="#{productosController.abrirCrear()}" icon="ui-icon-disk" >
+                        <p:commandButton value="#{productosTxt.crear} #{productosTxt.productos}" actionListener="#{productosController.abrirCrear()}" icon="ui-icon-disk" >
                             <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesClases" />                            
                         </p:commandButton>                   
                         <p:separator/>
@@ -84,41 +84,41 @@
                         <p:dataTable id="listado" value="#{productosController.listado}" var="registro">
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Codigo</f:facet>
+                                <f:facet name="header">#{productosTxt.codigo}</f:facet>
                                 #{registro.codproducto}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Actividad</f:facet>
+                                <f:facet name="header">#{productosTxt.actividad}</f:facet>
                                 #{registro.codactividad}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Descripción</f:facet>
+                                <f:facet name="header">#{productosTxt.descripcion}</f:facet>
                                 #{registro.descripcion}
                             </p:column> 
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Fecha Compromiso</f:facet>
+                                <f:facet name="header">#{productosTxt.fechaComp}</f:facet>
                                 <h:outputText value="#{registro.fechacompromiso}" >
                                     <f:convertDateTime dateStyle="medium"/>
                                 </h:outputText>   
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Fecha Entrega</f:facet>
+                                <f:facet name="header">#{productosTxt.fechaEntr}</f:facet>
                                 <h:outputText value="#{registro.fechaentrega}" >
                                     <f:convertDateTime dateStyle="medium"/>
                                 </h:outputText>   
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Comentarios</f:facet>
+                                <f:facet name="header">#{productosTxt.comentarios}</f:facet>
                                 #{registro.comentarios}
                             </p:column>  
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Opciones</f:facet>
+                                <f:facet name="header">#{productosTxt.opciones}</f:facet>
                                 <p:commandButton ajax="false" icon="ui-icon-trash" action="#{productosController.borrar(registro)}"/>                                    
                                 <p:commandButton icon="ui-icon-pencil" action="#{productosController.abrirActualiar(registro)}">
                                     <p:ajax event="dialogReturn" update=":formActividades:listado :formActividades:mensajesClases" oncomplete="#{productosController.mostrarMensaje()}"/>                            
@@ -131,7 +131,7 @@
                 
                       
                 <p:panel>
-                    <p:fieldset legend="Clases" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
+                    <p:fieldset legend="#{clasesTxt.clases}" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500"> 
 
                         <p:schedule id="schedule" value="#{clasesController.eventModel}" widgetVar="myschedule" timeZone="GMT+5" locale="es"> 
                             <p:ajax event="dateSelect" listener="#{clasesController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
@@ -142,23 +142,23 @@
                             <p:ajax event="close" update=":formActividades:mensajesClases :formActividades:listarClases" listener="#{clasesController.mostrarMensaje()}" />
                             <h:panelGrid id="eventDetails" columns="2">                           
 
-                                <p:outputLabel value="Nombre:  " for="nombre" />
+                                <p:outputLabel value="#{clasesTxt.nombre}  " for="nombre" />
                                 <p:inputText id="nombre" value="#{clasesController.campo.nombre}"/> 
 
-                                <p:outputLabel for="from" value="Hora Inicio:" />
+                                <p:outputLabel for="from" value="#{clasesTxt.horaIni} " />
                                 <p:calendar id="from" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm" value="#{clasesController.campo.codhorainicio}"/>
 
-                                <p:outputLabel for="to" value="Hora Final:" />
+                                <p:outputLabel for="to" value="#{clasesTxt.horafin} " />
                                 <p:calendar id="to" timeZone="GMT+5" pattern="dd/MM/yyyy HH:mm" value="#{clasesController.campo.codhorafinal}"/>
 
-                                <p:outputLabel value="Convención:" for="codconvencion" />
+                                <p:outputLabel value="#{clasesTxt.convencion} " for="codconvencion" />
                                 <p:selectOneMenu id="codconvencion" value="#{clasesController.codigo}"> 
                                     <f:selectItems value="#{convencionesController.combo('')}" />
                                 </p:selectOneMenu>
 
                                 <f:facet name="footer">
-                                    <p:commandButton id="btngrabar" value="Guardar" actionListener="#{clasesController.agregar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>                                    
-                                    <p:commandButton id="btnborrar" value="Borrar" ajax="true" actionListener="#{clasesController.borrar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>                                                                   
+                                    <p:commandButton id="btngrabar" value="#{clasesTxt.guardar}" actionListener="#{clasesController.agregar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>                                    
+                                    <p:commandButton id="btnborrar" value="#{clasesTxt.borrar}" ajax="true" actionListener="#{clasesController.borrar}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();"/>                                                                   
                                 </f:facet>
                             </h:panelGrid>
                         </p:dialog>
@@ -166,38 +166,38 @@
 
                         <br/>
                         <p:dataTable id="listarClases" value="#{clasesController.listado}" var="registro">
-                        <f:facet name="header">LISTA DE CLASES</f:facet>
+                            <f:facet name="header">#{clasesTxt.lista}</f:facet>
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Codigo Clase</f:facet>
+                            <f:facet name="header">#{clasesTxt.codigo}</f:facet>
                             #{registro.codclase}
                         </p:column>
 
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Nombre</f:facet>
+                            <f:facet name="header">#{clasesTxt.nombre}</f:facet>
                             #{registro.nombre}
                         </p:column>
 
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Fecha Inicio</f:facet>
+                            <f:facet name="header">#{clasesTxt.horaIni}</f:facet>
                             <h:outputText value="#{registro.codhorainicio}">
                                 <f:convertDateTime dateStyle="full"/>                                
                             </h:outputText>
                         </p:column>
 
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Fecha Final</f:facet>
+                            <f:facet name="header">#{clasesTxt.horafin}</f:facet>
                             <h:outputText value="#{registro.codhorafinal}">
                                 <f:convertDateTime dateStyle="full"/>                                
                             </h:outputText>
                         </p:column>
 
                         <p:column style="width: 10px; text-align: center">
-                            <f:facet name="header">Convención</f:facet>
+                            <f:facet name="header">#{clasesTxt.convencion}</f:facet>
                             #{registro.codconvencion}
                         </p:column>                                                
                     </p:dataTable>
                 </p:fieldset>
-                    <p:commandButton value="Cerrar Sesión" ajax="false" action="#{loginController.logout()}"/> 
+                    <p:commandButton value="#{GeneralTxt.cerrarsesion}" ajax="false" action="#{loginController.logout()}"/> 
                 </p:panel>
                 <p:growl id="mensajesClases" showDetail="true" sticky="true" widgetVar="mensaje"/> 
                 </h:form> 

@@ -4,7 +4,6 @@ package com.proyecto.controllers;
 import com.proyecto.utilities.Formulario;
 import com.proyecto.utilities.Mensajes;
 import com.proyecto.facades.DocentesFacade;
-import com.proyecto.persistences.Actividades;
 import com.proyecto.persistences.Docentes;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -16,7 +15,6 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -77,7 +75,6 @@ public class DocentesController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Docentes.class.getName()).log(Level.SEVERE,null,e);
-            //return "crear";
         }
         
         RequestContext context = RequestContext.getCurrentInstance();
@@ -93,8 +90,7 @@ public class DocentesController implements Serializable
     {
         return _ejbFacade.listado();
     }
-    
-    
+        
     public void borrar(Docentes faceObj)
     {
         String titulo,detalle;
@@ -104,7 +100,6 @@ public class DocentesController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
             Mensajes.exito(titulo, detalle);
             _ejbFacade.borrar(faceObj);
-            // "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
         {
@@ -112,7 +107,6 @@ public class DocentesController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
             Mensajes.error(titulo, detalle);
             Logger.getLogger(Docentes.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
         }
     }    
     
@@ -145,7 +139,6 @@ public class DocentesController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Docentes.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
         }
         
         RequestContext context = RequestContext.getCurrentInstance();
@@ -159,7 +152,6 @@ public class DocentesController implements Serializable
     
     public void mostrarMensaje()
     {        
-        //System.out.print("DocentesController.MostrarMensaje");
         if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
         message=null;
     }

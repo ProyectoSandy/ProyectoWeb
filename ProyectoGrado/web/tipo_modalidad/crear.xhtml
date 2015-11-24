@@ -12,12 +12,12 @@
                 <p:panel>                                       
                     <br/>
                     <p:panelGrid columns="2">
-                        <f:facet name="header">Nombre</f:facet>
-                        <p:outputLabel value="Nombre " for="nombre" />
+                        <f:facet name="header">#{tipoModTxt.nombre}</f:facet>
+                        <p:outputLabel value="#{tipoModTxt.nombre} " for="nombre" />
                         <p:inputText id="nombre" value="#{tipoModalidadesController.campo.nombre}"/>                    
 
                         <f:facet name="footer">
-                            <p:commandButton id="btngrabar" value="Guardar" ajax="true" action="#{tipoModalidadesController.agregar()}"/>
+                            <p:commandButton id="btngrabar" value="#{tipoModTxt.crear}" ajax="true" action="#{tipoModalidadesController.agregar()}"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:panel>

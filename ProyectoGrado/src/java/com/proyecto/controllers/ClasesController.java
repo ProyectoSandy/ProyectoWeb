@@ -8,9 +8,7 @@ import com.proyecto.facades.DocentesFacade;
 import com.proyecto.persistences.Clases;
 import com.proyecto.persistences.Convenciones;
 import com.proyecto.persistences.Docentes;
-import com.proyecto.utilities.Mensajes;
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -138,7 +136,6 @@ public class ClasesController implements Serializable{
     //se ejecuta cuando se selecciona un evento
     public void onEventSelect(SelectEvent selectEvent) 
     {        
-        //System.out.print("onEventSelect: " + ((ScheduleEvent)selectEvent.getObject()));
         evento = (ScheduleEvent)selectEvent.getObject();        
         _objClase=(Clases)evento.getData();       
     }
@@ -153,17 +150,11 @@ public class ClasesController implements Serializable{
     public void onEventMove(ScheduleEntryMoveEvent event)
     {
         System.out.print("onEventMove: " + event);
-        /*FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
-         
-        addMessage(message);*/
     }
      
     public void onEventResize(ScheduleEntryResizeEvent event) 
     {
         System.out.print("onEventResize: " + event);
-        /*FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
-         
-        addMessage(message);*/
     }
     
     public void borrar(ActionEvent actionEvent)
@@ -184,9 +175,6 @@ public class ClasesController implements Serializable{
             }           
             
             evento = new DefaultScheduleEvent();
-            /*RequestContext context = RequestContext.getCurrentInstance();          
-            context.closeDialog(null);*/
-            //return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
         {
@@ -194,9 +182,6 @@ public class ClasesController implements Serializable{
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
-            /*RequestContext context = RequestContext.getCurrentInstance();          
-            context.closeDialog(null);*/
-            //return "administrar";
         }        
     }    
     
@@ -229,7 +214,6 @@ public class ClasesController implements Serializable{
             clasesFacade.actualizar(_objClase);
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
-            //return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
         {
@@ -237,7 +221,6 @@ public class ClasesController implements Serializable{
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Clases.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
         }
     }  
     

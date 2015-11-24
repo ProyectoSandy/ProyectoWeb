@@ -12,11 +12,11 @@
                 <p:panel>        
                     <br/>
                     <p:panelGrid columns="2">                    
-                        <p:outputLabel value="Nombre:  " for="nombre" />
+                        <p:outputLabel value="#{convencionesTxt.nombre}  " for="nombre" />
                         <p:inputText id="nombre" value="#{convencionesController.campo.nombre}"/> 
 
                         <f:facet name="footer">
-                            <p:commandButton id="btngrabar" value="Guardar" ajax="true" action="#{convencionesController.agregar()}"/>
+                            <p:commandButton id="btngrabar" value="#{convencionesTxt.crear}" ajax="true" action="#{convencionesController.agregar()}"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:panel>

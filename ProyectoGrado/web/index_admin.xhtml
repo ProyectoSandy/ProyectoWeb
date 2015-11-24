@@ -12,30 +12,30 @@
                     
                     <p:breadCrumb>
                         <p:menuitem url="#"></p:menuitem>
-                        <p:menuitem value="Bienvenido #{loginController.usuario}" url="#"></p:menuitem>
+                        <p:menuitem value="#{GeneralTxt.bienvenidos} #{loginController.usuario}" url="#"></p:menuitem>
                     </p:breadCrumb>
                     <br/>
                                    
-                    <p:fieldset legend="Tipo Modalidad" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
+                    <p:fieldset legend="#{tipoModTxt.tipoMod}" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
-                        <p:commandButton value="Crear Modalidad" actionListener="#{tipoModalidadesController.abrirCrear()}" icon="ui-icon-disk" >
+                        <p:commandButton value="#{tipoModTxt.crear} #{tipoModTxt.tipoMod}" actionListener="#{tipoModalidadesController.abrirCrear()}" icon="ui-icon-disk" >
                             <p:ajax event="dialogReturn" update=":form:mensajes :form:ListarModalidad" />                            
                         </p:commandButton>                   
                         <p:separator/>
                         <br/>
                         <p:dataTable id="ListarModalidad" value="#{tipoModalidadesController.listado}" var="registro">
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Codigo</f:facet>
+                                <f:facet name="header">#{tipoModTxt.codigo}</f:facet>
                                 #{registro.codtipo}
                             </p:column>
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Nombre</f:facet>
+                                <f:facet name="header">#{tipoModTxt.nombre}</f:facet>
                                 #{registro.nombre}
                             </p:column>                            
 
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Opciones</f:facet>
+                                <f:facet name="header">#{tipoModTxt.opciones}</f:facet>
                                 <p:commandButton ajax="false" icon="ui-icon-trash" action="#{tipoModalidadesController.borrar(registro)}"></p:commandButton>
                                 <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{tipoModalidadesController.abrirActualizar(registro)}">
                                     <p:ajax event="dialogReturn" update=":form:mensajes :form:ListarModalidad" oncomplete="#{tipoModalidadesController.mostrarMensaje()}"/>                            
@@ -45,71 +45,72 @@
                         </p:dataTable>
                     </p:fieldset>  
                     
-                    <p:fieldset legend="Docentes" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
+                    <p:fieldset legend="#{docentesTxt.docentes}" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
-                        <p:commandButton value="Crear Docente" actionListener="#{docentesController.abrirCrear()}" icon="ui-icon-disk" >
+                        <p:commandButton value="#{docentesTxt.crear} #{docentesTxt.docentes}" actionListener="#{docentesController.abrirCrear()}" icon="ui-icon-disk" >
                             <p:ajax event="dialogReturn" update=":form:mensajes :form:listarDoc" />                            
                         </p:commandButton>                   
                         <p:separator/>
                         <br/>
                         <p:dataTable id="listarDoc" value="#{docentesController.listado}" var="registro">
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Cedula</f:facet>
+                                <f:facet name="header">#{docentesTxt.cedula}</f:facet>
                                 #{registro.cedula}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Nombres</f:facet>
+                                <f:facet name="header">#{docentesTxt.nombre}</f:facet>
                                 #{registro.nombres}
                             </p:column> 
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Apellidos</f:facet>
+                                <f:facet name="header">#{docentesTxt.apellido}</f:facet>
                                 #{registro.apellidos}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Codigo</f:facet>
+                                <f:facet name="header">#{docentesTxt.codigo}</f:facet>
                                 #{registro.codigo}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Facultad</f:facet>
-                                #{registro.facultad}
+                                <f:facet name="header">#{docentesTxt.facultad}</f:facet>
+                                <h:outputText rendered="#{registro.facultad=='1'}" value="Ciencias Naturales e Ingenierias"/>
+                                <h:outputText rendered="#{registro.facultad=='2'}" value="Ciencias Socioeconomicas y Empresariales" />
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Unidad Academica</f:facet>
+                                <f:facet name="header">#{docentesTxt.unidadAcadem}</f:facet>
                                 #{registro.unidad}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Semestre</f:facet>
+                                <f:facet name="header">#{docentesTxt.semestre}</f:facet>
                                 #{registro.semestre}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Formación</f:facet>
+                                <f:facet name="header">#{docentesTxt.formacion}</f:facet>
                                 #{registro.formacion}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Dirección</f:facet>
+                                <f:facet name="header">#{docentesTxt.direccion}</f:facet>
                                 #{registro.direccion}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Telefono</f:facet>
+                                <f:facet name="header">#{docentesTxt.telefono}</f:facet>
                                 #{registro.telefono}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Correo</f:facet>
+                                <f:facet name="header">#{docentesTxt.correo}</f:facet>
                                 #{registro.correo}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Opciones</f:facet>
+                                <f:facet name="header">#{docentesTxt.opciones}</f:facet>
                                 <p:commandButton ajax="false" icon="ui-icon-trash" action="#{docentesController.borrar(registro)}"></p:commandButton>
                                 <p:commandButton  icon="ui-icon-pencil" action="#{docentesController.abrirActualizar(registro)}">
                                     <p:ajax event="dialogReturn" update=":form:mensajes :form:listarDoc" oncomplete="#{docentesController.mostrarMensaje()}"/>                            
@@ -118,26 +119,26 @@
                         </p:dataTable>
                     </p:fieldset> 
                     
-                    <p:fieldset legend="Convenciones" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
+                    <p:fieldset legend="#{convencionesTxt.convenciones}" style="margin-bottom:20px" collapsed="true" toggleable="true" toggleSpeed="500">                        
                         
-                        <p:commandButton value="Crear Convencion" actionListener="#{convencionesController.abrirCrear()}" icon="ui-icon-disk" >
+                        <p:commandButton value="#{convencionesTxt.crear} #{convencionesTxt.convenciones}" actionListener="#{convencionesController.abrirCrear()}" icon="ui-icon-disk" >
                             <p:ajax event="dialogReturn" update=":form:mensajes :form:listarConv" />                            
                         </p:commandButton>                   
                         <p:separator/>
                         <br/>
                         <p:dataTable id="listarConv" value="#{convencionesController.listado}" var="registro">
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Codigo</f:facet>
+                                <f:facet name="header">#{convencionesTxt.codigo}</f:facet>
                                 #{registro.codconvencion}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Nombre</f:facet>
+                                <f:facet name="header">#{convencionesTxt.nombre}</f:facet>
                                 #{registro.nombre}
                             </p:column>
 
                             <p:column style="width: 10px; text-align: center">
-                                <f:facet name="header">Opciones</f:facet>
+                                <f:facet name="header">#{convencionesTxt.opciones}</f:facet>
                                 <p:commandButton ajax="false" icon="ui-icon-trash" action="#{convencionesController.borrar(registro)}"></p:commandButton>
                                 <p:commandButton icon="ui-icon-pencil" action="#{convencionesController.abrirActualizar(registro)}">
                                     <p:ajax event="dialogReturn" update=":form:mensajes :form:listarConv" oncomplete="#{convencionesController.mostrarMensaje()}"/>                            
@@ -146,7 +147,7 @@
                         </p:dataTable>
                     </p:fieldset>
                     <f:facet name="footer">
-                        <p:commandButton value="Cerrar Sesion" ajax="false" action="#{loginController.logout()}"/>
+                        <p:commandButton value="#{GeneralTxt.cerrarsesion}" ajax="false" action="#{loginController.logout()}"/>
                     </f:facet> 
                     <p:growl id="mensajes" sticky="true" showDetail="true"/> 
                 </p:panel>

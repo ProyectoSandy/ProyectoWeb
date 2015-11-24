@@ -13,11 +13,11 @@
                              
                     <br/>
                     <p:panelGrid columns="2">                    
-                        <p:outputLabel value="Nombre:  " for="nombre" />
+                        <p:outputLabel value="#{convencionesTxt.nombre}  " for="nombre" />
                         <p:inputText id="nombre" value="#{convencionesController.campo.nombre}"/> 
 
                         <f:facet name="footer">
-                            <p:commandButton id="btngrabar" value="Actualizar" ajax="true" action="#{convencionesController.actualizar()}"/>
+                            <p:commandButton id="btngrabar" value="#{convencionesTxt.actualizar}" ajax="true" action="#{convencionesController.actualizar()}"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:panel> 

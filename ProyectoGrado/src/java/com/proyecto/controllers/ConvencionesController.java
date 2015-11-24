@@ -1,9 +1,7 @@
 
 package com.proyecto.controllers;
 
-import com.proyecto.utilities.Formulario;
 import com.proyecto.facades.ConvencionesFacade;
-import com.proyecto.persistences.Actividades;
 import com.proyecto.persistences.Convenciones;
 import com.proyecto.utilities.Mensajes;
 import java.io.Serializable;
@@ -81,7 +79,6 @@ public class ConvencionesController implements Serializable{
         SelectItem[] listaItems = new SelectItem[lista.size()];
         int index=0;
         for (Convenciones convencion : lista) {
-            //System.out.println("ClasesController.Test: " + convencion.getNombre());
             SelectItem item = new SelectItem(convencion.getCodconvencion(), convencion.getNombre());
             
             listaItems[index]=item;
@@ -89,7 +86,6 @@ public class ConvencionesController implements Serializable{
         }
         
         return listaItems;
-        //return Formulario.addObject(_ejbFacade.listado(), texto);
     }
     
     public List<Convenciones> getListado()
@@ -106,7 +102,6 @@ public class ConvencionesController implements Serializable{
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("exitoso");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
             Mensajes.exito(titulo, detalle);
-            //return "administrar";
             
         } catch (Exception e) 
         {
@@ -114,7 +109,6 @@ public class ConvencionesController implements Serializable{
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
             Mensajes.error(titulo, detalle);
             Logger.getLogger(Convenciones.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
         }
     }    
     
@@ -155,7 +149,6 @@ public class ConvencionesController implements Serializable{
     
     public void mostrarMensaje()
     {        
-        //System.out.print("DocentesController.MostrarMensaje");
         if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
         message=null;
     }

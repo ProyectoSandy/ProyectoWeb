@@ -1,10 +1,8 @@
 
 package com.proyecto.controllers;
 
-import com.proyecto.utilities.Formulario;
 import com.proyecto.utilities.Mensajes;
 import com.proyecto.facades.TipoModalidadesFacade;
-import com.proyecto.persistences.Actividades;
 import com.proyecto.persistences.TipoModalidades;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -33,10 +31,6 @@ public class TipoModalidadesController implements Serializable
     private TipoModalidadesFacade _ejbFacade;
     private TipoModalidades _obj;
     
-    private String _rutaTxt = "/com/java/utilities/txtHoras"; 
-    private String _titulo="Operacion";
-    private String _mensajeCorrecto = "Se ha realizado correctamente";
-    private String _mensajeError = "No se completo la operacion";
     private FacesMessage message;
     
     public TipoModalidadesController() { }
@@ -66,16 +60,12 @@ public class TipoModalidadesController implements Serializable
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _ejbFacade.crear(_obj);
             
-            
-            //return "crear";
-            
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("guardarError");
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(TipoModalidades.class.getName()).log(Level.SEVERE,null,e);
-            //return "crear";
         }
         
         RequestContext context = RequestContext.getCurrentInstance();
@@ -88,7 +78,6 @@ public class TipoModalidadesController implements Serializable
         SelectItem[] listaItems = new SelectItem[lista.size()];
         int index=0;
         for (TipoModalidades modalidad : lista) {
-            //System.out.println("Test: " + modalidad.getCodtipo());
             SelectItem item = new SelectItem(modalidad.getCodtipo(), modalidad.getNombre());
             
             listaItems[index]=item;
@@ -96,7 +85,6 @@ public class TipoModalidadesController implements Serializable
         }
         
         return listaItems;
-        //return Formulario.addObject(texto);
     }
     
     public List<TipoModalidades> getListado()
@@ -113,7 +101,6 @@ public class TipoModalidadesController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
             Mensajes.exito(titulo, detalle);
             _ejbFacade.borrar(faceObj);
-            //return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
         {
@@ -121,7 +108,6 @@ public class TipoModalidadesController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
             Mensajes.error(titulo, detalle);
             Logger.getLogger(TipoModalidades.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
         }
     }    
     
@@ -137,7 +123,6 @@ public class TipoModalidadesController implements Serializable
     
     public void mostrarMensaje()
     {        
-        //System.out.print("Mostrar Mensaje");
         if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
         message=null;
     }
@@ -152,15 +137,12 @@ public class TipoModalidadesController implements Serializable
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _ejbFacade.actualizar(_obj);
             
-            //return "administrar";//nombre de la face a la que debe redireccionar
-            
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(TipoModalidades.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
         }
         RequestContext context = RequestContext.getCurrentInstance();
         context.closeDialog(null);

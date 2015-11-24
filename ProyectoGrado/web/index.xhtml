@@ -20,14 +20,14 @@
                     #{loginController.resetear()}
 
                     <p:panelGrid columns="2">                        
-                        <p:outputLabel value="Usuario"/>
+                        <p:outputLabel value="#{GeneralTxt.usuario}"/>
                         <p:inputText id="usuario" required="true" requiredMessage="ingrese un usuario" value="#{loginController.usuario}"/>
 
-                        <p:outputLabel value="Clave"/>
+                        <p:outputLabel value="#{GeneralTxt.clave}"/>
                         <p:password id="clave" required="true" requiredMessage="ingrese una clave" value="#{loginController.clave}"/>
 
                         <f:facet name="footer">
-                            <p:commandButton value="Inciar Sesion" ajax="false" action="#{loginController.login()}"/>
+                            <p:commandButton value="#{GeneralTxt.iniciarsesion}" ajax="false" action="#{loginController.login()}"/>
                         </f:facet>                   
 
                     </p:panelGrid>

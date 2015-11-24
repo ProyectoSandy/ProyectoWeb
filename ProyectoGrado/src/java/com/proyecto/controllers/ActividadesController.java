@@ -24,10 +24,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 
 
 @ManagedBean
@@ -74,7 +72,6 @@ public class ActividadesController implements Serializable
     public void agregar()
     {
         String titulo,detalle;
-        //System.out.print("codigo: "+_codigo);
         TipoModalidades modalidad= _modalidadFacade.buscar(_codigo);
         _obj.setCodtipo(modalidad);
         
@@ -86,7 +83,6 @@ public class ActividadesController implements Serializable
             _ejbFacade.crear(_obj);
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
-            //return "crear";
             
         } catch (Exception e) 
         {
@@ -96,7 +92,6 @@ public class ActividadesController implements Serializable
             Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
-           // return "crear";
         }
     }
     
@@ -108,15 +103,12 @@ public class ActividadesController implements Serializable
     public SelectItem[] comboFiltrado(String texto)
     {
         Docentes doc=docentesFacade.getCurrentDocente();
-        //System.out.println("ActividadesController --- Docente: "+doc.toString());
         int ced = doc.getCedula();
-        //System.out.println("ActividadesController --- Docente: "+ced);
         
         List<Actividades> lista =_ejbFacade.buscarCampo("_coddocente", ""+ced); 
         SelectItem[] listaItems = new SelectItem[lista.size()];
         int index=0;
         for (Actividades actividad : lista) {
-            //System.out.println("Test: " + actividad.getCodtipo());
             SelectItem item = new SelectItem(actividad.getCodactividad(), actividad.getNombre());
             
             listaItems[index]=item;
@@ -124,12 +116,10 @@ public class ActividadesController implements Serializable
         }
         
         return listaItems;
-       // return Formulario.addObject(_ejbFacade.buscarCampo("_coddocente", ""+ced), texto);
     }
     
     public String btnBuscar()
     {       
-        //System.out.println("CLICK EN BTN BUSCAR");
         cedula= _obj.getCoddocente().getCedula()+"";        
         return "index_evaluador";
     }
@@ -138,10 +128,8 @@ public class ActividadesController implements Serializable
     public List<Actividades> getListarEvaluaciones()
     {
        if(cedula==""){
-            //System.out.println("ES NULO");
             return null;
        }else{
-           //System.out.println("NO ES NULO");
             return _ejbFacade.buscarCampo("_coddocente",cedula);
        }
     }
@@ -150,7 +138,6 @@ public class ActividadesController implements Serializable
     {
         Docentes doc = docentesFacade.getCurrentDocente();
         cedula= doc.getCedula()+"";
-        //System.out.print("ActividadesController.getListado cedula: " + cedula);
         return _ejbFacade.buscarCampo("_coddocente",cedula);
     }
     
@@ -164,7 +151,6 @@ public class ActividadesController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _ejbFacade.borrar(faceObj);
-            //return "administrar";//nombre de la face a la que debe redireccionar
             
         } catch (Exception e) 
         {
@@ -172,7 +158,6 @@ public class ActividadesController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
             Mensajes.error(titulo, detalle);
             Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
         }
     }    
     
@@ -231,13 +216,10 @@ public class ActividadesController implements Serializable
         titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
         detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
         Mensajes.error(titulo, detalle);
-        /*FacesMessage mensajito=new FacesMessage(FacesMessage.SEVERITY_INFO,"Lo Hicimos", "Felicidades lo has logrado");
-        FacesContext.getCurrentInstance().addMessage("mensajes", mensajito);*/
     }
     
     public void mostrarMensaje()
     {        
-        //System.out.print("Mostrar Mensaje");
         if(message!=null) FacesContext.getCurrentInstance().addMessage("mensajes", message);
         message=null;
     }
@@ -258,10 +240,7 @@ public class ActividadesController implements Serializable
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             RequestContext context = RequestContext.getCurrentInstance();  
             context.closeDialog(null);
-            
-            //return "";
-           // return "administrar";//nombre de la face a la que debe redireccionar
-            
+                        
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
@@ -273,8 +252,6 @@ public class ActividadesController implements Serializable
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
             Logger.getLogger(Actividades.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
-            //return "";
         }
     }  
     

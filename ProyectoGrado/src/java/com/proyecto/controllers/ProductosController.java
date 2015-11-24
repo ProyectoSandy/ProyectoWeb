@@ -2,7 +2,6 @@
 package com.proyecto.controllers;
 
 import com.proyecto.utilities.Formulario;
-import com.proyecto.utilities.Mensajes;
 import com.proyecto.facades.ActividadesFacade;
 import com.proyecto.facades.DocentesFacade;
 import com.proyecto.facades.ProductosFacade;
@@ -27,7 +26,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 
 
 @ManagedBean
@@ -44,10 +42,6 @@ public class ProductosController implements Serializable
     
     private Productos _obj;
     
-    private String _rutaTxt = "/com/java/utilities/txtProductos"; 
-    private String _titulo="Operacion";
-    private String _mensajeCorrecto = "Se ha realizado correctamente";
-    private String _mensajeError = "No se completo la operacion";
     
     private FacesMessage message;
     private int _codigo;
@@ -82,8 +76,6 @@ public class ProductosController implements Serializable
             _ejbFacade.crear(_obj);           
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
-            //return "";
-            
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
@@ -94,7 +86,6 @@ public class ProductosController implements Serializable
             
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
             
-            //return "crear";
         }
     }
     
@@ -155,14 +146,12 @@ public class ProductosController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarExitoso");
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,titulo,detalle);
             _ejbFacade.borrar(faceObj);
-            //return "administrar";
         } catch (Exception e) 
         {
             titulo = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("error");
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("eliminarError");
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
         }
     }    
     
@@ -186,7 +175,6 @@ public class ProductosController implements Serializable
             _ejbFacade.actualizar(_obj);
             RequestContext context = RequestContext.getCurrentInstance();
             context.closeDialog(null);
-            //return "administrar";
             
         } catch (Exception e) 
         {
@@ -194,7 +182,6 @@ public class ProductosController implements Serializable
             detalle = ResourceBundle.getBundle("/com/proyecto/utilities/GeneralTxt").getString("actualizarError");
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,titulo,detalle);
             Logger.getLogger(Productos.class.getName()).log(Level.SEVERE,null,e);
-            //return "administrar";
         }
     }  
     

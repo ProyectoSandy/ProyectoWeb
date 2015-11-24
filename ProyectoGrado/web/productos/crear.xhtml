@@ -10,25 +10,25 @@
             #{productosController.resetear()}
             <h:form>           
                 <p:panelGrid columns="2">                    
-                    <p:outputLabel value="Descripcion:  " for="descripcion" />
+                    <p:outputLabel value="#{productosTxt.descripcion}  " for="descripcion" />
                     <p:inputText id="descripcion" value="#{productosController.campo.descripcion}"/> 
 
-                    <p:outputLabel value="Fecha de Compromiso:  " for="fechacompromiso" />                    
+                    <p:outputLabel value="#{productosTxt.fechaComp} " for="fechacompromiso" />                    
                     <p:calendar id="fechacompromiso" showOn="button" value="#{productosController.campo.fechacompromiso}"></p:calendar>
 
-                    <p:outputLabel value="Fecha de Entrega:  " for="fechaentrega" />                   
+                    <p:outputLabel value="#{productosTxt.fechaEntr}  " for="fechaentrega" />                   
                     <p:calendar id="fechaentrega" showOn="button" value="#{productosController.campo.fechaentrega}"></p:calendar>
 
-                    <p:outputLabel value="Comentarios:  " for="comentarios" />
+                    <p:outputLabel value="#{productosTxt.comentarios}  " for="comentarios" />
                     <p:inputTextarea id="comentarios" value="#{productosController.campo.comentarios}"/> 
 
-                    <p:outputLabel value="Actividad:  " for="codact" />
+                    <p:outputLabel value="#{productosTxt.actividad}  " for="codact" />
                     <p:selectOneMenu id="codact" value="#{productosController.codigo}"> 
                         <f:selectItems value="#{actividadesController.comboFiltrado('Selecione un opcion')}" />
                     </p:selectOneMenu>
 
                     <f:facet name="footer">
-                        <p:commandButton id="btngrabar" value="Guardar" ajax="true" action="#{productosController.agregar()}"/>
+                        <p:commandButton id="btngrabar" value="#{productosTxt.crear}" ajax="true" action="#{productosController.agregar()}"/>
                     </f:facet>                    
                 </p:panelGrid>
             </h:form>

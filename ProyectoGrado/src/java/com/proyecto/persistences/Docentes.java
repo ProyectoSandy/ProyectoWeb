@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 public class Docentes implements Serializable
 {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cedula")
     private int _cedula;
     
@@ -87,36 +86,6 @@ public class Docentes implements Serializable
         if (this._cedula != other._cedula) {
             return false;
         }
-        if (!Objects.equals(this._nombres, other._nombres)) {
-            return false;
-        }
-        if (!Objects.equals(this._apellidos, other._apellidos)) {
-            return false;
-        }
-        if (!Objects.equals(this._codigo, other._codigo)) {
-            return false;
-        }
-        if (this._semestre != other._semestre) {
-            return false;
-        }
-        if (!Objects.equals(this._direccion, other._direccion)) {
-            return false;
-        }
-        if (!Objects.equals(this._telefono, other._telefono)) {
-            return false;
-        }
-        if (!Objects.equals(this._correo, other._correo)) {
-            return false;
-        }
-        if (this._unidad != other._unidad) {
-            return false;
-        }
-        if (this._facultad != other._facultad) {
-            return false;
-        }
-        if (!Objects.equals(this._formacion, other._formacion)) {
-            return false;
-        }
         return true;
     }
 
@@ -182,6 +151,7 @@ public class Docentes implements Serializable
     }
 
     public int getFacultad() {
+        
         return _facultad;
     }
 

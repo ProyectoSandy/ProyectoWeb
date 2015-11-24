@@ -98,11 +98,6 @@ public class Actividades implements Serializable
         return _nombre;
     }
 
-    /*@Override
-    public String toString() {
-        return "Actividades{" + "_nombre=" + _nombre + '}';
-    }*/
-
     public int getCodactividad() {
         return _codactividad;
     }

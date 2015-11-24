@@ -2,7 +2,6 @@
 package com.proyecto.facades;
 
 import com.proyecto.persistences.Actividades;
-import com.proyecto.persistences.Docentes;
 import com.proyecto.persistences.Productos;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -40,9 +39,7 @@ public class ProductosFacade extends AbstractFacade<Productos>{
         CriteriaQuery<Productos> cq= cb.createQuery(Productos.class);
         Root<Productos> objActividades = cq.from(Productos.class);
         
-        //System.out.println("COLUMNA "+columna);
-        //System.out.println("VALOR "+valorBuscar);
-        
+                
         if(!valorBuscar.equals("") && !columna.equals(""))
         {            
             if(columna.equals("_codactividad"))

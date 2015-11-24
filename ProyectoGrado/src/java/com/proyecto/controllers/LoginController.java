@@ -2,20 +2,10 @@
 package com.proyecto.controllers;
 
 import com.proyecto.facades.DocentesFacade;
-import com.proyecto.persistences.Actividades;
 import com.proyecto.persistences.Docentes;
-import com.proyecto.persistences.Productos;
 import com.proyecto.utilities.Mensajes;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -30,8 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController implements Serializable{
     @EJB
     private DocentesFacade docentesFacade;
-
-    
     
     private String _usuario;
     private String _clave;
