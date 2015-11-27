@@ -10,6 +10,7 @@ import com.proyecto.persistences.Actividades;
 import com.proyecto.persistences.Docentes;
 import com.proyecto.persistences.TipoModalidades;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,7 +129,7 @@ public class ActividadesController implements Serializable
     public List<Actividades> getListarEvaluaciones()
     {
        if(cedula==""){
-            return null;
+            return new ArrayList<Actividades>();
        }else{
             return _ejbFacade.buscarCampo("_coddocente",cedula);
        }
